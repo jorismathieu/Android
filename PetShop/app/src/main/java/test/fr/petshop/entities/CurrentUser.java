@@ -6,6 +6,7 @@ public class CurrentUser
 
     private int     idUser;
     private String  email;
+    private boolean isConnected;
 
     public static CurrentUser getmInstance()
     {
@@ -32,5 +33,15 @@ public class CurrentUser
     public void setEmail(String email)
     {
         this.email = email;
+    }
+
+    public boolean isConnected()
+    {
+        return isConnected;
+    }
+
+    public void setConnected(boolean isConnected)
+    {
+        this.isConnected = isConnected;
     }
 }

@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import test.fr.petshop.database.AnimalContract;
+import test.fr.petshop.database.DBSettings;
 import test.fr.petshop.database.PurchaseContract;
 import test.fr.petshop.database.PurchaseHelper;
 import test.fr.petshop.entities.Purchase;
@@ -28,7 +30,7 @@ public class PurchaseDAO implements IMyPetDAO<Purchase>
     {
         ArrayList<Purchase> list = new ArrayList<Purchase>();
 
-        if (idUser >= 0)
+        if (idUser != null)
         {
             SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
@@ -54,9 +56,9 @@ public class PurchaseDAO implements IMyPetDAO<Purchase>
                 {
                     do
                     {
-                        Integer id = cursor.getInt(cursor.getColumnIndex("id"));
-                        Integer id_user = cursor.getInt(cursor.getColumnIndex("id_user"));
-                        Integer id_animal = cursor.getInt(cursor.getColumnIndex("id_animal"));
+                        Integer id = cursor.getInt(cursor.getColumnIndex(PurchaseContract.PurchaseEntry.COLUMN_NAME_ID));
+                        Integer id_user = cursor.getInt(cursor.getColumnIndex(PurchaseContract.PurchaseEntry.COLUMN_NAME_ID_USER));
+                        Integer id_animal = cursor.getInt(cursor.getColumnIndex(PurchaseContract.PurchaseEntry.COLUMN_NAME_ID_ANIMAL));
 
                         list.add(new Purchase(id, id_user, id_animal));
                     } while (cursor.moveToNext());
@@ -110,5 +112,29 @@ public class PurchaseDAO implements IMyPetDAO<Purchase>
 
         long newRowId;
         newRowId = db.insert(PurchaseContract.PurchaseEntry.TABLE_NAME, "null", values);
+    }
+
+    @Override
+    public int getMaxID()
+    {
+        int id = 0;
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        String query = "SELECT MAX(" + PurchaseContract.PurchaseEntry.COLUMN_NAME_ID + ") FROM " + PurchaseContract.PurchaseEntry.TABLE_NAME;
+        Cursor mCursor = db.rawQuery(query, null);
+
+        if (mCursor.getCount() > 0)
+        {
+            mCursor.moveToFirst();
+            id = mCursor.getInt(mCursor.getColumnIndex(PurchaseContract.PurchaseEntry.COLUMN_NAME_ID));
+        }
+
+        return id;
+    }
+
+    @Override
+    public void dropTable()
+    {
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        mDbHelper.onUpgrade(db, DBSettings.DATABASE_VERSION, DBSettings.DATABASE_VERSION);
     }
 }

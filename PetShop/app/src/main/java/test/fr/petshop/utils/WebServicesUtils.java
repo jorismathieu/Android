@@ -18,6 +18,9 @@ public class WebServicesUtils
     public static final String  responseErrorMessage = "Erreur lors de la récupération des informations";
 
     public static final String  loginScript = "login.php";
+    public static final String  animalsScript = "sendAnimalsData.php";
+    public static final String  paymentScript = "sendPurchasesData.php";
+    public static final String  getScript = "getData.php";
 
 
     public static JSONObject stringToJSON(String result) throws Exception

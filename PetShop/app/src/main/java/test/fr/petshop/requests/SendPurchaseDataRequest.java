@@ -1,9 +1,9 @@
 package test.fr.petshop.requests;
 
-public class SynchronizePurchasesRequest extends MyPetRequest
+public class SendPurchaseDataRequest extends MyPetRequest
 {
 
-    public SynchronizePurchasesRequest()
+    public SendPurchaseDataRequest()
     {
         scriptName = "synchroPurchases.php";
     }

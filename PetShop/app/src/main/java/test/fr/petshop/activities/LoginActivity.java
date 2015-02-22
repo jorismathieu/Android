@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import test.fr.petshop.R;
+import test.fr.petshop.entities.CurrentUser;
 import test.fr.petshop.requests.LoginRequest;
 import test.fr.petshop.utils.DebugUtils;
 
@@ -80,6 +81,19 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
             }
         });
 
+        Button mDisconnectedMode = (Button)findViewById(R.id.disconnected_mode);
+        mDisconnectedMode.setOnClickListener(new OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                CurrentUser.getmInstance().setConnected(false);
+                launchPetsActivity();
+            }
+        });
+
+
+
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
@@ -91,6 +105,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
 
     public void attemptLogin()
     {
+
         if (mAuthTask != null)
         {
             return;
@@ -217,7 +232,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader)
     {
-
     }
 
     @Override
@@ -237,14 +251,19 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
     @Override
     public void onLaunchMyPetsActivity()
     {
-        Intent intent = new Intent(LoginActivity.this, MyPetsActivity.class);
-        startActivity(intent);
+        launchPetsActivity();
     }
 
     @Override
     public void onConnectionError(String message)
     {
         DebugUtils.logToast(LoginActivity.this, message);
+    }
+
+    private void launchPetsActivity()
+    {
+        Intent intent = new Intent(LoginActivity.this, AnimalsActivity.class);
+        startActivity(intent);
     }
 
     private interface ProfileQuery

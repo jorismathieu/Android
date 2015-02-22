@@ -1,10 +1,12 @@
 package test.fr.petshop.requests;
 
 import android.app.Activity;
+import android.os.Debug;
 
 import org.json.JSONObject;
 
 import test.fr.petshop.entities.CurrentUser;
+import test.fr.petshop.utils.DebugUtils;
 import test.fr.petshop.utils.WebServicesUtils;
 
 public class LoginRequest extends MyPetRequest
@@ -44,9 +46,9 @@ public class LoginRequest extends MyPetRequest
         {
             return WebServicesUtils.connectionErrorMessage;
         }
-
         try
         {
+            DebugUtils.log(getResponse());
             JSONObject result = WebServicesUtils.stringToJSON(getResponse());
             if (result != null)
             {
@@ -55,12 +57,14 @@ public class LoginRequest extends MyPetRequest
                 {
                     CurrentUser.getmInstance().setIdUser(result.getInt("id_user"));
                     CurrentUser.getmInstance().setEmail(email);
-                    return result.getString("message");
+                    CurrentUser.getmInstance().setConnected(true);
                 }
+                return result.getString("message");
             }
         }
         catch (Exception e)
         {
+            e.printStackTrace();
             return WebServicesUtils.responseErrorMessage;
         }
         return null;

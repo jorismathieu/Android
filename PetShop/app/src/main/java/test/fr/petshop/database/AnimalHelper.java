@@ -8,12 +8,12 @@ public class AnimalHelper extends SQLiteOpenHelper
 {
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + AnimalContract.AnimalEntry.TABLE_NAME + " (" +
-                    AnimalContract.AnimalEntry.COLUMN_NAME_ID + DBSettings.INTEGER_TYPE + " PRIMARY KEY," +
+                    AnimalContract.AnimalEntry.COLUMN_NAME_ID + DBSettings.INTEGER_TYPE + " PRIMARY KEY AUTOINCREMENT NOT NULL," +
                     AnimalContract.AnimalEntry.COLUMN_NAME_NAME + DBSettings.TEXT_TYPE + DBSettings.COMMA_SEP +
                     AnimalContract.AnimalEntry.COLUMN_NAME_DESCRIPTION + DBSettings.TEXT_TYPE + DBSettings.COMMA_SEP +
                     AnimalContract.AnimalEntry.COLUMN_NAME_TYPE + DBSettings.TEXT_TYPE + DBSettings.COMMA_SEP +
                     AnimalContract.AnimalEntry.COLUMN_NAME_ADDRESS + DBSettings.TEXT_TYPE + DBSettings.COMMA_SEP +
-                    AnimalContract.AnimalEntry.COLUMN_NAME_COORDINATES + DBSettings.TEXT_TYPE + DBSettings.COMMA_SEP + " )";
+                    AnimalContract.AnimalEntry.COLUMN_NAME_COORDINATES + DBSettings.TEXT_TYPE + " )";
 
     private static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + AnimalContract.AnimalEntry.TABLE_NAME;
 

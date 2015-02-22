@@ -10,6 +10,7 @@ import java.util.List;
 
 import test.fr.petshop.database.AnimalContract;
 import test.fr.petshop.database.AnimalHelper;
+import test.fr.petshop.database.DBSettings;
 import test.fr.petshop.entities.Animal;
 
 public class AnimalDAO implements IMyPetDAO<Animal>
@@ -25,7 +26,7 @@ public class AnimalDAO implements IMyPetDAO<Animal>
     }
 
     @Override
-    public List<Animal> read(Integer id_user)
+    public ArrayList<Animal> read(Integer id_user)
     {
         ArrayList<Animal> list = new ArrayList<Animal>();
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
@@ -59,12 +60,12 @@ public class AnimalDAO implements IMyPetDAO<Animal>
             {
                 do
                 {
-                    Integer id = cursor.getInt(cursor.getColumnIndex("id"));
-                    String name = cursor.getString(cursor.getColumnIndex("name"));
-                    String description = cursor.getString(cursor.getColumnIndex("description"));
-                    String type = cursor.getString(cursor.getColumnIndex("type"));
-                    String address = cursor.getString(cursor.getColumnIndex("address"));
-                    String coordinates = cursor.getString(cursor.getColumnIndex("coordinates"));
+                    Integer id = cursor.getInt(cursor.getColumnIndex(AnimalContract.AnimalEntry.COLUMN_NAME_ID));
+                    String name = cursor.getString(cursor.getColumnIndex(AnimalContract.AnimalEntry.COLUMN_NAME_NAME));
+                    String description = cursor.getString(cursor.getColumnIndex(AnimalContract.AnimalEntry.COLUMN_NAME_DESCRIPTION));
+                    String type = cursor.getString(cursor.getColumnIndex(AnimalContract.AnimalEntry.COLUMN_NAME_TYPE));
+                    String address = cursor.getString(cursor.getColumnIndex(AnimalContract.AnimalEntry.COLUMN_NAME_ADDRESS));
+                    String coordinates = cursor.getString(cursor.getColumnIndex(AnimalContract.AnimalEntry.COLUMN_NAME_COORDINATES));
 
                     list.add(new Animal(id, name, description, type, address, coordinates));
                 } while (cursor.moveToNext());
@@ -123,5 +124,31 @@ public class AnimalDAO implements IMyPetDAO<Animal>
 
         long newRowId;
         newRowId = db.insert(AnimalContract.AnimalEntry.TABLE_NAME, "null", values);
+    }
+
+    @Override
+    public int getMaxID()
+    {
+        int id = -1;
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        String query = "SELECT MAX(" + AnimalContract.AnimalEntry.COLUMN_NAME_ID + ") FROM " + AnimalContract.AnimalEntry.TABLE_NAME;
+        Cursor mCursor = db.rawQuery(query, null);
+
+        if (mCursor != null)
+        {
+            if (mCursor.moveToFirst())
+            {
+                id = mCursor.getInt(0);
+            }
+        }
+
+        return id;
+    }
+
+    @Override
+    public void dropTable()
+    {
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        mDbHelper.onUpgrade(db, DBSettings.DATABASE_VERSION, DBSettings.DATABASE_VERSION);
     }
 }

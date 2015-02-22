@@ -45,7 +45,7 @@
                 <Button
                     android:layout_width="188dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/button"
+                    android:id="@+id/disconnected_mode"
                     android:layout_marginLeft="20dp"
                     style="?android:textAppearanceSmall"
                     android:text="@string/action_disconnected"

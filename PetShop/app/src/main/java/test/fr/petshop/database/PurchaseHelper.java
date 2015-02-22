@@ -9,9 +9,9 @@ public class PurchaseHelper extends SQLiteOpenHelper
 
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + PurchaseContract.PurchaseEntry.TABLE_NAME + " (" +
-                    PurchaseContract.PurchaseEntry.COLUMN_NAME_ID + DBSettings.INTEGER_TYPE + " PRIMARY KEY," +
+                    PurchaseContract.PurchaseEntry.COLUMN_NAME_ID + DBSettings.INTEGER_TYPE + " PRIMARY KEY AUTOINCREMENT NOT NULL," +
                     PurchaseContract.PurchaseEntry.COLUMN_NAME_ID_USER + DBSettings.INTEGER_TYPE + DBSettings.COMMA_SEP +
-                    PurchaseContract.PurchaseEntry.COLUMN_NAME_ID_ANIMAL + DBSettings.INTEGER_TYPE + DBSettings.COMMA_SEP + " )";
+                    PurchaseContract.PurchaseEntry.COLUMN_NAME_ID_ANIMAL + DBSettings.INTEGER_TYPE + " )";
 
     private static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + PurchaseContract.PurchaseEntry.TABLE_NAME;
 
