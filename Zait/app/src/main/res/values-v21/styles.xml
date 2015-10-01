@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppTheme" parent="android:Theme.Material.Light">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <!-- Main colors -->
+        <item name="android:textColorPrimary">@color/gray</item>
+        <item name="android:colorPrimary">@color/primaryColor</item>
+        <item name="android:colorPrimaryDark">@color/primaryDarkColor</item>
+
+        <item name="android:statusBarColor">@color/primaryDarkColorTransparent</item>
+
+        <item name="selectableItemBackground">?android:selectableItemBackground</item>
+        <item name="android:colorControlHighlight">@color/primaryColor</item>
+
+        <item name="colorAccent">@color/primaryDarkColor</item>
+
     </style>
 </resources>

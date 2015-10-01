@@ -1,6 +1,34 @@
 <resources>
     <string name="app_name">Zait</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <!-- Classic -->
+    <string name="cancel">Cancel</string>
+    <string name="cancel_upp">CANCEL</string>
+
+    <!-- Navigation Menu -->
+    <string name="navigation_loggedout">Logged out</string>
+    <string name="navigation_home">Home</string>
+    <string name="navigation_mysubreddits">My Subreddits</string>
+    <string name="navigation_search">Search</string>
+    <string name="navigation_settings">Settings</string>
+    <string name="add_an_account">Add an account</string>
+
+    <!-- Subreddit Menu -->
+    <string name="action_hot">Hot</string>
+    <string name="action_new">New</string>
+    <string name="action_rising">Rising</string>
+    <string name="action_top">Top</string>
+    <string name="action_controversial">Controversial</string>
+
+    <!-- Accessibility -->
+    <string name="drawer_open">Open Drawer</string>
+    <string name="drawer_close">Close Drawer</string>
+
+    <!-- Dialogs -->
+    <string name="dialog_login_title">Log in to Reddit</string>
+    <string name="dialog_login_enter_name">Enter Name:</string>
+    <string name="dialog_login_enter_passwd">Enter Password:</string>
+    <string name="dialog_login_login">LOGIN</string>
+
+
 </resources>

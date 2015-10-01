@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="navigationDrawerActions" >
+        <item>Home</item>
+        <item>My Subreddits</item>
+        <item>Go to</item>
+        <item>April</item>
+        <item>Settings</item>
+        <item>Logout</item>
+    </string-array>
+
+</resources>
