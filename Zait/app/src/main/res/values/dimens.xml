@@ -9,4 +9,9 @@
     <!-- Dialogs -->
     <dimen name="dialog_title_size">25sp</dimen>
 
+    <!-- Home -->
+    <!-- Posts -->
+    <dimen name="post_sub_text">12sp</dimen>
+    <dimen name="post_main_text">16sp</dimen>
+
 </resources>

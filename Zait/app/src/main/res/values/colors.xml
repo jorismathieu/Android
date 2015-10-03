@@ -20,10 +20,10 @@
     <color name="black">#000000</color>
 
     <!-- Main colors -->
-    <color name="primaryColor">#FF4500</color>
-    <color name="primaryDarkColor">#D13700</color>
+    <color name="primaryColor">#7F00FF</color>
+    <color name="primaryDarkColor">#6C00E0</color>
 
-    <color name="primaryDarkColorTransparent">#AAD13700</color>
+    <color name="primaryDarkColorTransparent">#AA5200AB</color>
 
     <color name="icon_gray">#757575</color>
 

@@ -17,7 +17,7 @@ import android.widget.TextView;
 import fr.zait.R;
 import fr.zait.dialogs.LoginDialog;
 import fr.zait.fragments.HomeFragment;
-import fr.zait.utils.CustomAnimations;
+import fr.zait.utils.AnimationUtils;
 
 
 public class MainActivity extends FragmentActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
@@ -107,7 +107,7 @@ public class MainActivity extends FragmentActivity implements NavigationView.OnN
     }
 
     private void makeExpandIconRotate() {
-        CustomAnimations.makeHalfRotation(expandIcon, rotationAngle);
+        AnimationUtils.makeHalfRotation(expandIcon, rotationAngle);
         rotationAngle += 180;
         rotationAngle = rotationAngle % 360;
     }

@@ -2,6 +2,9 @@
     <string name="app_name">Zait</string>
 
     <!-- Classic -->
+    <string name="in">in</string>
+    <string name="comment">Comment</string>
+    <string name="comment_plur">Comments</string>
     <string name="cancel">Cancel</string>
     <string name="cancel_upp">CANCEL</string>
 
@@ -29,6 +32,9 @@
     <string name="dialog_login_enter_name">Enter Name:</string>
     <string name="dialog_login_enter_passwd">Enter Password:</string>
     <string name="dialog_login_login">LOGIN</string>
+
+    <!-- Errors -->
+    <string name="connection_error">Connection error</string>
 
 
 </resources>
