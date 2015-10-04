@@ -20,9 +20,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.zait.R;
+import fr.zait.activities.base.MyApplication;
 import fr.zait.adapters.HomeAdapter;
 import fr.zait.controllers.SubredditRefreshingController;
+import fr.zait.data.beans.Subreddit;
+import fr.zait.data.database.dao.SubredditsDao;
 import fr.zait.requests.FetchPostFromSubreddit;
+import fr.zait.utils.StringUtils;
 
 public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemSelectedListener
 {
@@ -39,6 +43,8 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private int firstVisibleItem, visibleItemCount, totalItemCount;
 
     private List<String> spinnerArray;
+    private String selectedSubreddit;
+    private List<Subreddit> subreddits;
 
     /***
      *
@@ -59,7 +65,9 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
         initViews(view);
         initVariables();
-        getPostFromCurrentSubreddit();
+        if (!StringUtils.isEmpty(selectedSubreddit)) {
+            getPostFromCurrentSubreddit();
+        }
 
         return view;
     }
@@ -79,7 +87,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
     private void initVariables() {
-        fetchPostFromSubreddit =  new FetchPostFromSubreddit(getActivity(), "Android", recyclerAdapter);
+        fetchPostFromSubreddit =  new FetchPostFromSubreddit(getActivity(), selectedSubreddit, recyclerAdapter);
     }
 
     private void initViews(View view) {
@@ -127,14 +135,29 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             }
         });
 
+        SubredditsDao subredditsDao = new SubredditsDao(getActivity());
+        subreddits = subredditsDao.getSubreddits();
         spinnerArray =  new ArrayList<String>();
-        spinnerArray.add("Android");
-        spinnerArray.add("Art");
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, spinnerArray);
-        spinnerAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        selectedSubreddit = MyApplication.getInstance().getSharedPreferences().getString(MyApplication.SELECTED_SUBREDDIT, "");
+        for (int i = 0; i < subreddits.size(); i++) {
+            spinnerArray.add(subreddits.get(i).name);
+            if (StringUtils.isEmpty(selectedSubreddit) && i == 0) {
+                selectedSubreddit = subreddits.get(i).name;
+            }
+        }
+
         Spinner subredditItems = (Spinner) view.findViewById(R.id.spinner_subreddits);
-        subredditItems.setAdapter(spinnerAdapter);
-        subredditItems.setOnItemSelectedListener(this);
+        if (spinnerArray.size() > 0) {
+            ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, spinnerArray);
+            spinnerAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+            subredditItems.setVisibility(View.VISIBLE);
+            subredditItems.setAdapter(spinnerAdapter);
+            subredditItems.setSelection(spinnerAdapter.getPosition(selectedSubreddit));
+            subredditItems.setOnItemSelectedListener(this);
+        } else {
+            subredditItems.setVisibility(View.GONE);
+        }
+
 
     }
 
@@ -158,6 +181,8 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     {
         subredditRefreshingController.setProgressBarVisibility(View.VISIBLE);
         fetchPostFromSubreddit.switchSubredditName(spinnerArray.get(position));
+        selectedSubreddit = spinnerArray.get(position);
+        MyApplication.getInstance().getSharedPreferences().edit().putString(MyApplication.SELECTED_SUBREDDIT, selectedSubreddit).commit();
         getPostFromCurrentSubreddit();
     }
 

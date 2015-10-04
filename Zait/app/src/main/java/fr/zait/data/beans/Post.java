@@ -13,4 +13,6 @@ public class Post
     public String id;
     public long createdUtc;
     public String thumbnail;
+    public boolean hasBeenSeen;
+
 }

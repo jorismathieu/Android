@@ -10,4 +10,60 @@
         <item>Logout</item>
     </string-array>
 
+    <string-array name="defaultSubreddits" >
+        <item>Android</item>
+        <item>All</item>
+        <item>announcements</item>
+        <item>Art</item>
+        <item>AskReddit</item>
+        <item>askscience</item>
+        <item>aww</item>
+        <item>blog</item>
+        <item>books</item>
+        <item>creepy</item>
+        <item>dataisbeautiful</item>
+        <item>DIY</item>
+        <item>Documentaries</item>
+        <item>EarthPorn</item>
+        <item>explainlikeimfive</item>
+        <item>Fitness</item>
+        <item>food</item>
+        <item>funny</item>
+        <item>Futurology</item>
+        <item>gadgets</item>
+        <item>gaming</item>
+        <item>GetMotivated</item>
+        <item>gifs</item>
+        <item>history</item>
+        <item>IAmA</item>
+        <item>InternetIsBeautiful</item>
+        <item>Jokes</item>
+        <item>LifeProTips</item>
+        <item>listentothis</item>
+        <item>midlyinteresting</item>
+        <item>mma</item>
+        <item>movies</item>
+        <item>Music</item>
+        <item>news</item>
+        <item>nfl</item>
+        <item>nhl</item>
+        <item>nosleep</item>
+        <item>nottheonion</item>
+        <item>oldschoolcool</item>
+        <item>personalfinance</item>
+        <item>philosophy</item>
+        <item>photoshopbattles</item>
+        <item>pics</item>
+        <item>reddit_news</item>
+        <item>science</item>
+        <item>space</item>
+        <item>sport</item>
+        <item>television</item>
+        <item>Unexpected</item>
+        <item>videos</item>
+        <item>woahdude</item>
+        <item>worldnews</item>
+
+    </string-array>
+
 </resources>

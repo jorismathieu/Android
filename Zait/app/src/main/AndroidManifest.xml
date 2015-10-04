@@ -8,6 +8,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/zait_ic_purple"
         android:label="@string/app_name"
+        android:name=".activities.base.MyApplication"
         android:theme="@style/AppTheme" >
         <activity
             android:name=".activities.base.MainActivity"
