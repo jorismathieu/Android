@@ -6,11 +6,11 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import fr.zait.R;
-import fr.zait.controllers.base.MainController;
+import fr.zait.controllers.base.MyController;
 import fr.zait.fragments.HomeFragment;
 import fr.zait.utils.ErrorUtils;
 
-public class SubredditRefreshingController extends MainController
+public class SubredditRefreshingController extends MyController
 {
     private SwipeRefreshLayout swipeRefreshLayout;
     private ProgressBar progressBar;

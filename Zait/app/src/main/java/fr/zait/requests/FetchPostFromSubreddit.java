@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.zait.adapters.HomeAdapter;
-import fr.zait.data.beans.Post;
+import fr.zait.data.entities.Post;
 import fr.zait.requests.base.Request;
 import fr.zait.utils.NetworkUtils;
 
@@ -96,6 +96,7 @@ public class FetchPostFromSubreddit extends Request
                         p.id = cur.optString("id");
                         p.createdUtc = cur.optLong("created_utc");
                         p.thumbnail = cur.optString("thumbnail");
+                        p.hasBeenSeen = false;
                         if (p.title != null)
                             posts.add(p);
                     }

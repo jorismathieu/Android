@@ -2,11 +2,13 @@ package fr.zait.data.database.contract;
 
 import android.provider.BaseColumns;
 
-import fr.zait.data.database.base.MyDbHelper;
+import fr.zait.data.database.MyDbHelper;
 
 public class SubredditsContract
 {
     public static final String TABLE_NAME = "subreddits";
+
+    public static final String[] PROJECTION = {SubredditsEntry._ID, SubredditsEntry.COLUMN_NAME};
 
     public static final int IS_SELECTED = 1;
     public static final int IS_NOT_SELECTED = 0;

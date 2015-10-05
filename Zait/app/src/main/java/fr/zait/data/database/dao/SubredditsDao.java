@@ -9,23 +9,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.zait.R;
-import fr.zait.data.beans.Subreddit;
-import fr.zait.data.database.base.MyDbHelper;
+import fr.zait.data.entities.Subreddit;
+import fr.zait.data.database.MyDbHelper;
 import fr.zait.data.database.contract.SubredditsContract;
 
 public class SubredditsDao
 {
-    private Context cxt;
 
-    public SubredditsDao(Context context) {
-        cxt = context;
-    }
-
-    public void saveDefaultSubreddits() {
+    public static void saveDefaultSubreddits(Context context) {
         SQLiteDatabase db = MyDbHelper.getInstance().getWritableDatabase();
 
         try {
-            String[] defaultSubreddits = cxt.getResources().getStringArray(R.array.defaultSubreddits);
+            String[] defaultSubreddits = context.getResources().getStringArray(R.array.defaultSubreddits);
 
             ContentValues values = new ContentValues();
             for (int i = 0; i < defaultSubreddits.length; i++) {
@@ -38,7 +33,7 @@ public class SubredditsDao
         }
     }
 
-    public List<Subreddit> getSubreddits() {
+    public static List<Subreddit> getSubreddits() {
         SQLiteDatabase db = MyDbHelper.getInstance().getReadableDatabase();
         List<Subreddit> subreddits = new ArrayList<>();
 

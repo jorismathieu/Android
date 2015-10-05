@@ -19,6 +19,8 @@
     <color name="navy">#000080</color>
     <color name="black">#000000</color>
 
+    <color name="light_gray">#C9C7C7</color>
+
     <!-- Main colors -->
     <color name="primaryColor">#7F00FF</color>
     <color name="primaryDarkColor">#6C00E0</color>

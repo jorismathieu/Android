@@ -14,7 +14,7 @@ public class LoginDialog extends DialogFragment
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(getActivity().getLayoutInflater().inflate(R.layout.login_dialog_view, null))
+        builder.setView(getActivity().getLayoutInflater().inflate(R.layout.dialog_login_view, null))
                 .setPositiveButton(R.string.dialog_login_login, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 

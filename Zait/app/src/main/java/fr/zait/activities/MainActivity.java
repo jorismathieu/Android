@@ -1,10 +1,9 @@
-package fr.zait.activities.base;
+package fr.zait.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
@@ -17,11 +16,15 @@ import android.widget.TextView;
 import fr.zait.R;
 import fr.zait.dialogs.LoginDialog;
 import fr.zait.fragments.HomeFragment;
+import fr.zait.fragments.MySubredditFragment;
 import fr.zait.utils.AnimationUtils;
 
 
 public class MainActivity extends FragmentActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
 {
+
+    private static final String HOME_FRAGMENT_TAG = "HOME";
+    private static final String MY_SUBREDDITS_TAG = "SUBREDDITS";
 
     private static final String LOGIN_TAG = "LOGIN";
 
@@ -29,7 +32,9 @@ public class MainActivity extends FragmentActivity implements NavigationView.OnN
     private NavigationView navigationView;
     private View navigationDrawerHeader;
     private View navigationDrawerHeaderLogin;
+
     private HomeFragment homeFragment;
+    private MySubredditFragment mySubredditFragment;
 
     private ImageView expandIcon;
     private int rotationAngle = 0;
@@ -58,6 +63,15 @@ public class MainActivity extends FragmentActivity implements NavigationView.OnN
     private void initVariables() {
     }
 
+    private void loadFragment(Fragment fragment, String tag) {
+        Fragment currentFragment = getSupportFragmentManager().findFragmentByTag(tag);
+        if (currentFragment == null || !currentFragment.isVisible()) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.content_frame, fragment, tag);
+            fragmentTransaction.commit();
+        }
+    }
+
     private void initViews() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
@@ -69,11 +83,10 @@ public class MainActivity extends FragmentActivity implements NavigationView.OnN
         expandIcon = (ImageView) findViewById(R.id.navigation_header_expand_icon);
         navigationDrawerHeaderLogin = findViewById(R.id.navigation_drawer_header_login);
 
-        homeFragment = (HomeFragment) Fragment.instantiate(this, HomeFragment.class.getName());
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.content_frame, homeFragment, null);
-        fragmentTransaction.commit();
+        homeFragment = new HomeFragment();
+        mySubredditFragment = new MySubredditFragment();
+
+        loadFragment(homeFragment, HOME_FRAGMENT_TAG);
 
         View addAccountRow = initLoginRows(R.id.add_account_row, R.drawable.ic_add_gray_24dp);
 
@@ -103,7 +116,6 @@ public class MainActivity extends FragmentActivity implements NavigationView.OnN
     }
 
     private void selectItem(int position) {
-
     }
 
     private void makeExpandIconRotate() {
@@ -125,6 +137,10 @@ public class MainActivity extends FragmentActivity implements NavigationView.OnN
         menuItem.setChecked(true);
         switch (menuItem.getItemId()) {
             case R.id.nav_home:
+                loadFragment(homeFragment, HOME_FRAGMENT_TAG);
+                break;
+            case R.id.nav_mysubreddits:
+                loadFragment(mySubredditFragment, MY_SUBREDDITS_TAG);
                 break;
             case R.id.nav_search:
                 break;

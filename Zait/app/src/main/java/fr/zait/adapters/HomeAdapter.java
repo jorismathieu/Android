@@ -15,11 +15,12 @@ import java.util.List;
 
 import fr.zait.R;
 import fr.zait.controllers.SubredditRefreshingController;
-import fr.zait.data.beans.Post;
+import fr.zait.data.entities.Post;
 import fr.zait.holders.HomeHolder;
 import fr.zait.utils.DateUtils;
 
-public class HomeAdapter extends RecyclerView.Adapter<HomeHolder> {
+public class HomeAdapter extends RecyclerView.Adapter<HomeHolder>
+{
 
     private Context cxt;
     private SubredditRefreshingController subredditRefreshingController;
@@ -37,6 +38,19 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeHolder> {
     public void setNewPosts(List<Post> newPosts) {
         posts.addAll(newPosts);
         notifyDataSetChanged();
+    }
+
+    public void setPostHasBeenSeen(int position) {
+        posts.get(position).hasBeenSeen = true;
+    }
+
+    public void deletePostThatHasBeenSeen() {
+        for (int i = 0; i < posts.size(); i++) {
+            if (posts.get(i).hasBeenSeen == true) {
+                notifyItemRemoved(i);
+                posts.remove(i);
+            }
+        }
     }
 
     public void loadingIsDone() {
@@ -79,11 +93,18 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeHolder> {
             holder.postThumbnail.setVisibility(View.GONE);
         }
 
-        if (position > lastPosition)
-        {
-            setAnimation(holder.container);
-            lastPosition = position;
-        }
+//        if (position > lastPosition)
+//        {
+//            setAnimation(holder.container);
+//            lastPosition = position;
+//        }
+
+//        if (posts.get(position).hasBeenSeen) {
+//            holder.cardView.setCardBackgroundColor(R.color.light_gray);
+//        } else {
+//            holder.cardView.setCardBackgroundColor(R.color.white);
+//        }
+
 
     }
 
@@ -100,5 +121,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeHolder> {
         Animation animation = AnimationUtils.loadAnimation(cxt, android.R.anim.slide_in_left);
         viewToAnimate.startAnimation(animation);
     }
+
 }
 

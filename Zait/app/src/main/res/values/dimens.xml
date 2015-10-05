@@ -6,6 +6,9 @@
     <dimen name="navigation_header_text_size">18sp</dimen>
     <dimen name="navigation_header_login_text_size">16sp</dimen>
 
+    <!-- Fragments -->
+    <dimen name="title_size">18sp</dimen>
+
     <!-- Dialogs -->
     <dimen name="dialog_title_size">25sp</dimen>
 
@@ -13,5 +16,7 @@
     <!-- Posts -->
     <dimen name="post_sub_text">12sp</dimen>
     <dimen name="post_main_text">16sp</dimen>
+
+
 
 </resources>

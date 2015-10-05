@@ -1,4 +1,4 @@
-package fr.zait.data.beans;
+package fr.zait.data.entities;
 
 public class Post
 {

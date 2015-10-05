@@ -36,5 +36,8 @@
     <!-- Errors -->
     <string name="connection_error">Connection error</string>
 
+    <!-- Titles -->
+    <string name="my_subreddits_title">Subreddits</string>
+
 
 </resources>

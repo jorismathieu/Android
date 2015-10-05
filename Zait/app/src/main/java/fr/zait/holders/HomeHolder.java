@@ -1,5 +1,6 @@
 package fr.zait.holders;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,6 +19,7 @@ public class HomeHolder extends RecyclerView.ViewHolder
     public TextView date;
 
     public View container;
+    public CardView cardView;
 
     public ImageView postThumbnail;
 
@@ -33,6 +35,7 @@ public class HomeHolder extends RecyclerView.ViewHolder
         date = (TextView) v.findViewById(R.id.date);
         postThumbnail = (ImageView) v.findViewById(R.id.post_image);
         container = v.findViewById(R.id.card_container);
+        cardView = (CardView) v.findViewById(R.id.card_view);
     }
 }
 

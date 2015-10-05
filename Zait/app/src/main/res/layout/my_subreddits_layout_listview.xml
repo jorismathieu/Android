@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_height="50dp">
+
+    <ImageView
+        android:id="@+id/send_icon"
+        android:layout_width="24dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/ic_send_grey_24dp"/>
+
+    <TextView
+        android:id="@+id/subreddit_name"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="40dp"
+        android:layout_toRightOf="@id/send_icon"
+        android:textSize="@dimen/post_main_text"
+        android:textColor="@color/black"/>
+
+    <ImageView
+        android:id="@+id/remove_icon"
+        android:layout_width="24dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_remove_circle_grey_24dp"/>
+
+</RelativeLayout>

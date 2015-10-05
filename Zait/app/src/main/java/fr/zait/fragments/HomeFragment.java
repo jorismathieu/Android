@@ -2,6 +2,7 @@ package fr.zait.fragments;
 
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -10,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -19,12 +21,13 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.zait.MySharedPreferences;
 import fr.zait.R;
-import fr.zait.activities.base.MyApplication;
 import fr.zait.adapters.HomeAdapter;
 import fr.zait.controllers.SubredditRefreshingController;
-import fr.zait.data.beans.Subreddit;
 import fr.zait.data.database.dao.SubredditsDao;
+import fr.zait.data.entities.Subreddit;
+import fr.zait.listeners.RecyclerItemClickListener;
 import fr.zait.requests.FetchPostFromSubreddit;
 import fr.zait.utils.StringUtils;
 
@@ -92,8 +95,8 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     private void initViews(View view) {
 
+        // Main views
         subredditRefreshingController = new SubredditRefreshingController(getActivity(), view, this);
-
         DrawerLayout drawerLayout =  (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
         Toolbar toolbar = (Toolbar)view.findViewById(R.id.home_toolbar);
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
@@ -101,12 +104,22 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         drawerLayout.setDrawerListener(drawerToggle);
         toolbar.inflateMenu(R.menu.menu_home);
 
+        // Recycler view
         recyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-
         recyclerAdapter = new HomeAdapter(getActivity(), subredditRefreshingController);
         recyclerView.setAdapter(recyclerAdapter);
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(View view, int position)
+            {
+//                CardView cardView = (CardView)view.findViewById(R.id.card_view);
+//                cardView.setCardBackgroundColor(R.color.light_gray);
+                recyclerAdapter.setPostHasBeenSeen(position);
+            }
+        }));
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
         {
@@ -135,10 +148,10 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             }
         });
 
-        SubredditsDao subredditsDao = new SubredditsDao(getActivity());
-        subreddits = subredditsDao.getSubreddits();
+        // Subreddits views
+        subreddits = SubredditsDao.getSubreddits();
         spinnerArray =  new ArrayList<String>();
-        selectedSubreddit = MyApplication.getInstance().getSharedPreferences().getString(MyApplication.SELECTED_SUBREDDIT, "");
+        selectedSubreddit = MySharedPreferences.getMySharedPreferences(getActivity()).getString(MySharedPreferences.SELECTED_SUBREDDIT, "");
         for (int i = 0; i < subreddits.size(); i++) {
             spinnerArray.add(subreddits.get(i).name);
             if (StringUtils.isEmpty(selectedSubreddit) && i == 0) {
@@ -157,6 +170,22 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         } else {
             subredditItems.setVisibility(View.GONE);
         }
+
+        // FAB
+
+        FloatingActionButton floatingActionButton = (FloatingActionButton) view.findViewById(R.id.home_fab);
+        floatingActionButton.setOnTouchListener(new View.OnTouchListener()
+        {
+            @Override
+            public boolean onTouch(View v, MotionEvent event)
+            {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    recyclerAdapter.deletePostThatHasBeenSeen();
+                    return true;
+                }
+                return true;
+            }
+        });
 
 
     }
@@ -182,7 +211,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         subredditRefreshingController.setProgressBarVisibility(View.VISIBLE);
         fetchPostFromSubreddit.switchSubredditName(spinnerArray.get(position));
         selectedSubreddit = spinnerArray.get(position);
-        MyApplication.getInstance().getSharedPreferences().edit().putString(MyApplication.SELECTED_SUBREDDIT, selectedSubreddit).commit();
+        MySharedPreferences.getMySharedPreferences(getActivity()).edit().putString(MySharedPreferences.SELECTED_SUBREDDIT, selectedSubreddit).commit();
         getPostFromCurrentSubreddit();
     }
 
@@ -190,4 +219,5 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     public void onNothingSelected(AdapterView<?> parent)
     {
     }
+
 }

@@ -4,12 +4,12 @@ package fr.zait.controllers.base;
 import android.content.Context;
 import android.view.View;
 
-public abstract class MainController
+public abstract class MyController
 {
     protected View rootView;
     protected Context context;
 
-    public MainController(Context cxt, View rv) {
+    public MyController(Context cxt, View rv) {
         context = cxt;
         rootView = rv;
     }

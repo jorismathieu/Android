@@ -17,7 +17,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
             android:clickable="true"
-            android:foreground="@drawable/simple_ripple_effect"
+            card_view:cardBackgroundColor="@color/white"
             card_view:cardCornerRadius="2dp">
 
             <LinearLayout
