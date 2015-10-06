@@ -2,8 +2,8 @@ package fr.zait.fragments;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -13,13 +13,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import fr.zait.R;
 import fr.zait.adapters.SubredditsAdapter;
 import fr.zait.data.database.MyContentProvider;
 import fr.zait.data.database.contract.SubredditsContract;
+import fr.zait.dialogs.base.DialogCallbackActivity;
 
-public class MySubredditFragment extends android.support.v4.app.ListFragment implements LoaderManager.LoaderCallbacks<Cursor>
+public class MySubredditsFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener, View.OnClickListener
 {
 
     /***
@@ -61,6 +63,9 @@ public class MySubredditFragment extends android.support.v4.app.ListFragment imp
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
         drawerToggle.syncState();
         drawerLayout.setDrawerListener(drawerToggle);
+
+        View reinitIcon = view.findViewById(R.id.reinit_icon);
+        reinitIcon.setOnClickListener(this);
     }
 
     /***
@@ -73,7 +78,7 @@ public class MySubredditFragment extends android.support.v4.app.ListFragment imp
     public Loader<Cursor> onCreateLoader(int query, Bundle bundle) {
         switch (query) {
             case R.id.SQL_QUERY_GET_SUBREDDITS:
-                CursorLoader cursorLoader = new CursorLoader(getActivity(), Uri.parse(MyContentProvider.AUTHORITY + SubredditsContract.TABLE_NAME), null, null, null, null);
+                CursorLoader cursorLoader = new CursorLoader(getActivity(), MyContentProvider.getURIFromTable(SubredditsContract.TABLE_NAME), null, null, null, null);
                 return cursorLoader;
         }
         return null;
@@ -86,7 +91,7 @@ public class MySubredditFragment extends android.support.v4.app.ListFragment imp
                 if (cursor != null) {
                     SubredditsAdapter adapter = (SubredditsAdapter) getListAdapter();
                     if (adapter == null) {
-                        adapter = new SubredditsAdapter(getView().getContext(), cursor);
+                        adapter = new SubredditsAdapter(getActivity(), cursor);
                         setListAdapter(adapter);
                     } else {
                         adapter.changeCursor(cursor);
@@ -102,7 +107,7 @@ public class MySubredditFragment extends android.support.v4.app.ListFragment imp
     public void onLoaderReset(Loader<Cursor> loader) {
         Context c = null;
         try {
-            c = getView().getContext();
+            c = getActivity();
             if (c == null) {
                 return;
             }
@@ -117,6 +122,23 @@ public class MySubredditFragment extends android.support.v4.app.ListFragment imp
             } else {
                 adapter.changeCursor(null);
             }
+        }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapter, View view, int position, long arg3)
+    {
+
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+        switch (v.getId()) {
+            case R.id.reinit_icon:
+                DialogCallbackActivity callbackActivity = (DialogCallbackActivity) getActivity();
+                callbackActivity.displayReinitDialog();
+                break;
         }
     }
 }

@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.zait.R;
-import fr.zait.data.entities.Subreddit;
 import fr.zait.data.database.MyDbHelper;
 import fr.zait.data.database.contract.SubredditsContract;
+import fr.zait.data.entities.Subreddit;
 
 public class SubredditsDao
 {
@@ -43,8 +43,7 @@ public class SubredditsDao
                     SubredditsContract.SubredditsEntry.COLUMN_NAME,
             };
 
-            String sortOrder =
-                    SubredditsContract.SubredditsEntry._ID + " ASC";
+            String sortOrder = SubredditsContract.SubredditsEntry._ID + " ASC";
 
             Cursor c = db.query(SubredditsContract.TABLE_NAME, projection, null, null, null, null, sortOrder);
             if (c != null) {
@@ -60,6 +59,19 @@ public class SubredditsDao
             db.close();
         }
         return subreddits;
+    }
+
+    public static int deletePost(String where, String[] whereArgs) {
+        SQLiteDatabase db = MyDbHelper.getInstance().getReadableDatabase();
+        int nbDeletion = 0;
+
+        try {
+            nbDeletion = db.delete(SubredditsContract.TABLE_NAME, where, whereArgs);
+        } catch (Exception e) {
+        } finally {
+            db.close();
+        }
+        return nbDeletion;
     }
 
 

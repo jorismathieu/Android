@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:paddingLeft="20dp"
-                android:paddingRight="20dp"
                 android:layout_height="50dp">
 
     <ImageView
@@ -22,11 +21,19 @@
         android:textSize="@dimen/post_main_text"
         android:textColor="@color/black"/>
 
-    <ImageView
+    <LinearLayout
         android:id="@+id/remove_icon"
-        android:layout_width="24dp"
+        android:layout_width="60dp"
         android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
-        android:src="@drawable/ic_remove_circle_grey_24dp"/>
+        android:orientation="vertical"
+        android:layout_alignParentEnd="true" >
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_remove_circle_grey_24dp"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

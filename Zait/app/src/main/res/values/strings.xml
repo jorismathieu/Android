@@ -5,7 +5,10 @@
     <string name="in">in</string>
     <string name="comment">Comment</string>
     <string name="comment_plur">Comments</string>
+    <string name="ok">Ok</string>
+    <string name="ok_upp">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
     <string name="cancel_upp">CANCEL</string>
 
     <!-- Navigation Menu -->
@@ -32,6 +35,11 @@
     <string name="dialog_login_enter_name">Enter Name:</string>
     <string name="dialog_login_enter_passwd">Enter Password:</string>
     <string name="dialog_login_login">LOGIN</string>
+
+    <string name="dialog_delete_subreddit_title">Delete Subreddit</string>
+
+    <string name="dialog_reinit_subreddits_title">Reinitialization</string>
+    <string name="dialog_reinit_subreddits_message">Reset subreddits?</string>
 
     <!-- Errors -->
     <string name="connection_error">Connection error</string>
