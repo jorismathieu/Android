@@ -3,6 +3,7 @@ package fr.zait.fragments;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -17,7 +18,6 @@ import android.widget.AdapterView;
 
 import fr.zait.R;
 import fr.zait.adapters.SubredditsAdapter;
-import fr.zait.data.database.MyContentProvider;
 import fr.zait.data.database.contract.SubredditsContract;
 import fr.zait.dialogs.base.DialogCallbackActivity;
 
@@ -66,6 +66,9 @@ public class MySubredditsFragment extends ListFragment implements LoaderManager.
 
         View reinitIcon = view.findViewById(R.id.reinit_icon);
         reinitIcon.setOnClickListener(this);
+
+        FloatingActionButton floatingActionButton = (FloatingActionButton) view.findViewById(R.id.my_subreddit_fab);
+        floatingActionButton.setOnClickListener(this);
     }
 
     /***
@@ -78,7 +81,7 @@ public class MySubredditsFragment extends ListFragment implements LoaderManager.
     public Loader<Cursor> onCreateLoader(int query, Bundle bundle) {
         switch (query) {
             case R.id.SQL_QUERY_GET_SUBREDDITS:
-                CursorLoader cursorLoader = new CursorLoader(getActivity(), MyContentProvider.getURIFromTable(SubredditsContract.TABLE_NAME), null, null, null, null);
+                CursorLoader cursorLoader = new CursorLoader(getActivity(), SubredditsContract.SELECT_URI, null, null, null, null);
                 return cursorLoader;
         }
         return null;
@@ -134,10 +137,13 @@ public class MySubredditsFragment extends ListFragment implements LoaderManager.
     @Override
     public void onClick(View v)
     {
+        DialogCallbackActivity callbackActivity = (DialogCallbackActivity) getActivity();
         switch (v.getId()) {
             case R.id.reinit_icon:
-                DialogCallbackActivity callbackActivity = (DialogCallbackActivity) getActivity();
-                callbackActivity.displayReinitDialog();
+                callbackActivity.displayReinitSubredditsDialog();
+                break;
+            case R.id.my_subreddit_fab:
+                callbackActivity.displayAddSubredditDialog();
                 break;
         }
     }

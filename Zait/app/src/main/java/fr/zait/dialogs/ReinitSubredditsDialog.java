@@ -7,7 +7,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 
 import fr.zait.R;
-import fr.zait.data.database.MyContentProvider;
 import fr.zait.data.database.contract.SubredditsContract;
 import fr.zait.utils.DialogUtils;
 
@@ -20,15 +19,15 @@ public class ReinitSubredditsDialog extends DialogFragment
         builder.setTitle(R.string.dialog_reinit_subreddits_title)
                 .setMessage(R.string.dialog_reinit_subreddits_message)
                 .setIcon(R.drawable.ic_warning_black_24dp)
-                .setPositiveButton(R.string.ok_upp, new DialogInterface.OnClickListener()
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
                 {
                     public void onClick(DialogInterface dialog, int whichButton)
                     {
-                        getActivity().getContentResolver().delete(MyContentProvider.getURIFromTable(SubredditsContract.TABLE_NAME), null, null);
-                        getActivity().getContentResolver().insert(MyContentProvider.getURIFromTable(SubredditsContract.TABLE_NAME), null);
+                        getActivity().getContentResolver().delete(SubredditsContract.DELETE_URI, null, null);
+                        getActivity().getContentResolver().insert(SubredditsContract.REINIT_URI, null);
                     }
                 })
-                .setNegativeButton(R.string.cancel_upp, null);
+                .setNegativeButton(R.string.cancel, null);
 
         final AlertDialog dialog = builder.create();
 
@@ -37,7 +36,7 @@ public class ReinitSubredditsDialog extends DialogFragment
             @Override
             public void onShow(DialogInterface arg)
             {
-                DialogUtils.setDefaultColors(dialog, getActivity());
+                DialogUtils.setButtonStyle(dialog, getActivity());
             }
         });
 

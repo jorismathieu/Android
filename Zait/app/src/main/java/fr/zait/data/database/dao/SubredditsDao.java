@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +60,21 @@ public class SubredditsDao
             db.close();
         }
         return subreddits;
+    }
+
+    public static long insertPost(ContentValues values) {
+        SQLiteDatabase db = MyDbHelper.getInstance().getReadableDatabase();
+        long idInserted = -1;
+
+        try {
+            Log.e("Value => ", "== " + values.getAsString(SubredditsContract.SubredditsEntry.COLUMN_NAME));
+            idInserted = db.insert(SubredditsContract.TABLE_NAME, null, values);
+            Log.e("ID INSERTED => ", "== " + idInserted);
+        } catch (Exception e) {
+        } finally {
+            db.close();
+        }
+        return idInserted;
     }
 
     public static int deletePost(String where, String[] whereArgs) {

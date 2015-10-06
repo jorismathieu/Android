@@ -3,9 +3,11 @@ package fr.zait.data.database;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
+import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
+import android.util.Log;
 
 import java.util.List;
 
@@ -15,16 +17,25 @@ import fr.zait.data.entities.Subreddit;
 
 public class MyContentProvider extends ContentProvider
 {
-    private static final String AUTHORITY = "content://fr.zait.data.database.MyContentProvider/";
-    private static final Uri NOTIFICATION_URI = Uri.parse(AUTHORITY);
+    private static final String AUTHORITY = "fr.zait.data.database.MyContentProvider";
+    public static final String CONTENT_URI = "content://" + AUTHORITY;
 
+    private static final Uri NOTIFICATION_URI = Uri.parse(CONTENT_URI);
 
-    private static final String SUBREDDITS_REQUEST = AUTHORITY + SubredditsContract.TABLE_NAME;
+    private static final int SUBREDDITS_BASE = 0;
+    private static final int SUBREDDITS_SELECT = SUBREDDITS_BASE + 1;
+    private static final int SUBREDDITS_DELETE = SUBREDDITS_BASE + 2;
+    private static final int SUBREDDITS_REINIT = SUBREDDITS_BASE + 3;
+    private static final int SUBREDDITS_ADD = SUBREDDITS_BASE + 4;
 
+    private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
-
-    public static Uri getURIFromTable(String table) {
-        return Uri.parse(AUTHORITY + table);
+    static
+    {
+        uriMatcher.addURI(AUTHORITY, SubredditsContract.SELECT_URL, SUBREDDITS_SELECT);
+        uriMatcher.addURI(AUTHORITY, SubredditsContract.DELETE_URL, SUBREDDITS_DELETE);
+        uriMatcher.addURI(AUTHORITY, SubredditsContract.REINIT_URL, SUBREDDITS_REINIT);
+        uriMatcher.addURI(AUTHORITY, SubredditsContract.ADD_URL, SUBREDDITS_ADD);
     }
 
     @Override
@@ -34,20 +45,30 @@ public class MyContentProvider extends ContentProvider
 
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+        final int match = uriMatcher.match(uri);
+
+
+        Log.e("Uri => ", "[" + uri.toString());
+
+        Log.e("match", "[" + match);
+
         try {
-            if (uri.toString().equals(SUBREDDITS_REQUEST)) {
-                MatrixCursor cursor = new MatrixCursor(SubredditsContract.PROJECTION);
-                List<Subreddit> subreddits = SubredditsDao.getSubreddits();
-                for (Subreddit subreddit : subreddits){
-                    cursor.addRow(new Object[]{subreddit._id, subreddit.name});
-                }
+            switch (match) {
+                case SUBREDDITS_SELECT:
+                    Log.e("SELECT => ", "[]");
+                    MatrixCursor cursor = new MatrixCursor(SubredditsContract.PROJECTION);
+                    List<Subreddit> subreddits = SubredditsDao.getSubreddits();
+                    for (Subreddit subreddit : subreddits){
+                        cursor.addRow(new Object[]{subreddit._id, subreddit.name});
+                    }
 
-                cursor.setNotificationUri(getContext().getContentResolver(), NOTIFICATION_URI);
-
-                return cursor;
+                    Log.e("cursor => ", "[" + cursor.toString());
+                    cursor.setNotificationUri(getContext().getContentResolver(), NOTIFICATION_URI);
+                    Log.e("SIZE => ", "[" + cursor.getCount());
+                    return cursor;
             }
-
         } catch (Exception e) {
+            Log.e("EXC => ", "[]" + e.getMessage());
         }
         return null;
     }
@@ -59,11 +80,18 @@ public class MyContentProvider extends ContentProvider
 
     @Override
     public Uri insert(Uri uri, ContentValues contentValues) {
-        try {
-            if (uri.toString().equals(SUBREDDITS_REQUEST)) {
-                SubredditsDao.saveDefaultSubreddits(getContext());
-            }
+        final int match = uriMatcher.match(uri);
 
+        try {
+            switch (match) {
+                case SUBREDDITS_REINIT:
+                    SubredditsDao.saveDefaultSubreddits(getContext());
+                    break;
+                case SUBREDDITS_ADD:
+                    Log.e("INSERT => ", "== ");
+                    SubredditsDao.insertPost(contentValues);
+                    break;
+            }
             getContext().getContentResolver().notifyChange(NOTIFICATION_URI, null);
 
         } catch (Exception e) {
@@ -75,11 +103,14 @@ public class MyContentProvider extends ContentProvider
     @Override
     public int delete(Uri uri, String where, String[] whereArgs) {
 
+        final int match = uriMatcher.match(uri);
         int nbDeletion = 0;
 
         try {
-            if (uri.toString().equals(SUBREDDITS_REQUEST)) {
-                nbDeletion = SubredditsDao.deletePost(where, whereArgs);
+            switch (match) {
+                case SUBREDDITS_DELETE:
+                    nbDeletion = SubredditsDao.deletePost(where, whereArgs);
+                    break;
             }
         } catch (Exception e) {
 

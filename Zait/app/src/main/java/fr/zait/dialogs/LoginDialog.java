@@ -7,6 +7,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 
 import fr.zait.R;
+import fr.zait.utils.DialogUtils;
 
 public class LoginDialog extends DialogFragment
 {
@@ -20,7 +21,7 @@ public class LoginDialog extends DialogFragment
 
                     }
                 })
-                .setNegativeButton(R.string.cancel_upp, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
                     }
@@ -33,8 +34,7 @@ public class LoginDialog extends DialogFragment
             @Override
             public void onShow(DialogInterface arg)
             {
-                dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.primaryDarkColor));
-                dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.primaryDarkColor));
+                DialogUtils.setButtonStyle(dialog, getActivity());
             }
         });
 

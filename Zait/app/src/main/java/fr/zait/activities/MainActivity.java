@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import fr.zait.R;
+import fr.zait.dialogs.AddSubredditDialog;
 import fr.zait.dialogs.DeleteSubredditDialog;
 import fr.zait.dialogs.LoginDialog;
 import fr.zait.dialogs.ReinitSubredditsDialog;
@@ -28,8 +29,9 @@ public class MainActivity extends FragmentActivity implements NavigationView.OnN
     private static final String MY_SUBREDDITS_TAG = "SUBREDDITS";
 
     private static final String LOGIN_TAG = "LOGIN";
-    private static final String REINIT_DIALOG_TAG = "REINIT";
-    private static final String DELETE_DIALOG_TAG = "DELETE";
+    private static final String REINIT_SUBREDDITS_DIALOG_TAG = "REINIT_SUBS";
+    private static final String DELETE_SUBREDDIT_DIALOG_TAG = "DELETE_SUB";
+    private static final String ADD_SUBBREDIT_DIALOG_TAG = "ADD_SUB";
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -165,15 +167,20 @@ public class MainActivity extends FragmentActivity implements NavigationView.OnN
     }
 
     @Override
-    public void displayReinitDialog()
+    public void displayReinitSubredditsDialog()
     {
-        new ReinitSubredditsDialog().show(getSupportFragmentManager(), REINIT_DIALOG_TAG);
+        new ReinitSubredditsDialog().show(getSupportFragmentManager(), REINIT_SUBREDDITS_DIALOG_TAG);
     }
 
     @Override
-    public void displayDeleteDialog(String subredditName, String where, String[] whereArgs) {
+    public void displayDeleteSubredditDialog(String subredditName, String where, String[] whereArgs) {
         DeleteSubredditDialog dialog = DeleteSubredditDialog.newInstance(subredditName, where, whereArgs);
-        dialog.show(getSupportFragmentManager(), DELETE_DIALOG_TAG);
+        dialog.show(getSupportFragmentManager(), DELETE_SUBREDDIT_DIALOG_TAG);
+    }
+
+    @Override
+    public void displayAddSubredditDialog() {
+        new AddSubredditDialog().show(getSupportFragmentManager(), ADD_SUBBREDIT_DIALOG_TAG);
     }
 
 

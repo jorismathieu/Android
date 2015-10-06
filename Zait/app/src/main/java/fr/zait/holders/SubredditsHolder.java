@@ -17,7 +17,6 @@ public class SubredditsHolder extends MyHolder
 
     public SubredditsHolder(Context context, View view) {
         super(context, view);
-
         subredditTv = (TextView) view.findViewById(R.id.subreddit_name);
         removeIcon = view.findViewById(R.id.remove_icon);
     }
@@ -37,7 +36,7 @@ public class SubredditsHolder extends MyHolder
                 String where = SubredditsContract.SubredditsEntry._ID + " = ?";
                 String[] whereArgs = {String.valueOf(id)};
                 DialogCallbackActivity callbackActivity = (DialogCallbackActivity) cxt;
-                callbackActivity.displayDeleteDialog(subredditName, where, whereArgs);
+                callbackActivity.displayDeleteSubredditDialog(subredditName, where, whereArgs);
             }
         });
     }

@@ -7,7 +7,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 
 import fr.zait.R;
-import fr.zait.data.database.MyContentProvider;
 import fr.zait.data.database.contract.SubredditsContract;
 import fr.zait.utils.DialogUtils;
 
@@ -43,7 +42,7 @@ public class DeleteSubredditDialog extends DialogFragment
         builder.setTitle(R.string.dialog_delete_subreddit_title)
                 .setMessage(getString(R.string.delete) + " " + subredditName + "?")
                 .setIcon(R.drawable.ic_warning_black_24dp)
-                .setPositiveButton(R.string.ok_upp, new DialogInterface.OnClickListener()
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
                 {
                     public void onClick(DialogInterface dialog, int whichButton)
                     {
@@ -54,10 +53,10 @@ public class DeleteSubredditDialog extends DialogFragment
                             whereArgs = getArguments().getStringArray(WHERE_ARGS);
                         }
 
-                        getActivity().getContentResolver().delete(MyContentProvider.getURIFromTable(SubredditsContract.TABLE_NAME), where, whereArgs);
+                        getActivity().getContentResolver().delete(SubredditsContract.DELETE_URI, where, whereArgs);
                     }
                 })
-                .setNegativeButton(R.string.cancel_upp, null);
+                .setNegativeButton(R.string.cancel, null);
 
         final AlertDialog dialog = builder.create();
 
@@ -66,7 +65,7 @@ public class DeleteSubredditDialog extends DialogFragment
             @Override
             public void onShow(DialogInterface arg)
             {
-                DialogUtils.setDefaultColors(dialog, getActivity());
+                DialogUtils.setButtonStyle(dialog, getActivity());
             }
         });
 

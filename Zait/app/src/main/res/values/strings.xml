@@ -6,10 +6,9 @@
     <string name="comment">Comment</string>
     <string name="comment_plur">Comments</string>
     <string name="ok">Ok</string>
-    <string name="ok_upp">OK</string>
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
-    <string name="cancel_upp">CANCEL</string>
+    <string name="add">ADD</string>
 
     <!-- Navigation Menu -->
     <string name="navigation_loggedout">Logged out</string>
@@ -32,14 +31,17 @@
 
     <!-- Dialogs -->
     <string name="dialog_login_title">Log in to Reddit</string>
-    <string name="dialog_login_enter_name">Enter Name:</string>
-    <string name="dialog_login_enter_passwd">Enter Password:</string>
-    <string name="dialog_login_login">LOGIN</string>
+    <string name="dialog_login_enter_name">Enter Name</string>
+    <string name="dialog_login_enter_passwd">Enter Password</string>
+    <string name="dialog_login_login">Login</string>
 
     <string name="dialog_delete_subreddit_title">Delete Subreddit</string>
 
     <string name="dialog_reinit_subreddits_title">Reinitialization</string>
     <string name="dialog_reinit_subreddits_message">Reset subreddits?</string>
+
+    <string name="dialog_add_subreddit_title">Add a new Subreddit...</string>
+    <string name="dialog_add_subreddit_enter_name">Enter Name</string>
 
     <!-- Errors -->
     <string name="connection_error">Connection error</string>
