@@ -22,10 +22,10 @@
     <color name="light_gray">#C9C7C7</color>
 
     <!-- Main colors -->
-    <color name="primaryColor">#7F00FF</color>
-    <color name="primaryDarkColor">#6C00E0</color>
+    <color name="primaryColor">#673AB7</color>
+    <color name="primaryDarkColor">#512DA8</color>
 
-    <color name="primaryDarkColorTransparent">#AA5200AB</color>
+    <color name="primaryDarkColorTransparent">#AA512DA8</color>
 
     <color name="icon_gray">#757575</color>
 

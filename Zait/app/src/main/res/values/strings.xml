@@ -10,6 +10,12 @@
     <string name="delete">Delete</string>
     <string name="add">ADD</string>
 
+    <string name="search">Search...</string>
+
+    <string name="settings">Settings</string>
+    <string name="general">General</string>
+    <string name="appearance">Appearance</string>
+
     <!-- Navigation Menu -->
     <string name="navigation_loggedout">Logged out</string>
     <string name="navigation_home">Home</string>
@@ -49,5 +55,19 @@
     <!-- Titles -->
     <string name="my_subreddits_title">Subreddits</string>
 
+    <!-- Settings -->
+    <string name="general_title">General</string>
+    <string name="general_subtitle">Tips, Animations, Pre-fetch</string>
+    <string name="appearance_title">Appearance</string>
+    <string name="appearance_subtitle">Text size, fonts, View type</string>
+
+    <string name="tips">Tips</string>
+    <string name="animations">Animations</string>
+    <string name="display_tips">Display Tips</string>
+    <string name="comment_navigation">Comment Navigation</string>
+    <string name="fade_in_thumbnail">Fade in Thumbnail</string>
+    <string name="application">Application</string>
+    <string name="theme">Theme</string>
+    <string name="text_size">Text Size</string>
 
 </resources>

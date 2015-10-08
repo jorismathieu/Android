@@ -47,28 +47,19 @@ public class MyContentProvider extends ContentProvider
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
         final int match = uriMatcher.match(uri);
 
-
-        Log.e("Uri => ", "[" + uri.toString());
-
-        Log.e("match", "[" + match);
-
         try {
             switch (match) {
                 case SUBREDDITS_SELECT:
-                    Log.e("SELECT => ", "[]");
                     MatrixCursor cursor = new MatrixCursor(SubredditsContract.PROJECTION);
                     List<Subreddit> subreddits = SubredditsDao.getSubreddits();
                     for (Subreddit subreddit : subreddits){
                         cursor.addRow(new Object[]{subreddit._id, subreddit.name});
                     }
 
-                    Log.e("cursor => ", "[" + cursor.toString());
                     cursor.setNotificationUri(getContext().getContentResolver(), NOTIFICATION_URI);
-                    Log.e("SIZE => ", "[" + cursor.getCount());
                     return cursor;
             }
         } catch (Exception e) {
-            Log.e("EXC => ", "[]" + e.getMessage());
         }
         return null;
     }

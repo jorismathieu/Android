@@ -3,10 +3,7 @@ package fr.zait.fragments;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -23,15 +20,18 @@ import java.util.List;
 
 import fr.zait.MySharedPreferences;
 import fr.zait.R;
+import fr.zait.activities.base.DialogCallbackActivity;
+import fr.zait.activities.base.FragmentCallbackActivity;
 import fr.zait.adapters.HomeAdapter;
 import fr.zait.controllers.SubredditRefreshingController;
 import fr.zait.data.database.dao.SubredditsDao;
 import fr.zait.data.entities.Subreddit;
+import fr.zait.fragments.base.MyFragment;
 import fr.zait.listeners.RecyclerItemClickListener;
 import fr.zait.requests.FetchPostFromSubreddit;
 import fr.zait.utils.StringUtils;
 
-public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemSelectedListener
+public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemSelectedListener
 {
 
     private HomeAdapter recyclerAdapter;
@@ -48,6 +48,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private List<String> spinnerArray;
     private String selectedSubreddit;
     private List<Subreddit> subreddits;
+    private Spinner subredditItems;
 
     /***
      *
@@ -89,19 +90,19 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         fetchPostFromSubreddit.fetchMorePosts();
     }
 
-    private void initVariables() {
+    @Override
+    protected void initVariables() {
         fetchPostFromSubreddit =  new FetchPostFromSubreddit(getActivity(), selectedSubreddit, recyclerAdapter);
     }
 
-    private void initViews(View view) {
+    @Override
+    protected void initViews(View view) {
 
         // Main views
         subredditRefreshingController = new SubredditRefreshingController(getActivity(), view, this);
-        DrawerLayout drawerLayout =  (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
         Toolbar toolbar = (Toolbar)view.findViewById(R.id.home_toolbar);
-        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
-        drawerToggle.syncState();
-        drawerLayout.setDrawerListener(drawerToggle);
+        DialogCallbackActivity dialogCallbackActivity = (DialogCallbackActivity) getActivity();
+        dialogCallbackActivity.attachDrawerToggle(toolbar);
         toolbar.inflateMenu(R.menu.menu_home);
 
         // Recycler view
@@ -151,7 +152,12 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         // Subreddits views
         subreddits = SubredditsDao.getSubreddits();
         spinnerArray =  new ArrayList<String>();
-        selectedSubreddit = MySharedPreferences.getMySharedPreferences(getActivity()).getString(MySharedPreferences.SELECTED_SUBREDDIT, "");
+        if (getArguments() != null && !StringUtils.isEmpty(getArguments().getString(FragmentCallbackActivity.EXTRAS.SUBREDDIT_NAME))) {
+            selectedSubreddit = getArguments().getString(FragmentCallbackActivity.EXTRAS.SUBREDDIT_NAME);
+            MySharedPreferences.getMySharedPreferences(getActivity()).edit().putString(MySharedPreferences.SELECTED_SUBREDDIT, selectedSubreddit).commit();
+        } else {
+            selectedSubreddit = MySharedPreferences.getMySharedPreferences(getActivity()).getString(MySharedPreferences.SELECTED_SUBREDDIT, "");
+        }
         for (int i = 0; i < subreddits.size(); i++) {
             spinnerArray.add(subreddits.get(i).name);
             if (StringUtils.isEmpty(selectedSubreddit) && i == 0) {
@@ -159,7 +165,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             }
         }
 
-        Spinner subredditItems = (Spinner) view.findViewById(R.id.spinner_subreddits);
+        subredditItems = (Spinner) view.findViewById(R.id.spinner_subreddits);
         if (spinnerArray.size() > 0) {
             ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, spinnerArray);
             spinnerAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);

@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import fr.zait.R;
 import fr.zait.data.database.contract.SubredditsContract;
-import fr.zait.dialogs.base.DialogCallbackActivity;
+import fr.zait.activities.base.DialogCallbackActivity;
 import fr.zait.holders.base.MyHolder;
 
 public class SubredditsHolder extends MyHolder

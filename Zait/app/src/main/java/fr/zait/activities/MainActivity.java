@@ -1,32 +1,34 @@
 package fr.zait.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import fr.zait.R;
+import fr.zait.activities.base.DialogCallbackActivity;
+import fr.zait.activities.base.FragmentCallbackActivity;
+import fr.zait.activities.base.MyActivity;
 import fr.zait.dialogs.AddSubredditDialog;
 import fr.zait.dialogs.DeleteSubredditDialog;
 import fr.zait.dialogs.LoginDialog;
 import fr.zait.dialogs.ReinitSubredditsDialog;
-import fr.zait.dialogs.base.DialogCallbackActivity;
 import fr.zait.fragments.HomeFragment;
 import fr.zait.fragments.MySubredditsFragment;
+import fr.zait.fragments.SearchFragment;
 import fr.zait.utils.AnimationUtils;
 
 
-public class MainActivity extends FragmentActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, DialogCallbackActivity
+public class MainActivity extends MyActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, DialogCallbackActivity, FragmentCallbackActivity
 {
-
-    private static final String HOME_FRAGMENT_TAG = "HOME";
-    private static final String MY_SUBREDDITS_TAG = "SUBREDDITS";
 
     private static final String LOGIN_TAG = "LOGIN";
     private static final String REINIT_SUBREDDITS_DIALOG_TAG = "REINIT_SUBS";
@@ -40,6 +42,7 @@ public class MainActivity extends FragmentActivity implements NavigationView.OnN
 
     private HomeFragment homeFragment;
     private MySubredditsFragment mySubredditsFragment;
+    private SearchFragment searchFragment;
 
     private ImageView expandIcon;
     private int rotationAngle = 0;
@@ -66,19 +69,23 @@ public class MainActivity extends FragmentActivity implements NavigationView.OnN
      *
      * ***/
 
-    private void initVariables() {
-    }
-
-    private void loadFragment(Fragment fragment, String tag) {
+    private void loadFragment(Fragment fragment, Bundle args, String tag) {
         Fragment currentFragment = getSupportFragmentManager().findFragmentByTag(tag);
         if (currentFragment == null || !currentFragment.isVisible()) {
+            fragment.setArguments(args);
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.content_frame, fragment, tag);
             fragmentTransaction.commit();
         }
     }
 
-    private void initViews(Bundle savedInstanceState) {
+    @Override
+    protected void initVariables() {
+    }
+
+
+    @Override
+    protected void initViews(Bundle savedInstanceState) {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
@@ -91,9 +98,10 @@ public class MainActivity extends FragmentActivity implements NavigationView.OnN
 
         homeFragment = new HomeFragment();
         mySubredditsFragment = new MySubredditsFragment();
+        searchFragment = new SearchFragment();
 
         if (savedInstanceState == null) {
-            loadFragment(homeFragment, HOME_FRAGMENT_TAG);
+            loadFragment(homeFragment, null, HOME_FRAGMENT_TAG);
         }
 
         View addAccountRow = initLoginRows(R.id.add_account_row, R.drawable.ic_add_gray_24dp);
@@ -138,18 +146,24 @@ public class MainActivity extends FragmentActivity implements NavigationView.OnN
     @Override
     public boolean onNavigationItemSelected(MenuItem menuItem)
     {
-        drawerLayout.closeDrawers();
         menuItem.setChecked(true);
         switch (menuItem.getItemId()) {
             case R.id.nav_home:
-                loadFragment(homeFragment, HOME_FRAGMENT_TAG);
+                drawerLayout.closeDrawers();
+                loadFragment(homeFragment, null, HOME_FRAGMENT_TAG);
                 break;
             case R.id.nav_mysubreddits:
-                loadFragment(mySubredditsFragment, MY_SUBREDDITS_TAG);
+                drawerLayout.closeDrawers();
+                loadFragment(mySubredditsFragment, null, MY_SUBREDDITS_TAG);
                 break;
             case R.id.nav_search:
+                drawerLayout.closeDrawers();
+                loadFragment(searchFragment, null, SEARCH_FRAGMENT);
                 break;
             case R.id.nav_settings:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.hold);
                 break;
         }
         return true;
@@ -164,6 +178,14 @@ public class MainActivity extends FragmentActivity implements NavigationView.OnN
         } else {
             navigationDrawerHeaderLogin.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void attachDrawerToggle(Toolbar toolbar)
+    {
+        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
+        drawerToggle.syncState();
+        drawerLayout.setDrawerListener(drawerToggle);
     }
 
     @Override
@@ -184,4 +206,13 @@ public class MainActivity extends FragmentActivity implements NavigationView.OnN
     }
 
 
+    @Override
+    public void switchFragment(String tag, Bundle args)
+    {
+        switch (tag) {
+            case HOME_FRAGMENT_TAG:
+                loadFragment(homeFragment, args, HOME_FRAGMENT_TAG);
+                break;
+        }
+    }
 }

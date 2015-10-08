@@ -19,6 +19,12 @@ public class SubredditsAdapter extends MyAdapter
         layoutInflater = LayoutInflater.from(cxt);
     }
 
+    public Cursor getCursor(int position) {
+        Cursor toReturn = getCursor();
+        toReturn.moveToPosition(position);
+        return toReturn;
+    }
+
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent)
     {

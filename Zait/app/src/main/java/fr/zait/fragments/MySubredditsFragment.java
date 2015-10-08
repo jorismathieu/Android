@@ -4,12 +4,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,11 +14,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import fr.zait.R;
+import fr.zait.activities.base.DialogCallbackActivity;
+import fr.zait.activities.base.FragmentCallbackActivity;
 import fr.zait.adapters.SubredditsAdapter;
 import fr.zait.data.database.contract.SubredditsContract;
-import fr.zait.dialogs.base.DialogCallbackActivity;
+import fr.zait.fragments.base.MyListFragment;
 
-public class MySubredditsFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener, View.OnClickListener
+public class MySubredditsFragment extends MyListFragment implements LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener, AdapterView.OnItemClickListener
 {
 
     /***
@@ -49,26 +48,25 @@ public class MySubredditsFragment extends ListFragment implements LoaderManager.
      *
      * ***/
 
-    private void initVariables() {
+    @Override
+    protected void initVariables() {
         if (getActivity().getSupportLoaderManager().getLoader(R.id.SQL_QUERY_GET_SUBREDDITS) != null) {
             getActivity().getSupportLoaderManager().restartLoader(R.id.SQL_QUERY_GET_SUBREDDITS, null, this);
         } else {
             getActivity().getSupportLoaderManager().initLoader(R.id.SQL_QUERY_GET_SUBREDDITS, null, this);
         }
 }
-
-    private void initViews(View view) {
-        DrawerLayout drawerLayout =  (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.my_subreddit_toolbar);
-        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
-        drawerToggle.syncState();
-        drawerLayout.setDrawerListener(drawerToggle);
+    @Override
+    protected void initViews(View view) {
+        DialogCallbackActivity dialogCallbackActivity = (DialogCallbackActivity) getActivity();
+        dialogCallbackActivity.attachDrawerToggle((Toolbar) view.findViewById(R.id.my_subreddit_toolbar));
 
         View reinitIcon = view.findViewById(R.id.reinit_icon);
         reinitIcon.setOnClickListener(this);
 
         FloatingActionButton floatingActionButton = (FloatingActionButton) view.findViewById(R.id.my_subreddit_fab);
         floatingActionButton.setOnClickListener(this);
+
     }
 
     /***
@@ -92,6 +90,7 @@ public class MySubredditsFragment extends ListFragment implements LoaderManager.
         try {
             if (loader.getId() == R.id.SQL_QUERY_GET_SUBREDDITS) {
                 if (cursor != null) {
+                    getListView().setOnItemClickListener(this);
                     SubredditsAdapter adapter = (SubredditsAdapter) getListAdapter();
                     if (adapter == null) {
                         adapter = new SubredditsAdapter(getActivity(), cursor);
@@ -118,6 +117,7 @@ public class MySubredditsFragment extends ListFragment implements LoaderManager.
             return;
         }
         if (loader.getId() == R.id.SQL_QUERY_GET_SUBREDDITS) {
+            getListView().setOnItemClickListener(null);
             SubredditsAdapter adapter = (SubredditsAdapter) getListAdapter();
             if (adapter == null) {
                 adapter = new SubredditsAdapter(c, null);
@@ -126,12 +126,6 @@ public class MySubredditsFragment extends ListFragment implements LoaderManager.
                 adapter.changeCursor(null);
             }
         }
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> adapter, View view, int position, long arg3)
-    {
-
     }
 
     @Override
@@ -146,5 +140,18 @@ public class MySubredditsFragment extends ListFragment implements LoaderManager.
                 callbackActivity.displayAddSubredditDialog();
                 break;
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+    {
+        SubredditsAdapter subredditsAdapter = (SubredditsAdapter) getListAdapter();
+        Cursor cursor = subredditsAdapter.getCursor(position);
+        String subredditName = cursor.getString(cursor.getColumnIndex(SubredditsContract.SubredditsEntry.COLUMN_NAME));
+        Bundle args = new Bundle();
+        args.putString(FragmentCallbackActivity.EXTRAS.SUBREDDIT_NAME, subredditName);
+
+        FragmentCallbackActivity activity = (FragmentCallbackActivity) getActivity();
+        activity.switchFragment(FragmentCallbackActivity.HOME_FRAGMENT_TAG, args);
     }
 }

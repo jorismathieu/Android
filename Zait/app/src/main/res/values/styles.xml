@@ -33,4 +33,14 @@
         <item name="android:overlapAnchor">true</item>
     </style>
 
+    <style name="SubSettingTitleStyle">
+        <item name="android:textSize">@dimen/sub_setting_title_size</item>
+        <item name="android:textColor">@color/primaryColor</item>
+    </style>
+
+    <style name="SubSettingOptionStyle">
+        <item name="android:textSize">@dimen/sub_setting_option_sizse</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
 </resources>

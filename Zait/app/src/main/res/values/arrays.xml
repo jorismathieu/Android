@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string-array name="themeColors" >
+        <item>Night</item>
+        <item>Black</item>
+        <item>Purple</item>
+        <item>Pink</item>
+    </string-array>
+
+    <string-array name="textSizes" >
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Large</item>
+        <item>xLarge</item>
+    </string-array>
+
     <string-array name="navigationDrawerActions" >
         <item>Home</item>
         <item>My Subreddits</item>

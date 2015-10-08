@@ -6,7 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
+import android.view.WindowManager;
 import android.widget.EditText;
 
 import fr.zait.R;
@@ -25,7 +25,6 @@ public class AddSubredditDialog extends DialogFragment
                     public void onClick(DialogInterface dialog, int id) {
                         EditText subredditEt = (EditText) getDialog().findViewById(R.id.subreddit_name);
                         String subredditName = subredditEt.getText().toString();
-                        Log.e("Name => ", "== " + subredditName);
                         if (!StringUtils.isEmpty(subredditName)) {
                             ContentValues contentValues = new ContentValues();
                             contentValues.put(SubredditsContract.SubredditsEntry.COLUMN_NAME, subredditName);
@@ -37,6 +36,8 @@ public class AddSubredditDialog extends DialogFragment
                 .setNegativeButton(R.string.cancel, null);
 
         final AlertDialog dialog = builder.create();
+
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
         dialog.setOnShowListener(new DialogInterface.OnShowListener()
         {

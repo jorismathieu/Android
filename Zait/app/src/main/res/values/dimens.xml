@@ -17,6 +17,11 @@
     <dimen name="post_sub_text">12sp</dimen>
     <dimen name="post_main_text">16sp</dimen>
 
+    <!-- Settings -->
+    <dimen name="setting_title">18sp</dimen>
+
+    <dimen name="sub_setting_title_size">15sp</dimen>
+    <dimen name="sub_setting_option_sizse">17sp</dimen>
 
 
 </resources>
