@@ -15,7 +15,7 @@ public class ChangeThemeDialog extends DialogFragment
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
         String[] themeColors = getContext().getResources().getStringArray(R.array.themeColors);
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AppCompatAlertDialogStyle);
         builder.setSingleChoiceItems(themeColors, 2, new DialogInterface.OnClickListener()
         {
             public void onClick(DialogInterface dialog, int whichButton)

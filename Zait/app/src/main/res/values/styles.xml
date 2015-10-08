@@ -14,6 +14,8 @@
 
         <item name="colorAccent">@color/primaryDarkColor</item>
 
+        <item name="alertDialogTheme">@style/AppCompatAlertDialogStyle</item>
+
     </style>
 
     <!-- Spinners -->
@@ -41,6 +43,10 @@
     <style name="SubSettingOptionStyle">
         <item name="android:textSize">@dimen/sub_setting_option_sizse</item>
         <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/primaryColor</item>
     </style>
 
 </resources>

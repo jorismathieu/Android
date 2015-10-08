@@ -15,7 +15,7 @@ public class ChangeTextSizeDialog extends DialogFragment
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
         String[] textSizes = getContext().getResources().getStringArray(R.array.textSizes);
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AppCompatAlertDialogStyle);
         builder.setSingleChoiceItems(textSizes, 1, new DialogInterface.OnClickListener()
         {
             public void onClick(DialogInterface dialog, int whichButton)
