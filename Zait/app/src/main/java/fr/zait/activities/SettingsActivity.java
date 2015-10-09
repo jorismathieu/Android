@@ -36,6 +36,8 @@ public class SettingsActivity extends MyActivity implements View.OnClickListener
 
     @Override
     protected void initVariables() {
+        enterAnimId = 0;
+        exitAnimId = R.anim.slide_out_right;
     }
 
 
@@ -79,8 +81,7 @@ public class SettingsActivity extends MyActivity implements View.OnClickListener
 
         switch (v.getId()) {
             case R.id.settings_back_arrow:
-                finish();
-                overridePendingTransition(0, R.anim.slide_out_right);
+                finishWithAnimation();
                 break;
             case R.id.general_settings:
                 intent = new Intent(this, GeneralSettingsActivity.class);

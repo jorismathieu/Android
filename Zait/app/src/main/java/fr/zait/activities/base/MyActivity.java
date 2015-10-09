@@ -9,8 +9,10 @@ import fr.zait.R;
 
 public abstract class MyActivity extends FragmentActivity
 {
-    protected abstract void initVariables();
-    protected abstract void initViews(Bundle savedInstanceState);
+    private static final int DEFAULT_VALUE = -1;
+
+    protected int enterAnimId = DEFAULT_VALUE;
+    protected int exitAnimId = DEFAULT_VALUE;
 
     protected void resetStatusBarColor() {
         Window window = getWindow();
@@ -18,4 +20,19 @@ public abstract class MyActivity extends FragmentActivity
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setStatusBarColor(getResources().getColor(R.color.primaryDarkColor));
     }
+
+    @Override
+    public void onBackPressed() {
+        finishWithAnimation();
+    }
+
+    protected void finishWithAnimation() {
+        finish();
+        if (enterAnimId != DEFAULT_VALUE && exitAnimId != DEFAULT_VALUE) {
+            overridePendingTransition(enterAnimId, exitAnimId);
+        }
+    }
+
+    protected abstract void initVariables();
+    protected abstract void initViews(Bundle savedInstanceState);
 }

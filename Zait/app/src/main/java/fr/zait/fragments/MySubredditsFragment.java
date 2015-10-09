@@ -14,8 +14,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import fr.zait.R;
-import fr.zait.activities.base.DialogCallbackActivity;
-import fr.zait.activities.base.FragmentCallbackActivity;
+import fr.zait.activities.base.DialogCallbackInterface;
+import fr.zait.activities.base.FragmentCallbackInterface;
 import fr.zait.adapters.SubredditsAdapter;
 import fr.zait.data.database.contract.SubredditsContract;
 import fr.zait.fragments.base.MyListFragment;
@@ -58,8 +58,8 @@ public class MySubredditsFragment extends MyListFragment implements LoaderManage
 }
     @Override
     protected void initViews(View view) {
-        DialogCallbackActivity dialogCallbackActivity = (DialogCallbackActivity) getActivity();
-        dialogCallbackActivity.attachDrawerToggle((Toolbar) view.findViewById(R.id.my_subreddit_toolbar));
+        DialogCallbackInterface dialogCallbackInterface = (DialogCallbackInterface) getActivity();
+        dialogCallbackInterface.attachDrawerToggle((Toolbar) view.findViewById(R.id.my_subreddit_toolbar));
 
         View reinitIcon = view.findViewById(R.id.reinit_icon);
         reinitIcon.setOnClickListener(this);
@@ -131,7 +131,7 @@ public class MySubredditsFragment extends MyListFragment implements LoaderManage
     @Override
     public void onClick(View v)
     {
-        DialogCallbackActivity callbackActivity = (DialogCallbackActivity) getActivity();
+        DialogCallbackInterface callbackActivity = (DialogCallbackInterface) getActivity();
         switch (v.getId()) {
             case R.id.reinit_icon:
                 callbackActivity.displayReinitSubredditsDialog();
@@ -149,9 +149,9 @@ public class MySubredditsFragment extends MyListFragment implements LoaderManage
         Cursor cursor = subredditsAdapter.getCursor(position);
         String subredditName = cursor.getString(cursor.getColumnIndex(SubredditsContract.SubredditsEntry.COLUMN_NAME));
         Bundle args = new Bundle();
-        args.putString(FragmentCallbackActivity.EXTRAS.SUBREDDIT_NAME, subredditName);
+        args.putString(FragmentCallbackInterface.EXTRAS.SUBREDDIT_NAME, subredditName);
 
-        FragmentCallbackActivity activity = (FragmentCallbackActivity) getActivity();
-        activity.switchFragment(FragmentCallbackActivity.HOME_FRAGMENT_TAG, args);
+        FragmentCallbackInterface activity = (FragmentCallbackInterface) getActivity();
+        activity.switchFragment(FragmentCallbackInterface.HOME_FRAGMENT_TAG, args);
     }
 }

@@ -40,6 +40,10 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeHolder>
         notifyDataSetChanged();
     }
 
+    public Post getPost(int position) {
+        return posts.get(position);
+    }
+
     public void setPostHasBeenSeen(int position) {
         posts.get(position).hasBeenSeen = true;
     }

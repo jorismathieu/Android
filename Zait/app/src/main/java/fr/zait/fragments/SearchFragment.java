@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import fr.zait.R;
-import fr.zait.activities.base.DialogCallbackActivity;
+import fr.zait.activities.base.DialogCallbackInterface;
 import fr.zait.fragments.base.MyListFragment;
 
 public class SearchFragment extends MyListFragment
@@ -48,8 +48,8 @@ public class SearchFragment extends MyListFragment
     @Override
     protected void initViews(View view) {
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.search_toolbar);
-        DialogCallbackActivity dialogCallbackActivity = (DialogCallbackActivity) getActivity();
-        dialogCallbackActivity.attachDrawerToggle(toolbar);
+        DialogCallbackInterface dialogCallbackInterface = (DialogCallbackInterface) getActivity();
+        dialogCallbackInterface.attachDrawerToggle(toolbar);
 
         toolbar.inflateMenu(R.menu.menu_search);
 

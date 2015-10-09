@@ -2,7 +2,7 @@ package fr.zait.activities.base;
 
 import android.os.Bundle;
 
-public interface FragmentCallbackActivity
+public interface FragmentCallbackInterface
 {
     String HOME_FRAGMENT_TAG = "HOME";
     String MY_SUBREDDITS_TAG = "SUBREDDITS";

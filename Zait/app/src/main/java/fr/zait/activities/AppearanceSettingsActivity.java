@@ -39,7 +39,8 @@ public class AppearanceSettingsActivity extends MyActivity implements View.OnCli
     @Override
     protected void initVariables()
     {
-
+        enterAnimId = 0;
+        exitAnimId = R.anim.slide_out_right;
     }
 
     @Override
@@ -63,8 +64,7 @@ public class AppearanceSettingsActivity extends MyActivity implements View.OnCli
         switch (v.getId())
         {
             case R.id.settings_back_arrow:
-                finish();
-                overridePendingTransition(0, R.anim.slide_out_right);
+                finishWithAnimation();
                 break;
             case R.id.theme:
                 new ChangeThemeDialog().show(getSupportFragmentManager(), CHANGE_THEME_DIALOG_TAG);

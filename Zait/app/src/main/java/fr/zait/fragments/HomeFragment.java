@@ -20,11 +20,13 @@ import java.util.List;
 
 import fr.zait.MySharedPreferences;
 import fr.zait.R;
-import fr.zait.activities.base.DialogCallbackActivity;
-import fr.zait.activities.base.FragmentCallbackActivity;
+import fr.zait.activities.base.DialogCallbackInterface;
+import fr.zait.activities.base.FragmentCallbackInterface;
+import fr.zait.activities.base.PostDetailCallbackInterface;
 import fr.zait.adapters.HomeAdapter;
 import fr.zait.controllers.SubredditRefreshingController;
 import fr.zait.data.database.dao.SubredditsDao;
+import fr.zait.data.entities.Post;
 import fr.zait.data.entities.Subreddit;
 import fr.zait.fragments.base.MyFragment;
 import fr.zait.listeners.RecyclerItemClickListener;
@@ -101,8 +103,8 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         // Main views
         subredditRefreshingController = new SubredditRefreshingController(getActivity(), view, this);
         Toolbar toolbar = (Toolbar)view.findViewById(R.id.home_toolbar);
-        DialogCallbackActivity dialogCallbackActivity = (DialogCallbackActivity) getActivity();
-        dialogCallbackActivity.attachDrawerToggle(toolbar);
+        DialogCallbackInterface dialogCallbackInterface = (DialogCallbackInterface) getActivity();
+        dialogCallbackInterface.attachDrawerToggle(toolbar);
         toolbar.inflateMenu(R.menu.menu_home);
 
         // Recycler view
@@ -118,7 +120,12 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
             {
 //                CardView cardView = (CardView)view.findViewById(R.id.card_view);
 //                cardView.setCardBackgroundColor(R.color.light_gray);
+
                 recyclerAdapter.setPostHasBeenSeen(position);
+
+                Post post = recyclerAdapter.getPost(position);
+                PostDetailCallbackInterface postDetailCallbackInterface = (PostDetailCallbackInterface) getActivity();
+                postDetailCallbackInterface.openPostDetail(post);
             }
         }));
 
@@ -152,8 +159,8 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         // Subreddits views
         subreddits = SubredditsDao.getSubreddits();
         spinnerArray =  new ArrayList<String>();
-        if (getArguments() != null && !StringUtils.isEmpty(getArguments().getString(FragmentCallbackActivity.EXTRAS.SUBREDDIT_NAME))) {
-            selectedSubreddit = getArguments().getString(FragmentCallbackActivity.EXTRAS.SUBREDDIT_NAME);
+        if (getArguments() != null && !StringUtils.isEmpty(getArguments().getString(FragmentCallbackInterface.EXTRAS.SUBREDDIT_NAME))) {
+            selectedSubreddit = getArguments().getString(FragmentCallbackInterface.EXTRAS.SUBREDDIT_NAME);
             MySharedPreferences.getMySharedPreferences(getActivity()).edit().putString(MySharedPreferences.SELECTED_SUBREDDIT, selectedSubreddit).commit();
         } else {
             selectedSubreddit = MySharedPreferences.getMySharedPreferences(getActivity()).getString(MySharedPreferences.SELECTED_SUBREDDIT, "");

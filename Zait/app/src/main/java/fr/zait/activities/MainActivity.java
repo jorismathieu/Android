@@ -14,9 +14,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import fr.zait.R;
-import fr.zait.activities.base.DialogCallbackActivity;
-import fr.zait.activities.base.FragmentCallbackActivity;
+import fr.zait.activities.base.DialogCallbackInterface;
+import fr.zait.activities.base.FragmentCallbackInterface;
 import fr.zait.activities.base.MyActivity;
+import fr.zait.activities.base.PostDetailCallbackInterface;
+import fr.zait.data.entities.Post;
 import fr.zait.dialogs.AddSubredditDialog;
 import fr.zait.dialogs.DeleteSubredditDialog;
 import fr.zait.dialogs.LoginDialog;
@@ -27,7 +29,8 @@ import fr.zait.fragments.SearchFragment;
 import fr.zait.utils.AnimationUtils;
 
 
-public class MainActivity extends MyActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, DialogCallbackActivity, FragmentCallbackActivity
+public class MainActivity extends MyActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener,
+        DialogCallbackInterface, FragmentCallbackInterface, PostDetailCallbackInterface
 {
 
     private static final String LOGIN_TAG = "LOGIN";
@@ -214,5 +217,21 @@ public class MainActivity extends MyActivity implements NavigationView.OnNavigat
                 loadFragment(homeFragment, args, HOME_FRAGMENT_TAG);
                 break;
         }
+    }
+
+    @Override
+    public void openPostDetail(Post post)
+    {
+        Intent intent = null;
+        if (!post.thumbnail.equals("self")) {
+            intent = new Intent(this, PostWebviewActivity.class);
+        }
+
+        if (intent != null) {
+            intent.putExtra(PostWebviewActivity.EXTRAS.POST, post);
+            startActivity(intent);
+            overridePendingTransition(R.anim.push_in_left, R.anim.push_out_left);
+        }
+
     }
 }

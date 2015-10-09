@@ -34,7 +34,8 @@ public class GeneralSettingsActivity extends MyActivity implements View.OnClickL
     @Override
     protected void initVariables()
     {
-
+        enterAnimId = 0;
+        exitAnimId = R.anim.slide_out_right;
     }
 
     @Override
@@ -56,8 +57,7 @@ public class GeneralSettingsActivity extends MyActivity implements View.OnClickL
         switch (v.getId())
         {
             case R.id.settings_back_arrow:
-                finish();
-                overridePendingTransition(0, R.anim.slide_out_right);
+                finishWithAnimation();
                 break;
         }
     }

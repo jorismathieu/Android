@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import fr.zait.R;
 import fr.zait.data.database.contract.SubredditsContract;
-import fr.zait.activities.base.DialogCallbackActivity;
+import fr.zait.activities.base.DialogCallbackInterface;
 import fr.zait.holders.base.MyHolder;
 
 public class SubredditsHolder extends MyHolder
@@ -35,7 +35,7 @@ public class SubredditsHolder extends MyHolder
             {
                 String where = SubredditsContract.SubredditsEntry._ID + " = ?";
                 String[] whereArgs = {String.valueOf(id)};
-                DialogCallbackActivity callbackActivity = (DialogCallbackActivity) cxt;
+                DialogCallbackInterface callbackActivity = (DialogCallbackInterface) cxt;
                 callbackActivity.displayDeleteSubredditDialog(subredditName, where, whereArgs);
             }
         });
