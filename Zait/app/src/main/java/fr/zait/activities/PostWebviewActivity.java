@@ -63,6 +63,7 @@ public class PostWebviewActivity extends MyActivity implements View.OnClickListe
         findViewById(R.id.bottom_previous).setOnClickListener(this);
         findViewById(R.id.bottom_next).setOnClickListener(this);
         findViewById(R.id.refresh_icon).setOnClickListener(this);
+        findViewById(R.id.comment_icon).setOnClickListener(this);
 
         progressBar = (ProgressBar)findViewById(R.id.webview_progress_bar);
 
@@ -117,6 +118,11 @@ public class PostWebviewActivity extends MyActivity implements View.OnClickListe
                 break;
             case R.id.refresh_icon:
                 webview.reload();
+                break;
+            case R.id.comment_icon:
+                Intent intent = new Intent(this, PostCommentsActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.push_in_left, R.anim.push_out_left);
                 break;
         }
     }

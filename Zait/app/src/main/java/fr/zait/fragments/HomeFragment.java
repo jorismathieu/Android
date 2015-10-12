@@ -161,9 +161,9 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         spinnerArray =  new ArrayList<String>();
         if (getArguments() != null && !StringUtils.isEmpty(getArguments().getString(FragmentCallbackInterface.EXTRAS.SUBREDDIT_NAME))) {
             selectedSubreddit = getArguments().getString(FragmentCallbackInterface.EXTRAS.SUBREDDIT_NAME);
-            MySharedPreferences.getMySharedPreferences(getActivity()).edit().putString(MySharedPreferences.SELECTED_SUBREDDIT, selectedSubreddit).commit();
+            MySharedPreferences.getSharedPreferences(getActivity()).edit().putString(MySharedPreferences.SELECTED_SUBREDDIT, selectedSubreddit).commit();
         } else {
-            selectedSubreddit = MySharedPreferences.getMySharedPreferences(getActivity()).getString(MySharedPreferences.SELECTED_SUBREDDIT, "");
+            selectedSubreddit = MySharedPreferences.getSharedPreferences(getActivity()).getString(MySharedPreferences.SELECTED_SUBREDDIT, "");
         }
         for (int i = 0; i < subreddits.size(); i++) {
             spinnerArray.add(subreddits.get(i).name);
@@ -200,7 +200,6 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
             }
         });
 
-
     }
 
     /***
@@ -224,7 +223,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         subredditRefreshingController.setProgressBarVisibility(View.VISIBLE);
         fetchPostFromSubreddit.switchSubredditName(spinnerArray.get(position));
         selectedSubreddit = spinnerArray.get(position);
-        MySharedPreferences.getMySharedPreferences(getActivity()).edit().putString(MySharedPreferences.SELECTED_SUBREDDIT, selectedSubreddit).commit();
+        MySharedPreferences.getSharedPreferences(getActivity()).edit().putString(MySharedPreferences.SELECTED_SUBREDDIT, selectedSubreddit).commit();
         getPostFromCurrentSubreddit();
     }
 

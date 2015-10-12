@@ -225,6 +225,8 @@ public class MainActivity extends MyActivity implements NavigationView.OnNavigat
         Intent intent = null;
         if (!post.thumbnail.equals("self")) {
             intent = new Intent(this, PostWebviewActivity.class);
+        } else {
+            intent = new Intent(this, PostCommentsActivity.class);
         }
 
         if (intent != null) {

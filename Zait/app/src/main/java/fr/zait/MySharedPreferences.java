@@ -10,8 +10,8 @@ public class MySharedPreferences
 
     public static final String PACKAGE_NAME = "fr.zait";
 
-    public static SharedPreferences getMySharedPreferences(Context context) {
-        return context.getSharedPreferences(PACKAGE_NAME, Context.MODE_PRIVATE);
+    public static SharedPreferences getSharedPreferences(Context context) {
+       return context.getSharedPreferences(PACKAGE_NAME, Context.MODE_PRIVATE);
     }
 
 }

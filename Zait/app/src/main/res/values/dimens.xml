@@ -23,5 +23,9 @@
     <dimen name="sub_setting_title_size">15sp</dimen>
     <dimen name="sub_setting_option_sizse">17sp</dimen>
 
+    <!-- Splash screen -->
+    <dimen name="main_title_size">30dp</dimen>
+    <dimen name="main_subtitle_size">25dp</dimen>
+
 
 </resources>

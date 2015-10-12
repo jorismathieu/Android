@@ -16,6 +16,7 @@
 
         <item name="alertDialogTheme">@style/AppCompatAlertDialogStyle</item>
 
+
     </style>
 
     <!-- Spinners -->

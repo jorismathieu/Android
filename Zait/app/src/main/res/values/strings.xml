@@ -70,4 +70,7 @@
     <string name="theme">Theme</string>
     <string name="text_size">Text Size</string>
 
+    <!-- Splash screen -->
+    <string name="an_app_for_reddit">An app for Reddit</string>
+
 </resources>

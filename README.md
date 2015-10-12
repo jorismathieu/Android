@@ -1,6 +1,5 @@
-Zait - An app for reddit
+Zait - An app for Reddit
 _________________________________
 
-IDE : Android Studio
-API targeted 21 (Nexus 4 tested)
+IDE : Android Studio 1.3.2
  

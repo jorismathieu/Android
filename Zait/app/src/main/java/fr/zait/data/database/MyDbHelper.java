@@ -54,12 +54,9 @@ public class MyDbHelper extends SQLiteOpenHelper
 
     }
 
-    public void fillTables() {
-        SharedPreferences sharedPreferences = cxt.getSharedPreferences(MySharedPreferences.PACKAGE_NAME, Context.MODE_PRIVATE);
-
+    public void fillTables(SharedPreferences sharedPreferences) {
         if (sharedPreferences.getBoolean(MySharedPreferences.FIRST_RUN, true)) {
             SubredditsDao.saveDefaultSubreddits(cxt);
-            sharedPreferences.edit().putBoolean(MySharedPreferences.FIRST_RUN, false).commit();
         }
     }
 
