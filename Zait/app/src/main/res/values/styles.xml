@@ -3,14 +3,11 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Holo.Light.NoActionBar">
         <!-- Main colors -->
-        <item name="android:textColorPrimary">@color/gray</item>
-        <item name="android:colorPrimary">@color/primaryColor</item>
-        <item name="android:colorPrimaryDark">@color/primaryDarkColor</item>
-
-        <item name="android:statusBarColor">@color/primaryDarkColorTransparent</item>
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
 
         <item name="selectableItemBackground">?android:selectableItemBackground</item>
-        <item name="android:colorControlHighlight">@color/primaryColor</item>
+        <item name="colorControlHighlight">@color/primaryColor</item>
 
         <item name="colorAccent">@color/primaryDarkColor</item>
 
@@ -33,7 +30,7 @@
         <item name="android:background">?android:selectableItemBackground</item>
         <item name="android:dropDownSelector">?android:selectableItemBackground</item>
         <item name="android:divider">@null</item>
-        <item name="android:overlapAnchor">true</item>
+        <item name="overlapAnchor">true</item>
     </style>
 
     <style name="SubSettingTitleStyle">

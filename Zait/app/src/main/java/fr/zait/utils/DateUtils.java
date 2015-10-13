@@ -16,4 +16,13 @@ public class DateUtils
         String result = objFormatter.format(objCalendar.getTime());
         return result;
     }
+
+    public static boolean isDuringNight() {
+        Calendar cal = Calendar.getInstance();
+        int currentHour = cal.get(Calendar.HOUR_OF_DAY);
+        if (currentHour >= 22 || currentHour <= 7) {
+            return true;
+        }
+        return false;
+    }
 }

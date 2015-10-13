@@ -1,5 +1,6 @@
 package fr.zait.activities.base;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Window;
@@ -18,7 +19,10 @@ public abstract class MyActivity extends FragmentActivity
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(getResources().getColor(R.color.primaryDarkColor));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        {
+            window.setStatusBarColor(getResources().getColor(R.color.primaryDarkColor));
+        }
     }
 
     @Override

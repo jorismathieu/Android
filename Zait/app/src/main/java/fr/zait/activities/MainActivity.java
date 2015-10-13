@@ -27,6 +27,7 @@ import fr.zait.fragments.HomeFragment;
 import fr.zait.fragments.MySubredditsFragment;
 import fr.zait.fragments.SearchFragment;
 import fr.zait.utils.AnimationUtils;
+import fr.zait.utils.NotificationsUtils;
 
 
 public class MainActivity extends MyActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener,
@@ -62,6 +63,9 @@ public class MainActivity extends MyActivity implements NavigationView.OnNavigat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
 
+        if ((getIntent().getAction() != null)) {
+            NotificationsUtils.checkOpenInternal(this, getIntent());
+        }
         initVariables();
         initViews(savedInstanceState);
     }
