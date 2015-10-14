@@ -7,7 +7,6 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
-import android.util.Log;
 
 import java.util.List;
 
@@ -79,7 +78,6 @@ public class MyContentProvider extends ContentProvider
                     SubredditsDao.saveDefaultSubreddits(getContext());
                     break;
                 case SUBREDDITS_ADD:
-                    Log.e("INSERT => ", "== ");
                     SubredditsDao.insertPost(contentValues);
                     break;
             }
