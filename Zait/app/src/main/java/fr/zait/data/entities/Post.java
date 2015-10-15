@@ -8,6 +8,7 @@ public class Post implements Parcelable
     public String subreddit;
     public String title;
     public String author;
+    public String text;
     public int points;
     public int numComments;
     public String permalink;
@@ -22,7 +23,7 @@ public class Post implements Parcelable
     }
 
     public Post(Parcel in){
-        String[] data = new String[12];
+        String[] data = new String[13];
 
         in.readStringArray(data);
 
@@ -38,6 +39,7 @@ public class Post implements Parcelable
         createdUtc = Long.valueOf(data[9]);
         thumbnail = data[10];
         hasBeenSeen = Boolean.getBoolean(data[11]);
+        text = data[12];
     }
 
     @Override
@@ -59,7 +61,8 @@ public class Post implements Parcelable
                 id,
                 String.valueOf(createdUtc),
                 thumbnail,
-                String.valueOf(hasBeenSeen)});
+                String.valueOf(hasBeenSeen),
+                text});
     }
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {

@@ -27,5 +27,9 @@
     <dimen name="main_title_size">30dp</dimen>
     <dimen name="main_subtitle_size">25dp</dimen>
 
+    <!-- Comments -->
+    <dimen name="comment_main_text">14sp</dimen>
+    <dimen name="comment_sub_text">12sp</dimen>
+
 
 </resources>

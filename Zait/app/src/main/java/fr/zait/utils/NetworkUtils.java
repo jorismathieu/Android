@@ -27,7 +27,7 @@ public class NetworkUtils
             return null;
         try {
             StringBuffer sb = new StringBuffer(8192);
-            String tmp="";
+            String tmp = "";
             BufferedReader br = new BufferedReader(
                     new InputStreamReader(
                             hcon.getInputStream()

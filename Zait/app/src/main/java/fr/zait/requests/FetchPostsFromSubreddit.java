@@ -14,19 +14,19 @@ import fr.zait.data.entities.Post;
 import fr.zait.requests.base.Request;
 import fr.zait.utils.NetworkUtils;
 
-public class FetchPostFromSubreddit extends Request
+public class FetchPostsFromSubreddit extends Request
 {
-    private static final String SUBREDDIT_NAME_KEY = "SUBREDDIT_NAME";
-    private static final String AFTER_KEY = "AFTER";
     private static final String URL_TEMPLATE = "http://www.reddit.com/r/" + SUBREDDIT_NAME_KEY + "/.json?after=" + AFTER_KEY;
 
-    private Context context;
     private String subreddit;
     private String after;
+    private Context context;
+    private String url;
+
     public List<Post> posts;
     private HomeAdapter adapter;
 
-    public FetchPostFromSubreddit(Context cxt, String subr, HomeAdapter adapt) {
+    public FetchPostsFromSubreddit(Context cxt, String subr, HomeAdapter adapt) {
         subreddit = subr;
         context = cxt;
         after = "";
@@ -96,6 +96,7 @@ public class FetchPostFromSubreddit extends Request
                         p.id = cur.optString("id");
                         p.createdUtc = cur.optLong("created_utc");
                         p.thumbnail = cur.optString("thumbnail");
+                        p.text = cur.optString("selftext");
                         p.hasBeenSeen = false;
                         if (p.title != null)
                             posts.add(p);

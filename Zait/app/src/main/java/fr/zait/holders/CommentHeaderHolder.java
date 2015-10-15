@@ -13,10 +13,12 @@ import fr.zait.data.entities.Post;
 import fr.zait.holders.base.MyRecyclerHolder;
 import fr.zait.utils.DateUtils;
 
-public class HomeHolder extends MyRecyclerHolder
+public class CommentHeaderHolder extends MyRecyclerHolder
 {
+
     private TextView title;
     private TextView author;
+    private TextView body;
     private TextView subreddit;
     private TextView points;
     private TextView commentNumber;
@@ -28,9 +30,11 @@ public class HomeHolder extends MyRecyclerHolder
 
     private ImageView postThumbnail;
 
-    public HomeHolder(Context context, View v)
+
+    public CommentHeaderHolder(Context context, View v)
     {
         super(context, v);
+
         title = (TextView) v.findViewById(R.id.title);
         author = (TextView) v.findViewById(R.id.author);
         subreddit = (TextView) v.findViewById(R.id.subreddit);
@@ -38,6 +42,7 @@ public class HomeHolder extends MyRecyclerHolder
         commentNumber = (TextView) v.findViewById(R.id.comment_number);
         url = (TextView) v.findViewById(R.id.url);
         date = (TextView) v.findViewById(R.id.date);
+        body  = (TextView) v.findViewById(R.id.body);
         postThumbnail = (ImageView) v.findViewById(R.id.post_image);
         container = v.findViewById(R.id.card_container);
         cardView = (CardView) v.findViewById(R.id.card_view);
@@ -58,6 +63,8 @@ public class HomeHolder extends MyRecyclerHolder
             url.setText(post.domain);
             date.setText(DateUtils.getDateFromTimestamp(post.createdUtc));
 
+            body.setText(post.text);
+
             if (!post.thumbnail.equals("self")) {
                 postThumbnail.setVisibility(View.VISIBLE);
                 Ion.with(postThumbnail).load(post.thumbnail);
@@ -70,4 +77,3 @@ public class HomeHolder extends MyRecyclerHolder
         }
     }
 }
-

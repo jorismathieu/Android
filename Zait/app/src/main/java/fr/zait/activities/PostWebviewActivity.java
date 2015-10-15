@@ -121,6 +121,7 @@ public class PostWebviewActivity extends MyActivity implements View.OnClickListe
                 break;
             case R.id.comment_icon:
                 Intent intent = new Intent(this, PostCommentsActivity.class);
+                intent.putExtra(PostCommentsActivity.EXTRAS.POST, post);
                 startActivity(intent);
                 overridePendingTransition(R.anim.push_in_left, R.anim.push_out_left);
                 break;

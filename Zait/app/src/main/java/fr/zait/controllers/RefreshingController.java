@@ -7,21 +7,20 @@ import android.widget.ProgressBar;
 
 import fr.zait.R;
 import fr.zait.controllers.base.MyController;
-import fr.zait.fragments.HomeFragment;
 import fr.zait.utils.ErrorUtils;
 
-public class SubredditRefreshingController extends MyController
+public class RefreshingController extends MyController
 {
     private SwipeRefreshLayout swipeRefreshLayout;
     private ProgressBar progressBar;
 
-    private HomeFragment homeFragment;
+    private SwipeRefreshLayout.OnRefreshListener listener;
 
     public boolean isLoading;
 
-    public SubredditRefreshingController(Context context, View rootView, HomeFragment hf) {
+    public RefreshingController(Context context, View rootView, SwipeRefreshLayout.OnRefreshListener lsner) {
         super(context, rootView);
-        homeFragment = hf;
+        listener = lsner;
         isLoading = true;
         initController();
     }
@@ -31,7 +30,7 @@ public class SubredditRefreshingController extends MyController
     {
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setColorSchemeResources(R.color.primaryColor, R.color.primaryDarkColor);
-        swipeRefreshLayout.setOnRefreshListener(homeFragment);
+        swipeRefreshLayout.setOnRefreshListener(listener);
         progressBar = (ProgressBar) rootView.findViewById(R.id.main_progress_bar);
     }
 

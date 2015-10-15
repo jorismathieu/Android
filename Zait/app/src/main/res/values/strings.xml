@@ -9,6 +9,10 @@
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
     <string name="add">ADD</string>
+    <string name="point">point</string>
+    <string name="points">points</string>
+    <string name="answer">answer</string>
+    <string name="answers">answers</string>
 
     <string name="search">Search...</string>
 

@@ -24,21 +24,21 @@ import fr.zait.activities.base.DialogCallbackInterface;
 import fr.zait.activities.base.FragmentCallbackInterface;
 import fr.zait.activities.base.PostDetailCallbackInterface;
 import fr.zait.adapters.HomeAdapter;
-import fr.zait.controllers.SubredditRefreshingController;
+import fr.zait.controllers.RefreshingController;
 import fr.zait.data.database.dao.SubredditsDao;
 import fr.zait.data.entities.Post;
 import fr.zait.data.entities.Subreddit;
 import fr.zait.fragments.base.MyFragment;
 import fr.zait.listeners.RecyclerItemClickListener;
-import fr.zait.requests.FetchPostFromSubreddit;
+import fr.zait.requests.FetchPostsFromSubreddit;
 import fr.zait.utils.StringUtils;
 
-public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemSelectedListener
+public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemSelectedListener, View.OnTouchListener
 {
 
     private HomeAdapter recyclerAdapter;
-    private SubredditRefreshingController subredditRefreshingController;
-    private FetchPostFromSubreddit fetchPostFromSubreddit;
+    private RefreshingController refreshingController;
+    private FetchPostsFromSubreddit fetchPostsFromSubreddit;
 
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
@@ -85,23 +85,23 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
      * ***/
 
     private void getPostFromCurrentSubreddit() {
-        fetchPostFromSubreddit.fetchPosts();
+        fetchPostsFromSubreddit.fetchPosts();
     }
 
     private void getMorePostFromCurrentSubreddit() {
-        fetchPostFromSubreddit.fetchMorePosts();
+        fetchPostsFromSubreddit.fetchMorePosts();
     }
 
     @Override
     protected void initVariables() {
-        fetchPostFromSubreddit =  new FetchPostFromSubreddit(getActivity(), selectedSubreddit, recyclerAdapter);
+        fetchPostsFromSubreddit =  new FetchPostsFromSubreddit(getActivity(), selectedSubreddit, recyclerAdapter);
     }
 
     @Override
     protected void initViews(View view) {
 
         // Main views
-        subredditRefreshingController = new SubredditRefreshingController(getActivity(), view, this);
+        refreshingController = new RefreshingController(getActivity(), view, this);
         Toolbar toolbar = (Toolbar)view.findViewById(R.id.home_toolbar);
         DialogCallbackInterface dialogCallbackInterface = (DialogCallbackInterface) getActivity();
         dialogCallbackInterface.attachDrawerToggle(toolbar);
@@ -111,7 +111,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         recyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        recyclerAdapter = new HomeAdapter(getActivity(), subredditRefreshingController);
+        recyclerAdapter = new HomeAdapter(getActivity(), refreshingController);
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener()
         {
@@ -140,18 +140,18 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
                 totalItemCount = layoutManager.getItemCount();
                 firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
 
-                if (subredditRefreshingController.isLoading)
+                if (refreshingController.isLoading)
                 {
                     if (totalItemCount > previousTotal)
                     {
-                        subredditRefreshingController.isLoading = false;
+                        refreshingController.isLoading = false;
                         previousTotal = totalItemCount;
                     }
                 }
-                if (!subredditRefreshingController.isLoading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold))
+                if (!refreshingController.isLoading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold))
                 {
                     getMorePostFromCurrentSubreddit();
-                    subredditRefreshingController.setProgressBarVisibility(View.VISIBLE);
+                    refreshingController.setProgressBarVisibility(View.VISIBLE);
                 }
             }
         });
@@ -185,20 +185,8 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         }
 
         // FAB
-
         FloatingActionButton floatingActionButton = (FloatingActionButton) view.findViewById(R.id.home_fab);
-        floatingActionButton.setOnTouchListener(new View.OnTouchListener()
-        {
-            @Override
-            public boolean onTouch(View v, MotionEvent event)
-            {
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    recyclerAdapter.deletePostThatHasBeenSeen();
-                    return true;
-                }
-                return true;
-            }
-        });
+        floatingActionButton.setOnTouchListener(this);
 
     }
 
@@ -211,17 +199,17 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
     @Override
     public void onRefresh()
     {
-        subredditRefreshingController.setSwipeRefreshLayoutRefreshing(true);
-        subredditRefreshingController.setSwipeRefreshLayoutEnabled(false);
-        subredditRefreshingController.setProgressBarVisibility(View.GONE);
+        refreshingController.setSwipeRefreshLayoutRefreshing(true);
+        refreshingController.setSwipeRefreshLayoutEnabled(false);
+        refreshingController.setProgressBarVisibility(View.GONE);
         getPostFromCurrentSubreddit();
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
     {
-        subredditRefreshingController.setProgressBarVisibility(View.VISIBLE);
-        fetchPostFromSubreddit.switchSubredditName(spinnerArray.get(position));
+        refreshingController.setProgressBarVisibility(View.VISIBLE);
+        fetchPostsFromSubreddit.switchSubredditName(spinnerArray.get(position));
         selectedSubreddit = spinnerArray.get(position);
         MySharedPreferences.getSharedPreferences(getActivity()).edit().putString(MySharedPreferences.SELECTED_SUBREDDIT, selectedSubreddit).commit();
         getPostFromCurrentSubreddit();
@@ -232,4 +220,13 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
     {
     }
 
+    @Override
+    public boolean onTouch(View v, MotionEvent event)
+    {
+        if (event.getAction() == MotionEvent.ACTION_UP) {
+            recyclerAdapter.deletePostThatHasBeenSeen();
+            return true;
+        }
+        return true;
+    }
 }
