@@ -1,6 +1,7 @@
 package fr.zait.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -85,6 +86,8 @@ public class PostCommentsActivity extends MyActivity implements View.OnClickList
         findViewById(R.id.post_comments_back_arrow).setOnClickListener(this);
         resetStatusBarColor();
 
+        findViewById(R.id.open_nav_icon).setOnClickListener(this);
+
         // Recycler view
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         layoutManager = new LinearLayoutManager(this);
@@ -153,6 +156,11 @@ public class PostCommentsActivity extends MyActivity implements View.OnClickList
         switch (v.getId()) {
             case R.id.post_comments_back_arrow:
                 finishWithAnimation();
+                break;
+            case R.id.open_nav_icon:
+                String url = "http://www.reddit.com/r/" + post.subreddit + "/comments/" + post.id;
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
                 break;
         }
     }

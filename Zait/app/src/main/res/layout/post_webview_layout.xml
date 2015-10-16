@@ -45,6 +45,22 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/open_nav_icon"
+                android:orientation="vertical"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_public_white_24dp"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
                 android:id="@+id/refresh_icon"
                 android:orientation="vertical"
                 android:layout_width="60dp"

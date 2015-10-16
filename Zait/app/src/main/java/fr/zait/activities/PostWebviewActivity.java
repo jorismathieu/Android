@@ -1,6 +1,7 @@
 package fr.zait.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -64,6 +65,7 @@ public class PostWebviewActivity extends MyActivity implements View.OnClickListe
         findViewById(R.id.bottom_next).setOnClickListener(this);
         findViewById(R.id.refresh_icon).setOnClickListener(this);
         findViewById(R.id.comment_icon).setOnClickListener(this);
+        findViewById(R.id.open_nav_icon).setOnClickListener(this);
 
         progressBar = (ProgressBar)findViewById(R.id.webview_progress_bar);
 
@@ -124,6 +126,10 @@ public class PostWebviewActivity extends MyActivity implements View.OnClickListe
                 intent.putExtra(PostCommentsActivity.EXTRAS.POST, post);
                 startActivity(intent);
                 overridePendingTransition(R.anim.push_in_left, R.anim.push_out_left);
+                break;
+            case R.id.open_nav_icon:
+                Intent navIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(post.url));
+                startActivity(navIntent);
                 break;
         }
     }
