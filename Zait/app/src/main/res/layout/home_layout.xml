@@ -59,6 +59,8 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
         android:layout_gravity="bottom|right|end"
+        app:borderWidth="0dp"
+        app:elevation="4dp"
         android:src="@drawable/ic_clear_all_white_24dp"/>
 
 </android.support.design.widget.CoordinatorLayout>

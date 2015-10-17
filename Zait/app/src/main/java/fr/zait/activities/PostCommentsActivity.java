@@ -13,6 +13,7 @@ import android.view.View;
 import fr.zait.R;
 import fr.zait.activities.base.MyActivity;
 import fr.zait.adapters.CommentsAdapter;
+import fr.zait.behavior.SmoothScrollingLayoutManager;
 import fr.zait.controllers.RefreshingController;
 import fr.zait.data.entities.Post;
 import fr.zait.listeners.RecyclerItemClickListener;
@@ -34,6 +35,7 @@ public class PostCommentsActivity extends MyActivity implements View.OnClickList
     private LinearLayoutManager layoutManager;
     private CommentsAdapter recyclerAdapter;
 
+    private int position = 0;
     private int previousTotal = 0;
     private int visibleThreshold = 2;
     private int firstVisibleItem, visibleItemCount, totalItemCount;
@@ -90,7 +92,7 @@ public class PostCommentsActivity extends MyActivity implements View.OnClickList
 
         // Recycler view
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-        layoutManager = new LinearLayoutManager(this);
+        layoutManager = new SmoothScrollingLayoutManager(this, position);
         recyclerView.setLayoutManager(layoutManager);
 
         recyclerView.setAdapter(recyclerAdapter);
@@ -133,6 +135,10 @@ public class PostCommentsActivity extends MyActivity implements View.OnClickList
         FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.post_comments_fab);
         floatingActionButton.setOnTouchListener(this);
 
+        findViewById(R.id.close_navigation_fab).setOnTouchListener(this);
+        findViewById(R.id.next_comment_fab).setOnClickListener(this);
+        findViewById(R.id.previous_comment_fab).setOnClickListener(this);
+
     }
 
 
@@ -162,12 +168,32 @@ public class PostCommentsActivity extends MyActivity implements View.OnClickList
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(intent);
                 break;
+            case R.id.next_comment_fab:
+                if (recyclerAdapter.getComments().size() > (position + 1)) {
+                    layoutManager.smoothScrollToPosition(recyclerView, null, ++position);
+                }
+                break;
+            case R.id.previous_comment_fab:
+                if ((position - 1) >= 0) {
+                    layoutManager.smoothScrollToPosition(recyclerView, null, --position);
+                }
+                break;
         }
     }
 
     @Override
     public boolean onTouch(View v, MotionEvent event)
     {
+        switch (v.getId()) {
+            case R.id.post_comments_fab:
+                findViewById(R.id.post_comments_fab).setVisibility(View.GONE);
+                findViewById(R.id.comment_navigation_layout).setVisibility(View.VISIBLE);
+                break;
+            case R.id.close_navigation_fab:
+                findViewById(R.id.comment_navigation_layout).setVisibility(View.GONE);
+                findViewById(R.id.post_comments_fab).setVisibility(View.VISIBLE);
+                break;
+        }
         return true;
     }
 

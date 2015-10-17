@@ -31,5 +31,7 @@
     <dimen name="comment_main_text">14sp</dimen>
     <dimen name="comment_sub_text">12sp</dimen>
 
+    <dimen name="default_mini_fab_space">30dp</dimen>
+
 
 </resources>

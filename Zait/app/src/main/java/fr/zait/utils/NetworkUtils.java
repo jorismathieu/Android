@@ -15,7 +15,7 @@ public class NetworkUtils
         try {
             hcon = (HttpURLConnection)new URL(url).openConnection();
             hcon.setReadTimeout(30000);
-            hcon.setRequestProperty("User-Agent", "Alien V1.0");
+            hcon.setRequestProperty("User-Agent", "Zait");
         } catch (Exception e) {
         }
         return hcon;

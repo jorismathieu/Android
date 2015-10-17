@@ -44,8 +44,8 @@ public class CommentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         notifyDataSetChanged();
     }
 
-    public Comment getComments(int position) {
-        return comments.get(position);
+    public List<Comment> getComments() {
+        return comments;
     }
 
     public void loadingIsDone() {
