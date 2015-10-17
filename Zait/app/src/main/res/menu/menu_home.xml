@@ -10,10 +10,6 @@
           android:title="@string/action_new"
           android:orderInCategory="200"
           app:showAsAction="never"/>
-    <item android:id="@+id/action_rising"
-          android:title="@string/action_rising"
-          android:orderInCategory="300"
-          app:showAsAction="never"/>
     <item android:id="@+id/action_top"
           android:title="@string/action_top"
           android:orderInCategory="400"

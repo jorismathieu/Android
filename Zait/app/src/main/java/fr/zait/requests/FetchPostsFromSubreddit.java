@@ -16,20 +16,22 @@ import fr.zait.utils.NetworkUtils;
 
 public class FetchPostsFromSubreddit extends Request
 {
-    private static final String URL_TEMPLATE = "http://www.reddit.com/r/" + SUBREDDIT_NAME_KEY + "/.json?after=" + AFTER_KEY;
+    private static final String URL_TEMPLATE = "http://www.reddit.com/r/" + SUBREDDIT_NAME_KEY + "/" + FILTER + "/.json?after=" + AFTER_KEY;
 
     private String subreddit;
     private String after;
     private Context context;
     private String url;
+    private String filter;
 
     public List<Post> posts;
     private HomeAdapter adapter;
 
-    public FetchPostsFromSubreddit(Context cxt, String subr, HomeAdapter adapt) {
+    public FetchPostsFromSubreddit(Context cxt, String subr, String filtr, HomeAdapter adapt) {
         subreddit = subr;
         context = cxt;
         after = "";
+        filter = filtr;
         adapter = adapt;
         generateURL();
     }
@@ -39,6 +41,7 @@ public class FetchPostsFromSubreddit extends Request
     {
         url = URL_TEMPLATE.replace(SUBREDDIT_NAME_KEY, subreddit);
         url = url.replace(AFTER_KEY, after);
+        url = url.replace(FILTER, filter);
         return url;
     }
 
@@ -58,6 +61,13 @@ public class FetchPostsFromSubreddit extends Request
 
     public void switchSubredditName(String newSubr) {
         subreddit = newSubr;
+        after = "";
+        adapter.clearPostsList();
+        generateURL();
+    }
+
+    public void switchFilter(String newFilter) {
+        filter = newFilter;
         after = "";
         adapter.clearPostsList();
         generateURL();
