@@ -5,6 +5,6 @@ import android.view.View;
 
 public abstract class MyFragment extends Fragment
 {
-    protected abstract void initVariables();
+    protected abstract void initVariables(View view);
     protected abstract void initViews(View view);
 }

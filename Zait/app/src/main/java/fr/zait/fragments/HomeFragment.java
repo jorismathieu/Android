@@ -73,8 +73,8 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
 
         View view = inflater.inflate(R.layout.home_layout, container, false);
 
+        initVariables(view);
         initViews(view);
-        initVariables();
         if (!StringUtils.isEmpty(selectedSubreddit)) {
             fetchPostsFromSubreddit.fetchPosts();
         }
@@ -88,32 +88,44 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
      *
      * ***/
 
+
     @Override
-    protected void initVariables() {
+    protected void initVariables(View view) {
         String filterName = MySharedPreferences.getSharedPreferences(getActivity()).getString(MySharedPreferences.SELECTED_FILTER, "Hot");
 
+        if (getArguments() != null && !StringUtils.isEmpty(getArguments().getString(FragmentCallbackInterface.EXTRAS.SUBREDDIT_NAME))) {
+            selectedSubreddit = getArguments().getString(FragmentCallbackInterface.EXTRAS.SUBREDDIT_NAME);
+            MySharedPreferences.getSharedPreferences(getActivity()).edit().putString(MySharedPreferences.SELECTED_SUBREDDIT, selectedSubreddit).commit();
+        } else {
+            selectedSubreddit = MySharedPreferences.getSharedPreferences(getActivity()).getString(MySharedPreferences.SELECTED_SUBREDDIT, "");
+        }
+
+        refreshingController = new RefreshingController(getActivity(), view, this);
+
+        filter = (TextView) view.findViewById(R.id.filter);
         filter.setText(filterName);
+
+        recyclerAdapter = new HomeAdapter(getActivity(), refreshingController);
         fetchPostsFromSubreddit =  new FetchPostsFromSubreddit(getActivity(), selectedSubreddit, filterName.toLowerCase(), recyclerAdapter);
+
     }
 
     @Override
     protected void initViews(View view) {
 
         // Main views
-        refreshingController = new RefreshingController(getActivity(), view, this);
+
         Toolbar toolbar = (Toolbar)view.findViewById(R.id.home_toolbar);
         DialogCallbackInterface dialogCallbackInterface = (DialogCallbackInterface) getActivity();
         dialogCallbackInterface.attachDrawerToggle(toolbar);
         toolbar.inflateMenu(R.menu.menu_home);
         toolbar.setOnMenuItemClickListener(this);
 
-        filter = (TextView) view.findViewById(R.id.filter);
-
         // Recycler view
         recyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        recyclerAdapter = new HomeAdapter(getActivity(), refreshingController);
+
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener()
         {
@@ -161,12 +173,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         // Subreddits views
         subreddits = SubredditsDao.getSubreddits();
         spinnerArray =  new ArrayList<String>();
-        if (getArguments() != null && !StringUtils.isEmpty(getArguments().getString(FragmentCallbackInterface.EXTRAS.SUBREDDIT_NAME))) {
-            selectedSubreddit = getArguments().getString(FragmentCallbackInterface.EXTRAS.SUBREDDIT_NAME);
-            MySharedPreferences.getSharedPreferences(getActivity()).edit().putString(MySharedPreferences.SELECTED_SUBREDDIT, selectedSubreddit).commit();
-        } else {
-            selectedSubreddit = MySharedPreferences.getSharedPreferences(getActivity()).getString(MySharedPreferences.SELECTED_SUBREDDIT, "");
-        }
+
         for (int i = 0; i < subreddits.size(); i++) {
             spinnerArray.add(subreddits.get(i).name);
             if (StringUtils.isEmpty(selectedSubreddit) && i == 0) {
@@ -204,6 +211,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         refreshingController.setSwipeRefreshLayoutRefreshing(true);
         refreshingController.setSwipeRefreshLayoutEnabled(false);
         refreshingController.setProgressBarVisibility(View.GONE);
+        refreshingController.setNoNetworkConnectionView(View.GONE);
         fetchPostsFromSubreddit.fetchPosts();
     }
 
@@ -211,6 +219,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
     {
         refreshingController.setProgressBarVisibility(View.VISIBLE);
+        refreshingController.setNoNetworkConnectionView(View.GONE);
         fetchPostsFromSubreddit.switchSubredditName(spinnerArray.get(position));
         selectedSubreddit = spinnerArray.get(position);
         MySharedPreferences.getSharedPreferences(getActivity()).edit().putString(MySharedPreferences.SELECTED_SUBREDDIT, selectedSubreddit).commit();

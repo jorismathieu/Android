@@ -54,7 +54,10 @@
     <string name="dialog_add_subreddit_enter_name">Enter Name</string>
 
     <!-- Errors -->
-    <string name="connection_error">Connection error</string>
+    <string name="connection_error">Network connection error</string>
+    <string name="check_internet_settings">Check your internet connection settings</string>
+    <string name="search_length_error">Query must be minimum 2 characters long</string>
+    <string name="no_result_found">No result found</string>
 
     <!-- Titles -->
     <string name="my_subreddits_title">Subreddits</string>

@@ -7,6 +7,7 @@ public abstract class Request
     public static final String FILTER = "FILTER";
     public static final String AFTER_KEY = "AFTER";
     public static final String POST_ID_KEY = "POST_ID";
+    public static final String SEARCH_KEY = "SEARCH_KEY";
 
     protected abstract String generateURL();
     protected abstract void startRequest();

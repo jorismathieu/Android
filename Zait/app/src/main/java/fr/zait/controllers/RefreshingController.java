@@ -11,8 +11,15 @@ import fr.zait.utils.ErrorUtils;
 
 public class RefreshingController extends MyController
 {
+    public static class OPTIONS {
+        public static final String HOLDER = "HOLDER";
+        public static final String NO_HOLDER = "NO_HOLDER";
+    }
+
     private SwipeRefreshLayout swipeRefreshLayout;
     private ProgressBar progressBar;
+    private View noNetworkConnectionView;
+    private View noResultView;
 
     private SwipeRefreshLayout.OnRefreshListener listener;
 
@@ -28,6 +35,8 @@ public class RefreshingController extends MyController
     @Override
     protected void initController()
     {
+        noResultView = rootView.findViewById(R.id.no_result);
+        noNetworkConnectionView = rootView.findViewById(R.id.no_network_connection);
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setColorSchemeResources(R.color.primaryColor, R.color.primaryDarkColor);
         swipeRefreshLayout.setOnRefreshListener(listener);
@@ -51,8 +60,26 @@ public class RefreshingController extends MyController
         }
     }
 
-    public void displayConnectionError() {
-        ErrorUtils.displayError(context, rootView, ErrorUtils.CONNECTION_ERROR);
+    public void setNoNetworkConnectionView(int visibility) {
+        noNetworkConnectionView.setVisibility(visibility);
+    }
+
+    public void setNoResultView(int visibility) {
+        noResultView.setVisibility(visibility);
+    }
+
+    public void displayConnectionError(String option) {
+        if (option.equals(OPTIONS.HOLDER)) {
+            setNoNetworkConnectionView(View.VISIBLE);
+        }
+        ErrorUtils.displayError(context, rootView, ErrorUtils.NETWORK_CONNECTION_ERROR);
+    }
+
+    public boolean isConnectionError() {
+        if (noNetworkConnectionView.getVisibility() == View.VISIBLE) {
+            return true;
+        }
+        return false;
     }
 
 }

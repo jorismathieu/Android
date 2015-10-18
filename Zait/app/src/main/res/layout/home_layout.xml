@@ -59,6 +59,9 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
+    <include android:id="@+id/no_network_connection" layout="@layout/no_network_connection_layout" />
+    <include android:id="@+id/no_result" layout="@layout/no_result_layout" />
+
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

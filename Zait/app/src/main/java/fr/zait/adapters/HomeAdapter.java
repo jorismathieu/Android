@@ -58,6 +58,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeHolder>
         refreshingController.setProgressBarVisibility(View.GONE);
         refreshingController.setSwipeRefreshLayoutRefreshing(false);
         refreshingController.setSwipeRefreshLayoutEnabled(true);
+        if (!refreshingController.isConnectionError()) {
+            if (posts.size() > 0) {
+                refreshingController.setNoResultView(View.GONE);
+            } else {
+                refreshingController.setNoResultView(View.VISIBLE);
+            }
+        }
     }
 
     public void clearPostsList() {
@@ -66,7 +73,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeHolder>
     }
 
     public void displayConnectionError() {
-        refreshingController.displayConnectionError();
+        if (posts.size() > 0) {
+            refreshingController.displayConnectionError(RefreshingController.OPTIONS.NO_HOLDER);
+        } else {
+            refreshingController.displayConnectionError(RefreshingController.OPTIONS.HOLDER);
+        }
     }
 
     @Override
@@ -77,7 +88,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeHolder>
     }
 
     @Override
-    public void onBindViewHolder(HomeHolder holder, int position) {
+    public void onBindViewHolder(HomeHolder holder, int position)
+    {
 
         holder.populateView(posts.get(position));
 

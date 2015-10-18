@@ -52,10 +52,21 @@ public class CommentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         refreshingController.setProgressBarVisibility(View.GONE);
         refreshingController.setSwipeRefreshLayoutRefreshing(false);
         refreshingController.setSwipeRefreshLayoutEnabled(true);
+        if (!refreshingController.isConnectionError()) {
+            if (comments.size() > 0) {
+                refreshingController.setNoResultView(View.GONE);
+            } else {
+                refreshingController.setNoResultView(View.VISIBLE);
+            }
+        }
     }
 
     public void displayConnectionError() {
-        refreshingController.displayConnectionError();
+        if (comments.size() > 0) {
+            refreshingController.displayConnectionError(RefreshingController.OPTIONS.NO_HOLDER);
+        } else {
+            refreshingController.displayConnectionError(RefreshingController.OPTIONS.HOLDER);
+        }
     }
 
     @Override

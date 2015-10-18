@@ -55,7 +55,7 @@ public class PostCommentsActivity extends MyActivity implements View.OnClickList
         initVariables();
         initViews(savedInstanceState);
         if (post != null && !StringUtils.isEmpty(String.valueOf(post.id))) {
-            getCommentsFromPost();
+            fetchCommentsFromPost.fetchComments();
         }
 
     }
@@ -125,8 +125,8 @@ public class PostCommentsActivity extends MyActivity implements View.OnClickList
                 }
                 if (!refreshingController.isLoading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold))
                 {
-                    getMoreCommentsFromPost();
-                    refreshingController.setProgressBarVisibility(View.VISIBLE);
+//                    fetchCommentsFromPost.fetchMoreComments();
+//                    refreshingController.setProgressBarVisibility(View.VISIBLE);
                 }
             }
         });
@@ -139,14 +139,6 @@ public class PostCommentsActivity extends MyActivity implements View.OnClickList
         findViewById(R.id.next_comment_fab).setOnClickListener(this);
         findViewById(R.id.previous_comment_fab).setOnClickListener(this);
 
-    }
-
-
-    private void getCommentsFromPost() {
-        fetchCommentsFromPost.fetchComments();
-    }
-    private void getMoreCommentsFromPost() {
-        fetchCommentsFromPost.fetchMoreComments();
     }
 
 
@@ -203,7 +195,8 @@ public class PostCommentsActivity extends MyActivity implements View.OnClickList
         refreshingController.setSwipeRefreshLayoutRefreshing(true);
         refreshingController.setSwipeRefreshLayoutEnabled(false);
         refreshingController.setProgressBarVisibility(View.GONE);
-        getCommentsFromPost();
+        refreshingController.setNoNetworkConnectionView(View.GONE);
+        fetchCommentsFromPost.fetchComments();
     }
 
 }
