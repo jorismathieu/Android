@@ -2,13 +2,13 @@ package fr.zait.activities.base;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
 
 import fr.zait.R;
 
-public abstract class MyActivity extends FragmentActivity
+public abstract class MyActivity extends AppCompatActivity
 {
     private static final int DEFAULT_VALUE = -1;
 

@@ -44,13 +44,16 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_margin="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
             android:text="@string/application"
             style="@style/SubSettingTitleStyle"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             android:layout_width="match_parent"
             android:layout_height="30dp"/>
 
@@ -59,6 +62,8 @@
             android:text="@string/theme"
             android:gravity="center_vertical"
             android:clickable="true"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             android:background="@drawable/simple_ripple_effect"
             style="@style/SubSettingOptionStyle"
             android:layout_width="match_parent"
@@ -68,10 +73,12 @@
 
         <TextView
             android:id="@+id/text_size"
+            android:background="@drawable/simple_ripple_effect"
             android:text="@string/text_size"
             android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             android:clickable="true"
-            android:background="@drawable/simple_ripple_effect"
             style="@style/SubSettingOptionStyle"
             android:layout_width="match_parent"
             android:layout_height="60dp"/>

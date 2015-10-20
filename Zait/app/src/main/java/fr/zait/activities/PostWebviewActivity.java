@@ -85,11 +85,13 @@ public class PostWebviewActivity extends MyActivity implements View.OnClickListe
         webview.setWebChromeClient(new WebChromeClient() {
             public void onProgressChanged(WebView view, int progress)
             {
-                if (progress < 100 && progressBar.getVisibility() == ProgressBar.INVISIBLE){
-                    progressBar.setVisibility(ProgressBar.VISIBLE);
-                }
-                if (progress == 100) {
-                    progressBar.setVisibility(ProgressBar.INVISIBLE);
+                if (progressBar != null) {
+                    if (progress < 100 && progressBar.getVisibility() == ProgressBar.INVISIBLE){
+                        progressBar.setVisibility(ProgressBar.VISIBLE);
+                    }
+                    if (progress == 100) {
+                        progressBar.setVisibility(ProgressBar.INVISIBLE);
+                    }
                 }
             }
         });

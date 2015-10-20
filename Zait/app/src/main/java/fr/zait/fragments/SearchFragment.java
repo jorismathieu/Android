@@ -94,6 +94,7 @@ public class SearchFragment extends MyFragment implements SwipeRefreshLayout.OnR
                       if (!StringUtils.isEmpty(query) && query.length() >= 2)
                       {
                           refreshingController.setProgressBarVisibility(View.VISIBLE);
+                          query = query.replace(" ", "+");
                           fetchPostsFromSearch.fetchPosts(query);
                           lastQuery = query;
                       }
