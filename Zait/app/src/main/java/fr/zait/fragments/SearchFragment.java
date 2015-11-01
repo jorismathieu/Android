@@ -14,8 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import fr.zait.R;
-import fr.zait.activities.base.DialogCallbackInterface;
-import fr.zait.activities.base.PostDetailCallbackInterface;
+import fr.zait.interfaces.callback.DialogCallbackInterface;
+import fr.zait.interfaces.callback.PostDetailCallbackInterface;
 import fr.zait.adapters.HomeAdapter;
 import fr.zait.controllers.RefreshingController;
 import fr.zait.data.entities.Post;

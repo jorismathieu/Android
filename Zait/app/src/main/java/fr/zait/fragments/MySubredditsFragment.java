@@ -14,8 +14,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import fr.zait.R;
-import fr.zait.activities.base.DialogCallbackInterface;
-import fr.zait.activities.base.FragmentCallbackInterface;
+import fr.zait.interfaces.callback.DialogCallbackInterface;
+import fr.zait.interfaces.callback.FragmentCallbackInterface;
 import fr.zait.adapters.SubredditsAdapter;
 import fr.zait.data.database.contract.SubredditsContract;
 import fr.zait.fragments.base.MyListFragment;

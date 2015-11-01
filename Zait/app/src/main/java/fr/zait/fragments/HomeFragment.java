@@ -22,9 +22,9 @@ import java.util.List;
 
 import fr.zait.MySharedPreferences;
 import fr.zait.R;
-import fr.zait.activities.base.DialogCallbackInterface;
-import fr.zait.activities.base.FragmentCallbackInterface;
-import fr.zait.activities.base.PostDetailCallbackInterface;
+import fr.zait.interfaces.callback.DialogCallbackInterface;
+import fr.zait.interfaces.callback.FragmentCallbackInterface;
+import fr.zait.interfaces.callback.PostDetailCallbackInterface;
 import fr.zait.adapters.HomeAdapter;
 import fr.zait.controllers.RefreshingController;
 import fr.zait.data.database.dao.SubredditsDao;
@@ -95,7 +95,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
 
         if (getArguments() != null && !StringUtils.isEmpty(getArguments().getString(FragmentCallbackInterface.EXTRAS.SUBREDDIT_NAME))) {
             selectedSubreddit = getArguments().getString(FragmentCallbackInterface.EXTRAS.SUBREDDIT_NAME);
-            MySharedPreferences.getSharedPreferences(getActivity()).edit().putString(MySharedPreferences.SELECTED_SUBREDDIT, selectedSubreddit).commit();
+            MySharedPreferences.saveSelectedSubreddit(getActivity(), selectedSubreddit);
         } else {
             selectedSubreddit = MySharedPreferences.getSharedPreferences(getActivity()).getString(MySharedPreferences.SELECTED_SUBREDDIT, "");
         }
@@ -178,6 +178,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
             spinnerArray.add(subreddits.get(i).name);
             if (StringUtils.isEmpty(selectedSubreddit) && i == 0) {
                 selectedSubreddit = subreddits.get(i).name;
+                MySharedPreferences.saveSelectedSubreddit(getActivity(), selectedSubreddit);
             }
         }
 
@@ -222,7 +223,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         refreshingController.setNoNetworkConnectionView(View.GONE);
         fetchPostsFromSubreddit.switchSubredditName(spinnerArray.get(position));
         selectedSubreddit = spinnerArray.get(position);
-        MySharedPreferences.getSharedPreferences(getActivity()).edit().putString(MySharedPreferences.SELECTED_SUBREDDIT, selectedSubreddit).commit();
+        MySharedPreferences.saveSelectedSubreddit(getActivity(), selectedSubreddit);
         fetchPostsFromSubreddit.fetchPosts();
     }
 
@@ -248,7 +249,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
             case R.id.action_new:
             case R.id.action_top:
             case R.id.action_controversial:
-                MySharedPreferences.getSharedPreferences(getActivity()).edit().putString(MySharedPreferences.SELECTED_FILTER, item.getTitle().toString()).commit();
+                MySharedPreferences.saveSelectedFilter(getActivity(), item.getTitle().toString());
                 filter.setText(item.getTitle().toString());
                 fetchPostsFromSubreddit.switchFilter(item.getTitle().toString().toLowerCase());
                 fetchPostsFromSubreddit.fetchPosts();

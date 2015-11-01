@@ -53,7 +53,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         refreshingController.setSwipeRefreshLayoutRefreshing(false);
         refreshingController.setSwipeRefreshLayoutEnabled(true);
         if (!refreshingController.isConnectionError()) {
-            if (comments.size() > 0) {
+            if (comments.size() > 0 || post != null) {
                 refreshingController.setNoResultView(View.GONE);
             } else {
                 refreshingController.setNoResultView(View.VISIBLE);
@@ -62,7 +62,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public void displayConnectionError() {
-        if (comments.size() > 0) {
+        if (comments.size() > 0  || post != null) {
             refreshingController.displayConnectionError(RefreshingController.OPTIONS.NO_HOLDER);
         } else {
             refreshingController.displayConnectionError(RefreshingController.OPTIONS.HOLDER);
@@ -117,9 +117,9 @@ public class CommentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public int getItemCount() {
         if (comments != null) {
-            return comments.size();
+            return comments.size() + 1;
         }
-        return 0;
+        return 1;
     }
 
     private void setAnimation(View viewToAnimate)

@@ -81,4 +81,8 @@
     <!-- Splash screen -->
     <string name="an_app_for_reddit">An app for Reddit</string>
 
+    <!-- App Widget -->
+    <string name="no_post">No Post in selected subreddit</string>
+    <string name="retrieving_post">Trying to get latest posts...</string>
+
 </resources>

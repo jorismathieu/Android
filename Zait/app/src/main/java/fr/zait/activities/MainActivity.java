@@ -14,10 +14,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import fr.zait.R;
-import fr.zait.activities.base.DialogCallbackInterface;
-import fr.zait.activities.base.FragmentCallbackInterface;
+import fr.zait.interfaces.callback.DialogCallbackInterface;
+import fr.zait.interfaces.callback.FragmentCallbackInterface;
 import fr.zait.activities.base.MyActivity;
-import fr.zait.activities.base.PostDetailCallbackInterface;
+import fr.zait.interfaces.callback.PostDetailCallbackInterface;
 import fr.zait.data.entities.Post;
 import fr.zait.dialogs.AddSubredditDialog;
 import fr.zait.dialogs.DeleteSubredditDialog;
@@ -28,6 +28,7 @@ import fr.zait.fragments.MySubredditsFragment;
 import fr.zait.fragments.SearchFragment;
 import fr.zait.utils.AnimationUtils;
 import fr.zait.utils.NotificationsUtils;
+import fr.zait.widget.AppWidgetReceiver;
 
 
 public class MainActivity extends MyActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener,
@@ -64,7 +65,12 @@ public class MainActivity extends MyActivity implements NavigationView.OnNavigat
         setContentView(R.layout.main_layout);
 
         if ((getIntent().getAction() != null)) {
-            NotificationsUtils.checkOpenInternal(this, getIntent());
+            if (getIntent().getAction().equals(AppWidgetReceiver.APP_WIDGET_OPEN_POST_ACTION)) {
+                Post post = getIntent().getParcelableExtra(AppWidgetReceiver.EXTRA_POST);
+                openPostDetail(post);
+            } else {
+                NotificationsUtils.checkOpenInternal(this, getIntent());
+            }
         }
         initVariables();
         initViews(savedInstanceState);
@@ -227,16 +233,23 @@ public class MainActivity extends MyActivity implements NavigationView.OnNavigat
     public void openPostDetail(Post post)
     {
         Intent intent = null;
-        if (!post.thumbnail.equals("self")) {
-            intent = new Intent(this, PostWebviewActivity.class);
-        } else {
-            intent = new Intent(this, PostCommentsActivity.class);
-        }
+        if (post != null)
+        {
+            if (!post.thumbnail.equals("self"))
+            {
+                intent = new Intent(this, PostWebviewActivity.class);
+            }
+            else
+            {
+                intent = new Intent(this, PostCommentsActivity.class);
+            }
 
-        if (intent != null) {
-            intent.putExtra(PostWebviewActivity.EXTRAS.POST, post);
-            startActivity(intent);
-            overridePendingTransition(R.anim.push_in_left, R.anim.push_out_left);
+            if (intent != null)
+            {
+                intent.putExtra(PostWebviewActivity.EXTRAS.POST, post);
+                startActivity(intent);
+                overridePendingTransition(R.anim.push_in_left, R.anim.push_out_left);
+            }
         }
 
     }

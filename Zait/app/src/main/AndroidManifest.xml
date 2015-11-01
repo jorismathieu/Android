@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="fr.zait" >
 
+    <!-- PERMISSIONS -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
@@ -19,6 +20,8 @@
         android:theme="@style/AppTheme" >
 
 
+        <!-- BROADCAST RECEIVERS -->
+
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:exported="true"
@@ -30,6 +33,17 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name=".widget.AppWidgetReceiver" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="fr.zait.MySharedPreferences.SELECTED_SUBREDDIT_CHANGE_BROADCAST" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                       android:resource="@xml/appwidget_info" />
+        </receiver>
+
+        <!-- SERVICES -->
+
         <service
             android:name=".gcm.MyGcmListenerService"
             android:exported="false" >
@@ -37,6 +51,7 @@
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </service>
+
         <service
             android:name=".gcm.MyInstanceIDListenerService"
             android:exported="false">
@@ -44,6 +59,7 @@
                 <action android:name="com.google.android.gms.iid.InstanceID"/>
             </intent-filter>
         </service>
+
         <service
             android:name=".gcm.MyRegistrationIntentService"
             android:enabled="true" >
@@ -52,9 +68,20 @@
             </intent-filter>
         </service>
 
+        <service android:name=".widget.StackWidgetService"
+                 android:permission="android.permission.BIND_REMOTEVIEWS"
+                 android:exported="false">
+
+        </service>
+
+
+        <!-- CONTENT PROVIDER -->
+
         <provider android:name="fr.zait.data.database.MyContentProvider"
                   android:authorities="fr.zait.data.database.MyContentProvider"/>
 
+
+        <!-- ACTIVITIES -->
 
         <activity
             android:name=".activities.SplashActivity"
@@ -77,6 +104,13 @@
         <activity android:name=".activities.AppearanceSettingsActivity"/>
         <activity android:name=".activities.PostWebviewActivity"/>
         <activity android:name=".activities.PostCommentsActivity"/>
+
+
+        <!-- CRASHLYTICS -->
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="add65e7136be5d3aa8230614d410ed31f1c70184" />
 
 
     </application>

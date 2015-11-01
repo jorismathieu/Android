@@ -1,4 +1,4 @@
-package fr.zait.activities.base;
+package fr.zait.interfaces.callback;
 
 import android.support.v7.widget.Toolbar;
 

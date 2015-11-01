@@ -33,14 +33,12 @@ public class MyRegistrationIntentService extends IntentService
         try {
             InstanceID instanceID = InstanceID.getInstance(this);
             String token = instanceID.getToken(getString(R.string.gcm_defaultSenderId), GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
-            //Log.e(TAG, "GCM Registration Token: " + token);
 
             sendRegistrationToServer(token);
             subscribeTopics(token);
 
             sharedPreferences.edit().putBoolean(MySharedPreferences.SENT_TOKEN_TO_SERVER, true).apply();
         } catch (Exception e) {
-            //Log.e(TAG, "Failed to complete token refresh", e);
             sharedPreferences.edit().putBoolean(MySharedPreferences.SENT_TOKEN_TO_SERVER, false).apply();
         }
         Intent registrationComplete = new Intent(REGISTRATION_COMPLETE);
