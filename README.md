@@ -1,6 +1,6 @@
-Zait - An app for Reddit
+Zait - An app to browse Reddit
+Dalvik - An app to test Location Awareness API
 _________________________________
 
-IDE : Android Studio 1.3.2
-API : from 11 (3.0) to 22 (5.1.1)
+IDE : Android Studio 2.2.2
  
