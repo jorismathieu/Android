@@ -2,20 +2,24 @@
       xmlns:tools="http://schemas.android.com/tools"
       xmlns:app="http://schemas.android.com/apk/res-auto"
       tools:context=".SubredditActivity">
-    <item android:id="@+id/action_hot"
-          android:title="@string/action_hot"
-          android:orderInCategory="100"
-          app:showAsAction="never"/>
-    <item android:id="@+id/action_new"
-          android:title="@string/action_new"
-          android:orderInCategory="200"
-          app:showAsAction="never"/>
-    <item android:id="@+id/action_top"
-          android:title="@string/action_top"
-          android:orderInCategory="400"
-          app:showAsAction="never"/>
-    <item android:id="@+id/action_controversial"
-          android:title="@string/action_controversial"
-          android:orderInCategory="500"
-          app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_hot"
+        android:title="@string/action_hot"
+        android:orderInCategory="100"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_new"
+        android:title="@string/action_new"
+        android:orderInCategory="200"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_top"
+        android:title="@string/action_top"
+        android:orderInCategory="400"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_controversial"
+        android:title="@string/action_controversial"
+        android:orderInCategory="500"
+        app:showAsAction="never"/>
 </menu>

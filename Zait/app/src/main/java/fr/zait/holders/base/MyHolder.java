@@ -4,8 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.view.View;
 
-public abstract class MyHolder
-{
+public abstract class MyHolder {
     protected Context cxt;
     protected View rootView;
 

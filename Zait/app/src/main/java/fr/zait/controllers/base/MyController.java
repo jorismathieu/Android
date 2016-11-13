@@ -4,8 +4,7 @@ package fr.zait.controllers.base;
 import android.content.Context;
 import android.view.View;
 
-public abstract class MyController
-{
+public abstract class MyController {
     protected View rootView;
     protected Context context;
 

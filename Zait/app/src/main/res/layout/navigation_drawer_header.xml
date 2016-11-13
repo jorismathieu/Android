@@ -12,41 +12,41 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="25dp"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/ic_launcher"/>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:background="@color/white"
+                    android:background="@color/white"
                     android:paddingLeft="20dp"
-                android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="15dp"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/small_circle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:src="@drawable/small_disc" />
+        <ImageView
+            android:id="@+id/small_circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/small_disc"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_toRightOf="@id/small_circle"
-                android:layout_centerVertical="true"
-                android:textColor="@color/primaryColor"
-                android:textSize="@dimen/navigation_header_text_size"
-                android:text="@string/navigation_loggedout"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/small_circle"
+            android:layout_centerVertical="true"
+            android:textColor="@color/primaryColor"
+            android:textSize="@dimen/navigation_header_text_size"
+            android:text="@string/navigation_loggedout"/>
 
-            <ImageView
-                android:id="@+id/navigation_header_expand_icon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="50dp"
-                android:src="@drawable/ic_expand_more_purple_24dp" />
+        <ImageView
+            android:id="@+id/navigation_header_expand_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="50dp"
+            android:src="@drawable/ic_expand_more_purple_24dp"/>
 
     </RelativeLayout>
 
@@ -58,9 +58,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <include android:id="@+id/add_account_row" layout="@layout/navigation_log_rows" />
+        <include
+            android:id="@+id/add_account_row"
+            layout="@layout/navigation_log_rows"/>
 
-        <include layout="@layout/single_primary_dark_line" />
+        <include layout="@layout/single_primary_dark_line"/>
 
     </LinearLayout>
 

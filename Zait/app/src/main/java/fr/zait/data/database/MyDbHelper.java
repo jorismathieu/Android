@@ -9,8 +9,7 @@ import fr.zait.MySharedPreferences;
 import fr.zait.data.database.contract.SubredditsContract;
 import fr.zait.data.database.dao.SubredditsDao;
 
-public class MyDbHelper extends SQLiteOpenHelper
-{
+public class MyDbHelper extends SQLiteOpenHelper {
     public static MyDbHelper instance = null;
 
     public static final int DATABASE_VERSION = 1;
@@ -47,8 +46,10 @@ public class MyDbHelper extends SQLiteOpenHelper
 
         try {
             db.execSQL(SubredditsContract.SQL_CREATE_ENTRIES);
-        } catch (Exception e) {
-        } finally {
+        }
+        catch (Exception e) {
+        }
+        finally {
             db.close();
         }
 

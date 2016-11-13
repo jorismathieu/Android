@@ -9,28 +9,22 @@ import android.support.v7.app.AlertDialog;
 import fr.zait.R;
 import fr.zait.utils.DialogUtils;
 
-public class ChangeThemeDialog extends DialogFragment
-{
+public class ChangeThemeDialog extends DialogFragment {
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState)
-    {
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         String[] themeColors = getContext().getResources().getStringArray(R.array.themeColors);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AppCompatAlertDialogStyle);
-        builder.setSingleChoiceItems(themeColors, 2, new DialogInterface.OnClickListener()
-        {
-            public void onClick(DialogInterface dialog, int whichButton)
-            {
+        builder.setSingleChoiceItems(themeColors, 2, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
                 dismiss();
             }
         }).setNegativeButton(R.string.cancel, null);
 
         final AlertDialog dialog = builder.create();
 
-        dialog.setOnShowListener(new DialogInterface.OnShowListener()
-        {
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
-            public void onShow(DialogInterface arg)
-            {
+            public void onShow(DialogInterface arg) {
                 DialogUtils.setButtonStyle(dialog, getActivity());
             }
         });

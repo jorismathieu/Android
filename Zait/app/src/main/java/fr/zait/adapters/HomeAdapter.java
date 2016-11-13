@@ -16,8 +16,7 @@ import fr.zait.controllers.RefreshingController;
 import fr.zait.data.entities.Post;
 import fr.zait.holders.HomeHolder;
 
-public class HomeAdapter extends RecyclerView.Adapter<HomeHolder>
-{
+public class HomeAdapter extends RecyclerView.Adapter<HomeHolder> {
 
     private Context cxt;
     private RefreshingController refreshingController;
@@ -61,7 +60,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeHolder>
         if (!refreshingController.isConnectionError()) {
             if (posts.size() > 0) {
                 refreshingController.setNoResultView(View.GONE);
-            } else {
+            }
+            else {
                 refreshingController.setNoResultView(View.VISIBLE);
             }
         }
@@ -75,7 +75,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeHolder>
     public void displayConnectionError() {
         if (posts.size() > 0) {
             refreshingController.displayConnectionError(RefreshingController.OPTIONS.NO_HOLDER);
-        } else {
+        }
+        else {
             refreshingController.displayConnectionError(RefreshingController.OPTIONS.HOLDER);
         }
     }
@@ -88,8 +89,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeHolder>
     }
 
     @Override
-    public void onBindViewHolder(HomeHolder holder, int position)
-    {
+    public void onBindViewHolder(HomeHolder holder, int position) {
 
         holder.populateView(posts.get(position));
 
@@ -116,8 +116,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeHolder>
         return 0;
     }
 
-    private void setAnimation(View viewToAnimate)
-    {
+    private void setAnimation(View viewToAnimate) {
         Animation animation = AnimationUtils.loadAnimation(cxt, android.R.anim.slide_in_left);
         viewToAnimate.startAnimation(animation);
     }

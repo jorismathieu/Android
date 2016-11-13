@@ -10,8 +10,7 @@ import fr.zait.R;
 import fr.zait.data.database.contract.SubredditsContract;
 import fr.zait.utils.DialogUtils;
 
-public class DeleteSubredditDialog extends DialogFragment
-{
+public class DeleteSubredditDialog extends DialogFragment {
 
     private static final String SUBREDDIT_NAME = "subredditName";
     private static final String WHERE = "where";
@@ -30,41 +29,31 @@ public class DeleteSubredditDialog extends DialogFragment
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState)
-    {
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         String subredditName = "";
-        if (getArguments() != null)
-        {
+        if (getArguments() != null) {
             subredditName = getArguments().getString(SUBREDDIT_NAME);
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.dialog_delete_subreddit_title)
-                .setMessage(getString(R.string.delete) + " " + subredditName + "?")
-                .setIcon(R.drawable.ic_warning_black_24dp)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int whichButton)
-                    {
-                        String where = null;
-                        String[] whereArgs = null;
-                        if (getArguments() != null) {
-                            where = getArguments().getString(WHERE);
-                            whereArgs = getArguments().getStringArray(WHERE_ARGS);
-                        }
+        builder.setTitle(R.string.dialog_delete_subreddit_title).setMessage(getString(R.string.delete) + " " + subredditName + "?").setIcon(R.drawable.ic_warning_black_24dp).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                String where = null;
+                String[] whereArgs = null;
+                if (getArguments() != null) {
+                    where = getArguments().getString(WHERE);
+                    whereArgs = getArguments().getStringArray(WHERE_ARGS);
+                }
 
-                        getActivity().getContentResolver().delete(SubredditsContract.DELETE_URI, where, whereArgs);
-                    }
-                })
-                .setNegativeButton(R.string.cancel, null);
+                getActivity().getContentResolver().delete(SubredditsContract.DELETE_URI, where, whereArgs);
+            }
+        }).setNegativeButton(R.string.cancel, null);
 
         final AlertDialog dialog = builder.create();
 
-        dialog.setOnShowListener(new DialogInterface.OnShowListener()
-        {
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
-            public void onShow(DialogInterface arg)
-            {
+            public void onShow(DialogInterface arg) {
                 DialogUtils.setButtonStyle(dialog, getActivity());
             }
         });

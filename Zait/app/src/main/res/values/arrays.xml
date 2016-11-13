@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="themeColors" >
+    <string-array name="themeColors">
         <item>Night</item>
         <item>Black</item>
         <item>Purple</item>
         <item>Pink</item>
     </string-array>
 
-    <string-array name="textSizes" >
+    <string-array name="textSizes">
         <item>Small</item>
         <item>Medium</item>
         <item>Large</item>
         <item>xLarge</item>
     </string-array>
 
-    <string-array name="navigationDrawerActions" >
+    <string-array name="navigationDrawerActions">
         <item>Home</item>
         <item>My Subreddits</item>
         <item>Go to</item>
@@ -24,7 +24,7 @@
         <item>Logout</item>
     </string-array>
 
-    <string-array name="defaultSubreddits" >
+    <string-array name="defaultSubreddits">
         <item>Android</item>
         <item>All</item>
         <item>announcements</item>

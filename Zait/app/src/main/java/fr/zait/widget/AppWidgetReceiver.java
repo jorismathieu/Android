@@ -13,15 +13,12 @@ import fr.zait.MySharedPreferences;
 import fr.zait.R;
 import fr.zait.activities.MainActivity;
 
-public class AppWidgetReceiver extends android.appwidget.AppWidgetProvider
-{
+public class AppWidgetReceiver extends android.appwidget.AppWidgetProvider {
     public static final String APP_WIDGET_OPEN_POST_ACTION = "fr.zait.widget.AppWidgetProvider.APP_WIDGET_OPEN_POST_ACTION";
     public static final String EXTRA_POST = "fr.zait.widget.AppWidgetProvider.EXTRA_ITEM";
 
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        Log.e("ON UPDATE", "******");
         for (int i = 0; i < appWidgetIds.length; ++i) {
-            Log.e("ON UPDATE", "****** => " + appWidgetIds[i]);
             // Creation des vues
             Intent intent = new Intent(context, StackWidgetService.class);
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetIds[i]);
@@ -37,7 +34,6 @@ public class AppWidgetReceiver extends android.appwidget.AppWidgetProvider
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, openIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             rv.setPendingIntentTemplate(R.id.stack_view, pendingIntent);
 
-            Log.e("updateAppWidget", "******");
             appWidgetManager.updateAppWidget(appWidgetIds[i], rv);
         }
         super.onUpdate(context, appWidgetManager, appWidgetIds);
@@ -45,13 +41,12 @@ public class AppWidgetReceiver extends android.appwidget.AppWidgetProvider
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.e("On Receive", "******");
         if (intent.getAction() != null && intent.getAction().equals(MySharedPreferences.SELECTED_SUBREDDIT_CHANGE_BROADCAST)) {
-            Log.e("Call onUpdate", "*****");
             int[] ids = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, AppWidgetReceiver.class));
             onUpdate(context, AppWidgetManager.getInstance(context), ids);
 
-        } else {
+        }
+        else {
             super.onReceive(context, intent);
         }
     }

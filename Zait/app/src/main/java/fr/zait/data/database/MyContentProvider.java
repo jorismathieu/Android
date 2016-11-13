@@ -14,8 +14,7 @@ import fr.zait.data.database.contract.SubredditsContract;
 import fr.zait.data.database.dao.SubredditsDao;
 import fr.zait.data.entities.Subreddit;
 
-public class MyContentProvider extends ContentProvider
-{
+public class MyContentProvider extends ContentProvider {
     private static final String AUTHORITY = "fr.zait.data.database.MyContentProvider";
     public static final String CONTENT_URI = "content://" + AUTHORITY;
 
@@ -29,8 +28,7 @@ public class MyContentProvider extends ContentProvider
 
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
-    static
-    {
+    static {
         uriMatcher.addURI(AUTHORITY, SubredditsContract.SELECT_URL, SUBREDDITS_SELECT);
         uriMatcher.addURI(AUTHORITY, SubredditsContract.DELETE_URL, SUBREDDITS_DELETE);
         uriMatcher.addURI(AUTHORITY, SubredditsContract.REINIT_URL, SUBREDDITS_REINIT);
@@ -51,14 +49,15 @@ public class MyContentProvider extends ContentProvider
                 case SUBREDDITS_SELECT:
                     MatrixCursor cursor = new MatrixCursor(SubredditsContract.PROJECTION);
                     List<Subreddit> subreddits = SubredditsDao.getSubreddits();
-                    for (Subreddit subreddit : subreddits){
+                    for (Subreddit subreddit : subreddits) {
                         cursor.addRow(new Object[]{subreddit._id, subreddit.name});
                     }
 
                     cursor.setNotificationUri(getContext().getContentResolver(), NOTIFICATION_URI);
                     return cursor;
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
         }
         return null;
     }
@@ -83,7 +82,8 @@ public class MyContentProvider extends ContentProvider
             }
             getContext().getContentResolver().notifyChange(NOTIFICATION_URI, null);
 
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
 
         }
         return null;
@@ -101,7 +101,8 @@ public class MyContentProvider extends ContentProvider
                     nbDeletion = SubredditsDao.deletePost(where, whereArgs);
                     break;
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
 
         }
 

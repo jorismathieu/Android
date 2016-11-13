@@ -3,8 +3,7 @@ package fr.zait.data.entities;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Post implements Parcelable
-{
+public class Post implements Parcelable {
     public String subreddit;
     public String title;
     public String author;
@@ -22,7 +21,7 @@ public class Post implements Parcelable
     public Post() {
     }
 
-    public Post(Parcel in){
+    public Post(Parcel in) {
         String[] data = new String[13];
 
         in.readStringArray(data);
@@ -43,26 +42,13 @@ public class Post implements Parcelable
     }
 
     @Override
-    public int describeContents(){
+    public int describeContents() {
         return 0;
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeStringArray(new String[] {
-                subreddit,
-                title,
-                author,
-                String.valueOf(points),
-                String.valueOf(numComments),
-                permalink,
-                url,
-                domain,
-                id,
-                String.valueOf(createdUtc),
-                thumbnail,
-                String.valueOf(hasBeenSeen),
-                text});
+        dest.writeStringArray(new String[]{subreddit, title, author, String.valueOf(points), String.valueOf(numComments), permalink, url, domain, id, String.valueOf(createdUtc), thumbnail, String.valueOf(hasBeenSeen), text});
     }
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {

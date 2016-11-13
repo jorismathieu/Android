@@ -42,7 +42,12 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include android:id="@+id/general_settings" layout="@layout/settings_category_layout"/>
-    <include android:id="@+id/appearance_settings" layout="@layout/settings_category_layout"/>
+    <include
+        android:id="@+id/general_settings"
+        layout="@layout/settings_category_layout"/>
+
+    <include
+        android:id="@+id/appearance_settings"
+        layout="@layout/settings_category_layout"/>
 
 </LinearLayout>

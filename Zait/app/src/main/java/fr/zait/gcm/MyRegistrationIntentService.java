@@ -14,8 +14,7 @@ import java.io.IOException;
 import fr.zait.MySharedPreferences;
 import fr.zait.R;
 
-public class MyRegistrationIntentService extends IntentService
-{
+public class MyRegistrationIntentService extends IntentService {
 
     private static final String TAG = "RegIntentService";
     private static final String[] TOPICS = {"global"};
@@ -38,7 +37,8 @@ public class MyRegistrationIntentService extends IntentService
             subscribeTopics(token);
 
             sharedPreferences.edit().putBoolean(MySharedPreferences.SENT_TOKEN_TO_SERVER, true).apply();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             sharedPreferences.edit().putBoolean(MySharedPreferences.SENT_TOKEN_TO_SERVER, false).apply();
         }
         Intent registrationComplete = new Intent(REGISTRATION_COMPLETE);
@@ -47,7 +47,7 @@ public class MyRegistrationIntentService extends IntentService
 
     /**
      * Persist registration to third-party servers.
-     *
+     * <p>
      * Modify this method to associate the user's GCM registration token with any server-side account
      * maintained by your application.
      *
@@ -64,8 +64,7 @@ public class MyRegistrationIntentService extends IntentService
      * @throws IOException if unable to reach the GCM PubSub service
      */
     // [START subscribe_topics]
-    private void subscribeTopics(String token) throws IOException
-    {
+    private void subscribeTopics(String token) throws IOException {
         GcmPubSub pubSub = GcmPubSub.getInstance(this);
         for (String topic : TOPICS) {
             pubSub.subscribe(token, "/topics/" + topic, null);

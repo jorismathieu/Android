@@ -13,8 +13,7 @@ import fr.zait.data.entities.Post;
 import fr.zait.holders.base.MyRecyclerHolder;
 import fr.zait.utils.DateUtils;
 
-public class HomeHolder extends MyRecyclerHolder
-{
+public class HomeHolder extends MyRecyclerHolder {
     private TextView title;
     private TextView author;
     private TextView subreddit;
@@ -28,8 +27,7 @@ public class HomeHolder extends MyRecyclerHolder
 
     private ImageView postThumbnail;
 
-    public HomeHolder(Context context, View v)
-    {
+    public HomeHolder(Context context, View v) {
         super(context, v);
         title = (TextView) v.findViewById(R.id.title);
         author = (TextView) v.findViewById(R.id.author);
@@ -44,8 +42,7 @@ public class HomeHolder extends MyRecyclerHolder
     }
 
     @Override
-    public void populateView(Object obj)
-    {
+    public void populateView(Object obj) {
         try {
             Post post = (Post) obj;
 
@@ -61,11 +58,13 @@ public class HomeHolder extends MyRecyclerHolder
             if (!post.thumbnail.equals("self")) {
                 postThumbnail.setVisibility(View.VISIBLE);
                 Ion.with(postThumbnail).load(post.thumbnail);
-            } else {
+            }
+            else {
                 postThumbnail.setVisibility(View.GONE);
             }
 
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
 
         }
     }

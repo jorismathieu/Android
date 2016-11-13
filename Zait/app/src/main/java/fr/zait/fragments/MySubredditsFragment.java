@@ -20,14 +20,11 @@ import fr.zait.adapters.SubredditsAdapter;
 import fr.zait.data.database.contract.SubredditsContract;
 import fr.zait.fragments.base.MyListFragment;
 
-public class MySubredditsFragment extends MyListFragment implements LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener, AdapterView.OnItemClickListener
-{
+public class MySubredditsFragment extends MyListFragment implements LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener, AdapterView.OnItemClickListener {
 
     /***
-     *
      * ANDROID
-     *
-     * ***/
+     ***/
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,19 +40,19 @@ public class MySubredditsFragment extends MyListFragment implements LoaderManage
     }
 
     /***
-     *
      * PRIVATE METHODS
-     *
-     * ***/
+     ***/
 
     @Override
     protected void initVariables() {
         if (getActivity().getSupportLoaderManager().getLoader(R.id.SQL_QUERY_GET_SUBREDDITS) != null) {
             getActivity().getSupportLoaderManager().restartLoader(R.id.SQL_QUERY_GET_SUBREDDITS, null, this);
-        } else {
+        }
+        else {
             getActivity().getSupportLoaderManager().initLoader(R.id.SQL_QUERY_GET_SUBREDDITS, null, this);
         }
-}
+    }
+
     @Override
     protected void initViews(View view) {
         DialogCallbackInterface dialogCallbackInterface = (DialogCallbackInterface) getActivity();
@@ -70,10 +67,8 @@ public class MySubredditsFragment extends MyListFragment implements LoaderManage
     }
 
     /***
-     *
      * OVERRIDED METHODS
-     *
-     * ***/
+     ***/
 
     @Override
     public Loader<Cursor> onCreateLoader(int query, Bundle bundle) {
@@ -95,12 +90,14 @@ public class MySubredditsFragment extends MyListFragment implements LoaderManage
                     if (adapter == null) {
                         adapter = new SubredditsAdapter(getActivity(), cursor);
                         setListAdapter(adapter);
-                    } else {
+                    }
+                    else {
                         adapter.changeCursor(cursor);
                     }
                 }
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
 
         }
     }
@@ -113,7 +110,8 @@ public class MySubredditsFragment extends MyListFragment implements LoaderManage
             if (c == null) {
                 return;
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             return;
         }
         if (loader.getId() == R.id.SQL_QUERY_GET_SUBREDDITS) {
@@ -122,15 +120,15 @@ public class MySubredditsFragment extends MyListFragment implements LoaderManage
             if (adapter == null) {
                 adapter = new SubredditsAdapter(c, null);
                 setListAdapter(adapter);
-            } else {
+            }
+            else {
                 adapter.changeCursor(null);
             }
         }
     }
 
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
         DialogCallbackInterface callbackActivity = (DialogCallbackInterface) getActivity();
         switch (v.getId()) {
             case R.id.reinit_icon:
@@ -143,8 +141,7 @@ public class MySubredditsFragment extends MyListFragment implements LoaderManage
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-    {
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         SubredditsAdapter subredditsAdapter = (SubredditsAdapter) getListAdapter();
         Cursor cursor = subredditsAdapter.getCursor(position);
         String subredditName = cursor.getString(cursor.getColumnIndex(SubredditsContract.SubredditsEntry.COLUMN_NAME));

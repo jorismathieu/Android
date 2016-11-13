@@ -13,8 +13,7 @@ import fr.zait.R;
 import fr.zait.activities.base.MyActivity;
 import fr.zait.data.entities.Post;
 
-public class PostWebviewActivity extends MyActivity implements View.OnClickListener
-{
+public class PostWebviewActivity extends MyActivity implements View.OnClickListener {
 
     public static class EXTRAS {
         public final static String POST = "Post";
@@ -25,14 +24,11 @@ public class PostWebviewActivity extends MyActivity implements View.OnClickListe
     private ProgressBar progressBar;
 
     /***
-     *
      * ANDROID
-     *
-     * ***/
+     ***/
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_webview_layout);
 
@@ -41,10 +37,8 @@ public class PostWebviewActivity extends MyActivity implements View.OnClickListe
     }
 
     /***
-     *
      * PRIVATE METHODS
-     *
-     * ***/
+     ***/
 
     @Override
     protected void initVariables() {
@@ -57,8 +51,7 @@ public class PostWebviewActivity extends MyActivity implements View.OnClickListe
 
 
     @Override
-    protected void initViews(Bundle savedInstanceState)
-    {
+    protected void initViews(Bundle savedInstanceState) {
         findViewById(R.id.post_webview_back_arrow).setOnClickListener(this);
         resetStatusBarColor();
         findViewById(R.id.bottom_previous).setOnClickListener(this);
@@ -67,26 +60,23 @@ public class PostWebviewActivity extends MyActivity implements View.OnClickListe
         findViewById(R.id.comment_icon).setOnClickListener(this);
         findViewById(R.id.open_nav_icon).setOnClickListener(this);
 
-        progressBar = (ProgressBar)findViewById(R.id.webview_progress_bar);
+        progressBar = (ProgressBar) findViewById(R.id.webview_progress_bar);
 
         webview = (WebView) findViewById(R.id.webview);
         webview.getSettings().setJavaScriptEnabled(true);
         webview.loadUrl(post.url);
-        webview.setWebViewClient(new WebViewClient()
-        {
+        webview.setWebViewClient(new WebViewClient() {
             @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url)
-            {
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
                 return true;
             }
         });
 
         webview.setWebChromeClient(new WebChromeClient() {
-            public void onProgressChanged(WebView view, int progress)
-            {
+            public void onProgressChanged(WebView view, int progress) {
                 if (progressBar != null) {
-                    if (progress < 100 && progressBar.getVisibility() == ProgressBar.INVISIBLE){
+                    if (progress < 100 && progressBar.getVisibility() == ProgressBar.INVISIBLE) {
                         progressBar.setVisibility(ProgressBar.VISIBLE);
                     }
                     if (progress == 100) {
@@ -98,14 +88,11 @@ public class PostWebviewActivity extends MyActivity implements View.OnClickListe
     }
 
     /***
-     *
      * OVERRIDED METHODS
-     *
-     * ***/
+     ***/
 
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
         switch (v.getId()) {
             case R.id.post_webview_back_arrow:
                 finishWithAnimation();

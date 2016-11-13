@@ -10,8 +10,7 @@ import android.widget.RemoteViews;
 
 import java.io.InputStream;
 
-public class ImageUtils
-{
+public class ImageUtils {
     public static void loadImageByUrl(String imageUrl, ImageView imageView) {
         DownloadImageTask downloadImageTask = new DownloadImageTask(imageView, null, 0, 0, null);
         downloadImageTask.execute(imageUrl);
@@ -23,8 +22,7 @@ public class ImageUtils
     }
 
 
-    private static class DownloadImageTask extends AsyncTask<String, Void, Bitmap>
-    {
+    private static class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         private ImageView bmImage;
         private RemoteViews rmViews;
         private int imageViewId;
@@ -45,16 +43,20 @@ public class ImageUtils
             try {
                 InputStream in = new java.net.URL(urldisplay).openStream();
                 mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 e.printStackTrace();
             }
             return mIcon11;
         }
 
         protected void onPostExecute(Bitmap result) {
-            if (bmImage != null)
+            if (bmImage != null) {
                 bmImage.setImageBitmap(result);
-            else if (rmViews != null);
+            }
+            else if (rmViews != null) {
+                ;
+            }
             {
                 rmViews.setImageViewBitmap(imageViewId, result);
                 AppWidgetManager.getInstance(context).partiallyUpdateAppWidget(appWidgetId, rmViews);

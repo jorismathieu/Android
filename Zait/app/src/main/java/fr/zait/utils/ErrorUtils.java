@@ -6,8 +6,7 @@ import android.view.View;
 
 import fr.zait.R;
 
-public class ErrorUtils
-{
+public class ErrorUtils {
     public final static int NETWORK_CONNECTION_ERROR = 1000;
 
     public static void displayError(Context context, View view, int error) {

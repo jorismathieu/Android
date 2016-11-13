@@ -11,8 +11,7 @@ import fr.zait.R;
 import fr.zait.adapters.base.MyAdapter;
 import fr.zait.holders.SubredditsHolder;
 
-public class SubredditsAdapter extends MyAdapter
-{
+public class SubredditsAdapter extends MyAdapter {
     public SubredditsAdapter(Context context, Cursor cursor) {
         super(context, cursor);
         cxt = context;
@@ -26,16 +25,14 @@ public class SubredditsAdapter extends MyAdapter
     }
 
     @Override
-    public View newView(Context context, Cursor cursor, ViewGroup parent)
-    {
+    public View newView(Context context, Cursor cursor, ViewGroup parent) {
         View view = layoutInflater.inflate(R.layout.my_subreddits_layout_listview, parent, false);
         view.setTag(new SubredditsHolder(context, view));
         return view;
     }
 
     @Override
-    public void bindView(View view, Context context, Cursor cursor)
-    {
+    public void bindView(View view, Context context, Cursor cursor) {
         ((SubredditsHolder) view.getTag()).populateView(cursor);
     }
 

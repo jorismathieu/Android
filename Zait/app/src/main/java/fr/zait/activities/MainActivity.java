@@ -31,9 +31,7 @@ import fr.zait.utils.NotificationsUtils;
 import fr.zait.widget.AppWidgetReceiver;
 
 
-public class MainActivity extends MyActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener,
-        DialogCallbackInterface, FragmentCallbackInterface, PostDetailCallbackInterface
-{
+public class MainActivity extends MyActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, DialogCallbackInterface, FragmentCallbackInterface, PostDetailCallbackInterface {
 
     private static final String LOGIN_TAG = "LOGIN";
     private static final String REINIT_SUBREDDITS_DIALOG_TAG = "REINIT_SUBS";
@@ -53,14 +51,11 @@ public class MainActivity extends MyActivity implements NavigationView.OnNavigat
     private int rotationAngle = 0;
 
     /***
-     *
      * ANDROID
-     *
-     * ***/
+     ***/
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
 
@@ -68,7 +63,8 @@ public class MainActivity extends MyActivity implements NavigationView.OnNavigat
             if (getIntent().getAction().equals(AppWidgetReceiver.APP_WIDGET_OPEN_POST_ACTION)) {
                 Post post = getIntent().getParcelableExtra(AppWidgetReceiver.EXTRA_POST);
                 openPostDetail(post);
-            } else {
+            }
+            else {
                 NotificationsUtils.checkOpenInternal(this, getIntent());
             }
         }
@@ -77,10 +73,8 @@ public class MainActivity extends MyActivity implements NavigationView.OnNavigat
     }
 
     /***
-     *
      * PRIVATE METHODS
-     *
-     * ***/
+     ***/
 
     private void loadFragment(Fragment fragment, Bundle args, String tag) {
         Fragment currentFragment = getSupportFragmentManager().findFragmentByTag(tag);
@@ -119,11 +113,9 @@ public class MainActivity extends MyActivity implements NavigationView.OnNavigat
 
         View addAccountRow = initLoginRows(R.id.add_account_row, R.drawable.ic_add_gray_24dp);
 
-        addAccountRow.setOnClickListener(new View.OnClickListener()
-        {
+        addAccountRow.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 new LoginDialog().show(getSupportFragmentManager(), LOGIN_TAG);
             }
         });
@@ -151,14 +143,11 @@ public class MainActivity extends MyActivity implements NavigationView.OnNavigat
     }
 
     /***
-     *
      * OVERRIDED METHODS
-     *
-     * ***/
+     ***/
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem menuItem)
-    {
+    public boolean onNavigationItemSelected(MenuItem menuItem) {
         menuItem.setChecked(true);
         switch (menuItem.getItemId()) {
             case R.id.nav_home:
@@ -183,27 +172,25 @@ public class MainActivity extends MyActivity implements NavigationView.OnNavigat
     }
 
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
         makeExpandIconRotate();
         if (navigationDrawerHeaderLogin.getVisibility() == View.GONE) {
             navigationDrawerHeaderLogin.setVisibility(View.VISIBLE);
-        } else {
+        }
+        else {
             navigationDrawerHeaderLogin.setVisibility(View.GONE);
         }
     }
 
     @Override
-    public void attachDrawerToggle(Toolbar toolbar)
-    {
+    public void attachDrawerToggle(Toolbar toolbar) {
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
         drawerToggle.syncState();
         drawerLayout.setDrawerListener(drawerToggle);
     }
 
     @Override
-    public void displayReinitSubredditsDialog()
-    {
+    public void displayReinitSubredditsDialog() {
         new ReinitSubredditsDialog().show(getSupportFragmentManager(), REINIT_SUBREDDITS_DIALOG_TAG);
     }
 
@@ -220,8 +207,7 @@ public class MainActivity extends MyActivity implements NavigationView.OnNavigat
 
 
     @Override
-    public void switchFragment(String tag, Bundle args)
-    {
+    public void switchFragment(String tag, Bundle args) {
         switch (tag) {
             case HOME_FRAGMENT_TAG:
                 loadFragment(homeFragment, args, HOME_FRAGMENT_TAG);
@@ -230,22 +216,17 @@ public class MainActivity extends MyActivity implements NavigationView.OnNavigat
     }
 
     @Override
-    public void openPostDetail(Post post)
-    {
+    public void openPostDetail(Post post) {
         Intent intent = null;
-        if (post != null)
-        {
-            if (!post.thumbnail.equals("self"))
-            {
+        if (post != null) {
+            if (!post.thumbnail.equals("self")) {
                 intent = new Intent(this, PostWebviewActivity.class);
             }
-            else
-            {
+            else {
                 intent = new Intent(this, PostCommentsActivity.class);
             }
 
-            if (intent != null)
-            {
+            if (intent != null) {
                 intent.putExtra(PostWebviewActivity.EXTRAS.POST, post);
                 startActivity(intent);
                 overridePendingTransition(R.anim.push_in_left, R.anim.push_out_left);

@@ -4,8 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-public class MySharedPreferences
-{
+public class MySharedPreferences {
 
     public static final String SELECTED_SUBREDDIT_CHANGE_BROADCAST = "fr.zait.MySharedPreferences.SELECTED_SUBREDDIT_CHANGE_BROADCAST";
 
@@ -18,7 +17,7 @@ public class MySharedPreferences
     public static final String PACKAGE_NAME = "fr.zait";
 
     public static SharedPreferences getSharedPreferences(Context context) {
-       return context.getSharedPreferences(PACKAGE_NAME, Context.MODE_PRIVATE);
+        return context.getSharedPreferences(PACKAGE_NAME, Context.MODE_PRIVATE);
     }
 
     public static void saveSelectedSubreddit(Context context, String selectedSubreddit) {

@@ -10,8 +10,7 @@ import fr.zait.data.database.contract.SubredditsContract;
 import fr.zait.interfaces.callback.DialogCallbackInterface;
 import fr.zait.holders.base.MyHolder;
 
-public class SubredditsHolder extends MyHolder
-{
+public class SubredditsHolder extends MyHolder {
     private TextView subredditTv;
     private View removeIcon;
 
@@ -22,17 +21,14 @@ public class SubredditsHolder extends MyHolder
     }
 
     @Override
-    public void populateView(Cursor c)
-    {
+    public void populateView(Cursor c) {
         final long id = c.getLong(c.getColumnIndex(SubredditsContract.SubredditsEntry._ID));
         final String subredditName = c.getString(c.getColumnIndex(SubredditsContract.SubredditsEntry.COLUMN_NAME));
 
         subredditTv.setText(subredditName);
-        removeIcon.setOnClickListener(new View.OnClickListener()
-        {
+        removeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 String where = SubredditsContract.SubredditsEntry._ID + " = ?";
                 String[] whereArgs = {String.valueOf(id)};
                 DialogCallbackInterface callbackActivity = (DialogCallbackInterface) cxt;

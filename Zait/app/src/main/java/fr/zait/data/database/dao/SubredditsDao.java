@@ -13,8 +13,7 @@ import fr.zait.data.database.MyDbHelper;
 import fr.zait.data.database.contract.SubredditsContract;
 import fr.zait.data.entities.Subreddit;
 
-public class SubredditsDao
-{
+public class SubredditsDao {
 
     public static void saveDefaultSubreddits(Context context) {
         SQLiteDatabase db = MyDbHelper.getInstance().getWritableDatabase();
@@ -27,8 +26,10 @@ public class SubredditsDao
                 values.put(SubredditsContract.SubredditsEntry.COLUMN_NAME, defaultSubreddits[i]);
                 db.insert(SubredditsContract.TABLE_NAME, "null", values);
             }
-        } catch (Exception e) {
-        } finally {
+        }
+        catch (Exception e) {
+        }
+        finally {
             db.close();
         }
     }
@@ -38,10 +39,7 @@ public class SubredditsDao
         List<Subreddit> subreddits = new ArrayList<>();
 
         try {
-            String[] projection = {
-                    SubredditsContract.SubredditsEntry._ID,
-                    SubredditsContract.SubredditsEntry.COLUMN_NAME,
-            };
+            String[] projection = {SubredditsContract.SubredditsEntry._ID, SubredditsContract.SubredditsEntry.COLUMN_NAME,};
 
             String sortOrder = SubredditsContract.SubredditsEntry._ID + " ASC";
 
@@ -54,8 +52,10 @@ public class SubredditsDao
                     subreddits.add(subreddit);
                 }
             }
-        } catch (Exception e) {
-        } finally {
+        }
+        catch (Exception e) {
+        }
+        finally {
             db.close();
         }
         return subreddits;
@@ -67,8 +67,10 @@ public class SubredditsDao
 
         try {
             idInserted = db.insert(SubredditsContract.TABLE_NAME, null, values);
-        } catch (Exception e) {
-        } finally {
+        }
+        catch (Exception e) {
+        }
+        finally {
             db.close();
         }
         return idInserted;
@@ -80,8 +82,10 @@ public class SubredditsDao
 
         try {
             nbDeletion = db.delete(SubredditsContract.TABLE_NAME, where, whereArgs);
-        } catch (Exception e) {
-        } finally {
+        }
+        catch (Exception e) {
+        }
+        finally {
             db.close();
         }
         return nbDeletion;

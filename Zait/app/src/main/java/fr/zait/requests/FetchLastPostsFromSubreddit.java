@@ -14,9 +14,8 @@ import fr.zait.interfaces.callback.LastPostCallbackInterface;
 import fr.zait.requests.base.Request;
 import fr.zait.utils.NetworkUtils;
 
-public class FetchLastPostsFromSubreddit extends Request
-{
-    private static final String URL_TEMPLATE = "http://www.reddit.com/r/" + SUBREDDIT_NAME_KEY + "/new.json?limit=" + LIMIT_KEY;
+public class FetchLastPostsFromSubreddit extends Request {
+    private static final String URL_TEMPLATE = "https://www.reddit.com/r/" + SUBREDDIT_NAME_KEY + "/new.json?limit=" + LIMIT_KEY;
 
     private String subreddit;
     private String limit;
@@ -32,8 +31,7 @@ public class FetchLastPostsFromSubreddit extends Request
     }
 
     @Override
-    protected String generateURL()
-    {
+    protected String generateURL() {
         url = URL_TEMPLATE.replace(SUBREDDIT_NAME_KEY, subreddit);
         url = url.replace(LIMIT_KEY, limit);
         return url;
@@ -52,14 +50,14 @@ public class FetchLastPostsFromSubreddit extends Request
     }
 
     public void switchSubredditName(String newSubr) {
-        if (posts != null)
+        if (posts != null) {
             posts.clear();
+        }
         subreddit = newSubr;
         generateURL();
     }
 
-    private class Request extends AsyncTask<String, String, String>
-    {
+    private class Request extends AsyncTask<String, String, String> {
         @Override
         protected String doInBackground(String... uri) {
             String raw = NetworkUtils.readContents(context, url);
@@ -91,15 +89,18 @@ public class FetchLastPostsFromSubreddit extends Request
                         p.thumbnail = cur.optString("thumbnail");
                         p.text = cur.optString("selftext");
                         p.hasBeenSeen = false;
-                        if (p.title != null)
+                        if (p.title != null) {
                             posts.add(p);
+                        }
                     }
 
                     lastPostCallbackInterface.postsReady();
 
-                } catch (Exception e){
                 }
-            } else {
+                catch (Exception e) {
+                }
+            }
+            else {
             }
         }
     }

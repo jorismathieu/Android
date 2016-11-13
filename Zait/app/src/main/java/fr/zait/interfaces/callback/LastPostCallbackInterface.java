@@ -1,6 +1,5 @@
 package fr.zait.interfaces.callback;
 
-public interface LastPostCallbackInterface
-{
+public interface LastPostCallbackInterface {
     void postsReady();
 }

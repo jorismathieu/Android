@@ -15,9 +15,8 @@ import fr.zait.data.entities.Post;
 import fr.zait.requests.base.Request;
 import fr.zait.utils.NetworkUtils;
 
-public class FetchCommentsFromPost extends Request
-{
-    private static final String URL_TEMPLATE = "http://www.reddit.com/r/" + SUBREDDIT_NAME_KEY + "/comments/" + POST_ID_KEY + ".json?after=" + AFTER_KEY;
+public class FetchCommentsFromPost extends Request {
+    private static final String URL_TEMPLATE = "https://www.reddit.com/r/" + SUBREDDIT_NAME_KEY + "/comments/" + POST_ID_KEY + ".json?after=" + AFTER_KEY;
     private String after;
     private Post post;
     private Context context;
@@ -34,8 +33,7 @@ public class FetchCommentsFromPost extends Request
     }
 
     @Override
-    protected String generateURL()
-    {
+    protected String generateURL() {
         url = URL_TEMPLATE.replace(SUBREDDIT_NAME_KEY, post.subreddit);
         url = url.replace(POST_ID_KEY, String.valueOf(post.id));
         url = url.replace(AFTER_KEY, after);
@@ -43,8 +41,7 @@ public class FetchCommentsFromPost extends Request
     }
 
     @Override
-    protected void startRequest()
-    {
+    protected void startRequest() {
         new Request().execute();
     }
 
@@ -52,15 +49,13 @@ public class FetchCommentsFromPost extends Request
         startRequest();
     }
 
-    public void fetchMoreComments()
-    {
+    public void fetchMoreComments() {
         generateURL();
         fetchComments();
     }
 
 
-    private class Request extends AsyncTask<String, String, String>
-    {
+    private class Request extends AsyncTask<String, String, String> {
         @Override
         protected String doInBackground(String... uri) {
             String raw = NetworkUtils.readContents(context, url);
@@ -79,10 +74,12 @@ public class FetchCommentsFromPost extends Request
                     comments = getComments(children);
 
                     adapter.setNewComments(comments);
-                } catch (Exception e){
+                }
+                catch (Exception e) {
                     adapter.displayConnectionError();
                 }
-            } else {
+            }
+            else {
                 adapter.displayConnectionError();
             }
             adapter.loadingIsDone();
@@ -91,8 +88,7 @@ public class FetchCommentsFromPost extends Request
 
     private List<Comment> getComments(JSONArray children) {
         List<Comment> comments = new ArrayList<>();
-        try
-        {
+        try {
             for (int i = 0; i < children.length(); i++) {
                 JSONObject commentJson = children.getJSONObject(i).getJSONObject("data");
                 Comment comment = new Comment();
@@ -105,7 +101,8 @@ public class FetchCommentsFromPost extends Request
                 if (!commentJson.get("replies").equals("")) {
                     comment.answers = getComments(commentJson.getJSONObject("replies").getJSONObject("data").getJSONArray("children"));
                     comment.nbAnswers = comment.answers.size();
-                } else {
+                }
+                else {
                     comment.nbAnswers = 0;
                     comment.answers = null;
                 }
@@ -113,8 +110,7 @@ public class FetchCommentsFromPost extends Request
                 comments.add(comment);
             }
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
         }
 
         return comments;

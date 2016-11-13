@@ -8,8 +8,7 @@ import android.view.WindowManager;
 
 import fr.zait.R;
 
-public abstract class MyActivity extends AppCompatActivity
-{
+public abstract class MyActivity extends AppCompatActivity {
     private static final int DEFAULT_VALUE = -1;
 
     protected int enterAnimId = DEFAULT_VALUE;
@@ -19,8 +18,7 @@ public abstract class MyActivity extends AppCompatActivity
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-        {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.setStatusBarColor(getResources().getColor(R.color.primaryDarkColor));
         }
     }
@@ -38,5 +36,6 @@ public abstract class MyActivity extends AppCompatActivity
     }
 
     protected abstract void initVariables();
+
     protected abstract void initViews(Bundle savedInstanceState);
 }

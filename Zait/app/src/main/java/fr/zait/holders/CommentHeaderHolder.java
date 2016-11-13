@@ -13,8 +13,7 @@ import fr.zait.data.entities.Post;
 import fr.zait.holders.base.MyRecyclerHolder;
 import fr.zait.utils.DateUtils;
 
-public class CommentHeaderHolder extends MyRecyclerHolder
-{
+public class CommentHeaderHolder extends MyRecyclerHolder {
 
     private TextView title;
     private TextView author;
@@ -31,8 +30,7 @@ public class CommentHeaderHolder extends MyRecyclerHolder
     private ImageView postThumbnail;
 
 
-    public CommentHeaderHolder(Context context, View v)
-    {
+    public CommentHeaderHolder(Context context, View v) {
         super(context, v);
 
         title = (TextView) v.findViewById(R.id.title);
@@ -42,15 +40,14 @@ public class CommentHeaderHolder extends MyRecyclerHolder
         commentNumber = (TextView) v.findViewById(R.id.comment_number);
         url = (TextView) v.findViewById(R.id.url);
         date = (TextView) v.findViewById(R.id.date);
-        body  = (TextView) v.findViewById(R.id.body);
+        body = (TextView) v.findViewById(R.id.body);
         postThumbnail = (ImageView) v.findViewById(R.id.post_image);
         container = v.findViewById(R.id.card_container);
         cardView = (CardView) v.findViewById(R.id.card_view);
     }
 
     @Override
-    public void populateView(Object obj)
-    {
+    public void populateView(Object obj) {
         try {
             Post post = (Post) obj;
 
@@ -68,11 +65,13 @@ public class CommentHeaderHolder extends MyRecyclerHolder
             if (!post.thumbnail.equals("self")) {
                 postThumbnail.setVisibility(View.VISIBLE);
                 Ion.with(postThumbnail).load(post.thumbnail);
-            } else {
+            }
+            else {
                 postThumbnail.setVisibility(View.GONE);
             }
 
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
 
         }
     }

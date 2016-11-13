@@ -14,9 +14,8 @@ import fr.zait.data.entities.Post;
 import fr.zait.requests.base.Request;
 import fr.zait.utils.NetworkUtils;
 
-public class FetchPostsFromSearch extends Request
-{
-    private static final String URL_TEMPLATE = "http://www.reddit.com/search.json?q=" + SEARCH_KEY + "&after=" + AFTER_KEY;
+public class FetchPostsFromSearch extends Request {
+    private static final String URL_TEMPLATE = "https://www.reddit.com/search.json?q=" + SEARCH_KEY + "&after=" + AFTER_KEY;
 
     private String after;
     private Context context;
@@ -33,8 +32,7 @@ public class FetchPostsFromSearch extends Request
     }
 
     @Override
-    protected String generateURL()
-    {
+    protected String generateURL() {
         url = URL_TEMPLATE.replace(SEARCH_KEY, search);
         url = url.replace(AFTER_KEY, after);
         return url;
@@ -52,14 +50,12 @@ public class FetchPostsFromSearch extends Request
         startRequest();
     }
 
-    public void fetchMorePosts()
-    {
+    public void fetchMorePosts() {
         generateURL();
         startRequest();
     }
 
-    private class Request extends AsyncTask<String, String, String>
-    {
+    private class Request extends AsyncTask<String, String, String> {
         @Override
         protected String doInBackground(String... uri) {
             String raw = NetworkUtils.readContents(context, url);
@@ -93,14 +89,17 @@ public class FetchPostsFromSearch extends Request
                         p.thumbnail = cur.optString("thumbnail");
                         p.text = cur.optString("selftext");
                         p.hasBeenSeen = false;
-                        if (p.title != null)
+                        if (p.title != null) {
                             posts.add(p);
+                        }
                     }
                     adapter.setNewPosts(posts);
-                } catch (Exception e){
+                }
+                catch (Exception e) {
                     adapter.displayConnectionError();
                 }
-            } else {
+            }
+            else {
                 adapter.displayConnectionError();
             }
             adapter.loadingIsDone();

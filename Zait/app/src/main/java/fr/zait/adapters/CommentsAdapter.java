@@ -18,8 +18,7 @@ import fr.zait.data.entities.Post;
 import fr.zait.holders.CommentHeaderHolder;
 import fr.zait.holders.CommentHolder;
 
-public class CommentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
-{
+public class CommentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context cxt;
     private Post post;
@@ -55,16 +54,18 @@ public class CommentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (!refreshingController.isConnectionError()) {
             if (comments.size() > 0 || post != null) {
                 refreshingController.setNoResultView(View.GONE);
-            } else {
+            }
+            else {
                 refreshingController.setNoResultView(View.VISIBLE);
             }
         }
     }
 
     public void displayConnectionError() {
-        if (comments.size() > 0  || post != null) {
+        if (comments.size() > 0 || post != null) {
             refreshingController.displayConnectionError(RefreshingController.OPTIONS.NO_HOLDER);
-        } else {
+        }
+        else {
             refreshingController.displayConnectionError(RefreshingController.OPTIONS.HOLDER);
         }
     }
@@ -74,7 +75,8 @@ public class CommentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (viewType == TYPE_ITEM) {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_comment_cardview, parent, false);
             return new CommentHolder(cxt, v);
-        } else {
+        }
+        else {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_comment_header_layout, parent, false);
             return new CommentHeaderHolder(cxt, v);
         }
@@ -93,7 +95,8 @@ public class CommentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (holder instanceof CommentHolder) {
             CommentHolder commentHolder = (CommentHolder) holder;
             commentHolder.populateView(comments.get(position - 1));
-        } else {
+        }
+        else {
             CommentHeaderHolder commentHeaderHolder = (CommentHeaderHolder) holder;
             commentHeaderHolder.populateView(post);
         }
@@ -122,8 +125,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return 1;
     }
 
-    private void setAnimation(View viewToAnimate)
-    {
+    private void setAnimation(View viewToAnimate) {
         Animation animation = AnimationUtils.loadAnimation(cxt, android.R.anim.slide_in_left);
         viewToAnimate.startAnimation(animation);
     }

@@ -7,21 +7,18 @@ import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 
-public class SmoothScrollingLayoutManager extends LinearLayoutManager
-{
+public class SmoothScrollingLayoutManager extends LinearLayoutManager {
     private int lastPosition;
     private TopLinearSmoothScroller smoothScroller;
 
-    public SmoothScrollingLayoutManager(Context context, int startPosition)
-    {
+    public SmoothScrollingLayoutManager(Context context, int startPosition) {
         super(context);
         lastPosition = startPosition;
         smoothScroller = new TopLinearSmoothScroller(context);
     }
 
     @Override
-    public void smoothScrollToPosition(RecyclerView recyclerView, RecyclerView.State state, final int position)
-    {
+    public void smoothScrollToPosition(RecyclerView recyclerView, RecyclerView.State state, final int position) {
         smoothScroller.setTargetPosition(position);
         startSmoothScroll(smoothScroller);
     }
@@ -35,11 +32,11 @@ public class SmoothScrollingLayoutManager extends LinearLayoutManager
         }
 
         @Override
-        public PointF computeScrollVectorForPosition(int targetPosition)
-        {
+        public PointF computeScrollVectorForPosition(int targetPosition) {
             if (lastPosition < targetPosition) {
                 direction = 1;
-            } else {
+            }
+            else {
                 direction = -1;
             }
             lastPosition = targetPosition;
@@ -47,8 +44,7 @@ public class SmoothScrollingLayoutManager extends LinearLayoutManager
         }
 
         @Override
-        protected float calculateSpeedPerPixel(DisplayMetrics displayMetrics)
-        {
+        protected float calculateSpeedPerPixel(DisplayMetrics displayMetrics) {
             return 50f / displayMetrics.densityDpi;
         }
 

@@ -5,13 +5,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 import com.crashlytics.android.Crashlytics;
+
 import fr.zait.data.database.MyDbHelper;
 import fr.zait.gcm.MyRegistrationIntentService;
 import io.fabric.sdk.android.Fabric;
 
 
-public class MyApplication extends Application
-{
+public class MyApplication extends Application {
 
     @Override
     public void onCreate() {
@@ -24,8 +24,7 @@ public class MyApplication extends Application
         myDbHelper.createTables();
         myDbHelper.fillTables(sharedPreferences);
 
-        if (sharedPreferences.getBoolean(MySharedPreferences.FIRST_RUN, true))
-        {
+        if (sharedPreferences.getBoolean(MySharedPreferences.FIRST_RUN, true)) {
             Intent gcmRegistration = new Intent(this, MyRegistrationIntentService.class);
             startService(gcmRegistration);
         }

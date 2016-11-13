@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="fr.zait" >
+          package="fr.zait">
 
     <!-- PERMISSIONS -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
-    <permission android:name="com.example.gcm.permission.C2D_MESSAGE"
-                android:protectionLevel="signature" />
-    <uses-permission android:name="com.example.gcm.permission.C2D_MESSAGE" />
+    <permission
+        android:name="com.example.gcm.permission.C2D_MESSAGE"
+        android:protectionLevel="signature"/>
+    <uses-permission android:name="com.example.gcm.permission.C2D_MESSAGE"/>
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:name=".MyApplication"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
 
 
         <!-- BROADCAST RECEIVERS -->
@@ -25,30 +26,32 @@
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+            android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <category android:name="com.example.gcm" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION"/>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+
+                <category android:name="com.example.gcm"/>
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".widget.AppWidgetReceiver" >
+        <receiver android:name=".widget.AppWidgetReceiver">
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="fr.zait.MySharedPreferences.SELECTED_SUBREDDIT_CHANGE_BROADCAST" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="fr.zait.MySharedPreferences.SELECTED_SUBREDDIT_CHANGE_BROADCAST"/>
             </intent-filter>
-            <meta-data android:name="android.appwidget.provider"
-                       android:resource="@xml/appwidget_info" />
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/appwidget_info"/>
         </receiver>
 
         <!-- SERVICES -->
 
         <service
             android:name=".gcm.MyGcmListenerService"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
             </intent-filter>
         </service>
 
@@ -62,33 +65,35 @@
 
         <service
             android:name=".gcm.MyRegistrationIntentService"
-            android:enabled="true" >
+            android:enabled="true">
             <intent-filter>
-                <action android:name="fr.zait.gcm.RegistrationIntentService" />
+                <action android:name="fr.zait.gcm.RegistrationIntentService"/>
             </intent-filter>
         </service>
 
-        <service android:name=".widget.StackWidgetService"
-                 android:permission="android.permission.BIND_REMOTEVIEWS"
-                 android:exported="false">
+        <service
+            android:name=".widget.StackWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"
+            android:exported="false">
 
         </service>
 
 
         <!-- CONTENT PROVIDER -->
 
-        <provider android:name="fr.zait.data.database.MyContentProvider"
-                  android:authorities="fr.zait.data.database.MyContentProvider"/>
+        <provider
+            android:name="fr.zait.data.database.MyContentProvider"
+            android:authorities="fr.zait.data.database.MyContentProvider"/>
 
 
         <!-- ACTIVITIES -->
 
         <activity
             android:name=".activities.SplashActivity"
-            android:windowSoftInputMode="adjustPan" >
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
 
         </activity>
@@ -96,7 +101,7 @@
 
         <activity
             android:name=".activities.MainActivity"
-            android:windowSoftInputMode="adjustPan" >
+            android:windowSoftInputMode="adjustPan">
         </activity>
 
         <activity android:name=".activities.SettingsActivity"/>
@@ -110,7 +115,7 @@
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="add65e7136be5d3aa8230614d410ed31f1c70184" />
+            android:value="add65e7136be5d3aa8230614d410ed31f1c70184"/>
 
 
     </application>

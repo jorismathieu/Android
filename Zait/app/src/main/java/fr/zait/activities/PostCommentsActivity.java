@@ -20,8 +20,7 @@ import fr.zait.listeners.RecyclerItemClickListener;
 import fr.zait.requests.FetchCommentsFromPost;
 import fr.zait.utils.StringUtils;
 
-public class PostCommentsActivity extends MyActivity implements View.OnClickListener, View.OnTouchListener, SwipeRefreshLayout.OnRefreshListener
-{
+public class PostCommentsActivity extends MyActivity implements View.OnClickListener, View.OnTouchListener, SwipeRefreshLayout.OnRefreshListener {
 
     public static class EXTRAS {
         public final static String POST = "Post";
@@ -41,14 +40,11 @@ public class PostCommentsActivity extends MyActivity implements View.OnClickList
     private int firstVisibleItem, visibleItemCount, totalItemCount;
 
     /***
-     *
      * ANDROID
-     *
-     * ***/
+     ***/
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_comments_layout);
 
@@ -61,10 +57,8 @@ public class PostCommentsActivity extends MyActivity implements View.OnClickList
     }
 
     /***
-     *
      * PRIVATE METHODS
-     *
-     * ***/
+     ***/
 
     @Override
     protected void initVariables() {
@@ -83,8 +77,7 @@ public class PostCommentsActivity extends MyActivity implements View.OnClickList
 
 
     @Override
-    protected void initViews(Bundle savedInstanceState)
-    {
+    protected void initViews(Bundle savedInstanceState) {
         findViewById(R.id.post_comments_back_arrow).setOnClickListener(this);
         resetStatusBarColor();
 
@@ -96,35 +89,28 @@ public class PostCommentsActivity extends MyActivity implements View.OnClickList
         recyclerView.setLayoutManager(layoutManager);
 
         recyclerView.setAdapter(recyclerAdapter);
-        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener()
-        {
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position)
-            {
+            public void onItemClick(View view, int position) {
             }
         }));
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
-        {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
-            {
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
                 visibleItemCount = recyclerView.getChildCount();
                 totalItemCount = layoutManager.getItemCount();
                 firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
 
-                if (refreshingController.isLoading)
-                {
-                    if (totalItemCount > previousTotal)
-                    {
+                if (refreshingController.isLoading) {
+                    if (totalItemCount > previousTotal) {
                         refreshingController.isLoading = false;
                         previousTotal = totalItemCount;
                     }
                 }
-                if (!refreshingController.isLoading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold))
-                {
+                if (!refreshingController.isLoading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
 //                    fetchCommentsFromPost.fetchMoreComments();
 //                    refreshingController.setProgressBarVisibility(View.VISIBLE);
                 }
@@ -143,20 +129,17 @@ public class PostCommentsActivity extends MyActivity implements View.OnClickList
 
 
     /***
-     *
      * OVERRIDED METHODS
-     *
-     * ***/
+     ***/
 
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
         switch (v.getId()) {
             case R.id.post_comments_back_arrow:
                 finishWithAnimation();
                 break;
             case R.id.open_nav_icon:
-                String url = "http://www.reddit.com/r/" + post.subreddit + "/comments/" + post.id;
+                String url = "https://www.reddit.com/r/" + post.subreddit + "/comments/" + post.id;
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(intent);
                 break;
@@ -174,8 +157,7 @@ public class PostCommentsActivity extends MyActivity implements View.OnClickList
     }
 
     @Override
-    public boolean onTouch(View v, MotionEvent event)
-    {
+    public boolean onTouch(View v, MotionEvent event) {
         switch (v.getId()) {
             case R.id.post_comments_fab:
                 findViewById(R.id.post_comments_fab).setVisibility(View.GONE);
@@ -190,8 +172,7 @@ public class PostCommentsActivity extends MyActivity implements View.OnClickList
     }
 
     @Override
-    public void onRefresh()
-    {
+    public void onRefresh() {
         refreshingController.setSwipeRefreshLayoutRefreshing(true);
         refreshingController.setSwipeRefreshLayoutEnabled(false);
         refreshingController.setProgressBarVisibility(View.GONE);

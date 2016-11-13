@@ -4,7 +4,6 @@ import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -19,8 +18,7 @@ import fr.zait.interfaces.callback.LastPostCallbackInterface;
 import fr.zait.requests.FetchLastPostsFromSubreddit;
 import fr.zait.utils.StringUtils;
 
-public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory, LastPostCallbackInterface
-{
+public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory, LastPostCallbackInterface {
 
     private static final int POST_LIMIT = 10;
 
@@ -40,9 +38,7 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
     }
 
     @Override
-    public void onCreate()
-    {
-        Log.e("ON CREATE", "******");
+    public void onCreate() {
         String selectedSubreddit = MySharedPreferences.getSharedPreferences(context).getString(MySharedPreferences.SELECTED_SUBREDDIT, "");
 
         if (StringUtils.isEmpty(selectedSubreddit)) {
@@ -61,28 +57,24 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
     }
 
     @Override
-    public void onDataSetChanged()
-    {
-        Log.e("ON DATA SET CHANGED", "******");
+    public void onDataSetChanged() {
     }
 
     @Override
-    public void onDestroy()
-    {
+    public void onDestroy() {
 
     }
 
     @Override
-    public int getCount()
-    {
-        if (posts != null)
+    public int getCount() {
+        if (posts != null) {
             return posts.size();
+        }
         return 0;
     }
 
     @Override
-    public RemoteViews getViewAt(int position)
-    {
+    public RemoteViews getViewAt(int position) {
         RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.appwidget_item);
         if (posts != null) {
             rv.setTextViewText(R.id.post_title, posts.get(position).title);
@@ -100,34 +92,28 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
     }
 
     @Override
-    public RemoteViews getLoadingView()
-    {
+    public RemoteViews getLoadingView() {
         return null;
     }
 
     @Override
-    public int getViewTypeCount()
-    {
+    public int getViewTypeCount() {
         return 1;
     }
 
     @Override
-    public long getItemId(int position)
-    {
+    public long getItemId(int position) {
         return position;
     }
 
     @Override
-    public boolean hasStableIds()
-    {
+    public boolean hasStableIds() {
         return true;
     }
 
 
     @Override
-    public void postsReady()
-    {
-        Log.e("POST READY", "******");
+    public void postsReady() {
         posts = fetchLastPostsFromSubreddit.getPosts();
         AppWidgetManager.getInstance(context).notifyAppWidgetViewDataChanged(appWidgetId, R.id.stack_view);
     }

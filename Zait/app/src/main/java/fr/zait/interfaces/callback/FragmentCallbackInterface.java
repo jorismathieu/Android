@@ -2,8 +2,7 @@ package fr.zait.interfaces.callback;
 
 import android.os.Bundle;
 
-public interface FragmentCallbackInterface
-{
+public interface FragmentCallbackInterface {
     String HOME_FRAGMENT_TAG = "HOME";
     String MY_SUBREDDITS_TAG = "SUBREDDITS";
     String SEARCH_FRAGMENT = "SEARCH";

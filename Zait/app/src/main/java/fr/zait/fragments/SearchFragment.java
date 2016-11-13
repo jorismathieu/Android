@@ -25,8 +25,7 @@ import fr.zait.requests.FetchPostsFromSearch;
 import fr.zait.utils.DisplayUtils;
 import fr.zait.utils.StringUtils;
 
-public class SearchFragment extends MyFragment implements SwipeRefreshLayout.OnRefreshListener
-{
+public class SearchFragment extends MyFragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private HomeAdapter recyclerAdapter;
     private RefreshingController refreshingController;
@@ -41,10 +40,8 @@ public class SearchFragment extends MyFragment implements SwipeRefreshLayout.OnR
     private String lastQuery = "";
 
     /***
-     *
      * ANDROID
-     *
-     * ***/
+     ***/
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,10 +57,8 @@ public class SearchFragment extends MyFragment implements SwipeRefreshLayout.OnR
     }
 
     /***
-     *
      * PRIVATE METHODS
-     *
-     * ***/
+     ***/
 
     @Override
     protected void initVariables(View view) {
@@ -86,109 +81,97 @@ public class SearchFragment extends MyFragment implements SwipeRefreshLayout.OnR
         MenuItemCompat.expandActionView(searchItem);
 
         SearchView searchView = (SearchView) searchItem.getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
-              {
-                  @Override
-                  public boolean onQueryTextSubmit(String query)
-                  {
-                      if (!StringUtils.isEmpty(query) && query.length() >= 2)
-                      {
-                          refreshingController.setProgressBarVisibility(View.VISIBLE);
-                          query = query.replace(" ", "+");
-                          fetchPostsFromSearch.fetchPosts(query);
-                          lastQuery = query;
-                      }
-                      else
-                      {
-                          DisplayUtils.snackbar(view, R.string.search_length_error, Snackbar.LENGTH_LONG);
-                      }
-                      return false;
-                  }
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                                              @Override
+                                              public boolean onQueryTextSubmit(String query) {
+                                                  if (!StringUtils.isEmpty(query) && query.length() >= 2) {
+                                                      refreshingController.setProgressBarVisibility(View.VISIBLE);
+                                                      query = query.replace(" ", "+");
+                                                      fetchPostsFromSearch.fetchPosts(query);
+                                                      lastQuery = query;
+                                                  }
+                                                  else {
+                                                      DisplayUtils.snackbar(view, R.string.search_length_error, Snackbar.LENGTH_LONG);
+                                                  }
+                                                  return false;
+                                              }
 
-                  @Override
-                  public boolean onQueryTextChange(String newText)
-                  {
-                      return false;
-                  }
-              }
+                                              @Override
+                                              public boolean onQueryTextChange(String newText) {
+                                                  return false;
+                                              }
+                                          }
 
-            );
+        );
 
-            // Recycler view
-            recyclerView=(RecyclerView)view.findViewById(R.id.search_recycler_view);
-            layoutManager=new
+        // Recycler view
+        recyclerView = (RecyclerView) view.findViewById(R.id.search_recycler_view);
+        layoutManager = new
 
-            LinearLayoutManager(getActivity()
+                LinearLayoutManager(getActivity()
 
-            );
-            recyclerView.setLayoutManager(layoutManager);
-            recyclerView.setAdapter(recyclerAdapter);
-            recyclerView.addOnItemTouchListener(new
+        );
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(recyclerAdapter);
+        recyclerView.addOnItemTouchListener(new
 
-                    RecyclerItemClickListener(getActivity(),
+                RecyclerItemClickListener(getActivity(),
 
-                    new RecyclerItemClickListener.OnItemClickListener()
+                new RecyclerItemClickListener.OnItemClickListener()
 
-                    {
-                        @Override
-                        public void onItemClick(View view, int position)
-                        {
-                            Post post = recyclerAdapter.getPost(position);
-                            PostDetailCallbackInterface postDetailCallbackInterface = (PostDetailCallbackInterface) getActivity();
-                            postDetailCallbackInterface.openPostDetail(post);
-                        }
-                    }
-
-            ));
-
-            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
-            {
-                @Override public void onScrolled (RecyclerView recyclerView,int dx, int dy)
                 {
-                    super.onScrolled(recyclerView, dx, dy);
-
-                    visibleItemCount = recyclerView.getChildCount();
-                    totalItemCount = layoutManager.getItemCount();
-                    firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
-
-                    if (refreshingController.isLoading)
-                    {
-                        if (totalItemCount > previousTotal)
-                        {
-                            refreshingController.isLoading = false;
-                            previousTotal = totalItemCount;
-                        }
-                    }
-                    if (!refreshingController.isLoading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold))
-                    {
-                        fetchPostsFromSearch.fetchMorePosts();
-                        refreshingController.setProgressBarVisibility(View.VISIBLE);
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Post post = recyclerAdapter.getPost(position);
+                        PostDetailCallbackInterface postDetailCallbackInterface = (PostDetailCallbackInterface) getActivity();
+                        postDetailCallbackInterface.openPostDetail(post);
                     }
                 }
-            }
 
-            );
+        ));
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                                             @Override
+                                             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                                                 super.onScrolled(recyclerView, dx, dy);
+
+                                                 visibleItemCount = recyclerView.getChildCount();
+                                                 totalItemCount = layoutManager.getItemCount();
+                                                 firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
+
+                                                 if (refreshingController.isLoading) {
+                                                     if (totalItemCount > previousTotal) {
+                                                         refreshingController.isLoading = false;
+                                                         previousTotal = totalItemCount;
+                                                     }
+                                                 }
+                                                 if (!refreshingController.isLoading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
+                                                     fetchPostsFromSearch.fetchMorePosts();
+                                                     refreshingController.setProgressBarVisibility(View.VISIBLE);
+                                                 }
+                                             }
+                                         }
+
+        );
 
 
+    }
+
+    /***
+     * OVERRIDED METHODS
+     ***/
+
+    @Override
+    public void onRefresh() {
+        if (!StringUtils.isEmpty(lastQuery)) {
+            refreshingController.setSwipeRefreshLayoutRefreshing(true);
+            refreshingController.setSwipeRefreshLayoutEnabled(false);
+            refreshingController.setProgressBarVisibility(View.GONE);
+            refreshingController.setNoNetworkConnectionView(View.GONE);
+            fetchPostsFromSearch.fetchPosts(lastQuery);
         }
-
-        /***
-         *
-         * OVERRIDED METHODS
-         *
-         * ***/
-
-        @Override
-        public void onRefresh()
-        {
-            if (!StringUtils.isEmpty(lastQuery)) {
-                refreshingController.setSwipeRefreshLayoutRefreshing(true);
-                refreshingController.setSwipeRefreshLayoutEnabled(false);
-                refreshingController.setProgressBarVisibility(View.GONE);
-                refreshingController.setNoNetworkConnectionView(View.GONE);
-                fetchPostsFromSearch.fetchPosts(lastQuery);
-            } else {
-                refreshingController.setSwipeRefreshLayoutRefreshing(false);
-            }
+        else {
+            refreshingController.setSwipeRefreshLayoutRefreshing(false);
         }
+    }
 }

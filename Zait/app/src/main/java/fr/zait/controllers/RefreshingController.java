@@ -9,8 +9,7 @@ import fr.zait.R;
 import fr.zait.controllers.base.MyController;
 import fr.zait.utils.ErrorUtils;
 
-public class RefreshingController extends MyController
-{
+public class RefreshingController extends MyController {
     public static class OPTIONS {
         public static final String HOLDER = "HOLDER";
         public static final String NO_HOLDER = "NO_HOLDER";
@@ -33,8 +32,7 @@ public class RefreshingController extends MyController
     }
 
     @Override
-    protected void initController()
-    {
+    protected void initController() {
         noResultView = rootView.findViewById(R.id.no_result);
         noNetworkConnectionView = rootView.findViewById(R.id.no_network_connection);
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
@@ -55,7 +53,8 @@ public class RefreshingController extends MyController
         progressBar.setVisibility(visibility);
         if (visibility == View.VISIBLE) {
             isLoading = true;
-        } else {
+        }
+        else {
             isLoading = false;
         }
     }

@@ -9,18 +9,14 @@ import android.widget.TextView;
 import fr.zait.R;
 import fr.zait.activities.base.MyActivity;
 
-public class SettingsActivity extends MyActivity implements View.OnClickListener
-{
+public class SettingsActivity extends MyActivity implements View.OnClickListener {
 
     /***
-     *
      * ANDROID
-     *
-     * ***/
+     ***/
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_main_layout);
 
@@ -29,10 +25,8 @@ public class SettingsActivity extends MyActivity implements View.OnClickListener
     }
 
     /***
-     *
      * PRIVATE METHODS
-     *
-     * ***/
+     ***/
 
     @Override
     protected void initVariables() {
@@ -42,8 +36,7 @@ public class SettingsActivity extends MyActivity implements View.OnClickListener
 
 
     @Override
-    protected void initViews(Bundle savedInstanceState)
-    {
+    protected void initViews(Bundle savedInstanceState) {
         findViewById(R.id.settings_back_arrow).setOnClickListener(this);
         resetStatusBarColor();
 
@@ -69,14 +62,11 @@ public class SettingsActivity extends MyActivity implements View.OnClickListener
     }
 
     /***
-     *
      * OVERRIDED METHODS
-     *
-     * ***/
+     ***/
 
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
         Intent intent;
 
         switch (v.getId()) {

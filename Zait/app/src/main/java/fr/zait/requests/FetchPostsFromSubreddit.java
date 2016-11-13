@@ -2,6 +2,7 @@ package fr.zait.requests;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -14,9 +15,8 @@ import fr.zait.data.entities.Post;
 import fr.zait.requests.base.Request;
 import fr.zait.utils.NetworkUtils;
 
-public class FetchPostsFromSubreddit extends Request
-{
-    private static final String URL_TEMPLATE = "http://www.reddit.com/r/" + SUBREDDIT_NAME_KEY + "/" + FILTER + "/.json?after=" + AFTER_KEY;
+public class FetchPostsFromSubreddit extends Request {
+    private static final String URL_TEMPLATE = "https://www.reddit.com/r/" + SUBREDDIT_NAME_KEY + "/" + FILTER + "/.json?after=" + AFTER_KEY;
 
     private String subreddit;
     private String after;
@@ -37,8 +37,7 @@ public class FetchPostsFromSubreddit extends Request
     }
 
     @Override
-    protected String generateURL()
-    {
+    protected String generateURL() {
         url = URL_TEMPLATE.replace(SUBREDDIT_NAME_KEY, subreddit);
         url = url.replace(AFTER_KEY, after);
         url = url.replace(FILTER, filter);
@@ -53,8 +52,7 @@ public class FetchPostsFromSubreddit extends Request
         startRequest();
     }
 
-    public void fetchMorePosts()
-    {
+    public void fetchMorePosts() {
         generateURL();
         fetchPosts();
     }
@@ -73,8 +71,7 @@ public class FetchPostsFromSubreddit extends Request
         generateURL();
     }
 
-    private class Request extends AsyncTask<String, String, String>
-    {
+    private class Request extends AsyncTask<String, String, String> {
         @Override
         protected String doInBackground(String... uri) {
             String raw = NetworkUtils.readContents(context, url);
@@ -108,14 +105,17 @@ public class FetchPostsFromSubreddit extends Request
                         p.thumbnail = cur.optString("thumbnail");
                         p.text = cur.optString("selftext");
                         p.hasBeenSeen = false;
-                        if (p.title != null)
+                        if (p.title != null) {
                             posts.add(p);
+                        }
                     }
                     adapter.setNewPosts(posts);
-                } catch (Exception e){
+                }
+                catch (Exception e) {
                     adapter.displayConnectionError();
                 }
-            } else {
+            }
+            else {
                 adapter.displayConnectionError();
             }
             adapter.loadingIsDone();

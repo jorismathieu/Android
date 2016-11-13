@@ -10,8 +10,7 @@ import fr.zait.data.entities.Comment;
 import fr.zait.holders.base.MyRecyclerHolder;
 import fr.zait.utils.DateUtils;
 
-public class CommentHolder extends MyRecyclerHolder
-{
+public class CommentHolder extends MyRecyclerHolder {
     private TextView author;
     private TextView body;
     private TextView score;
@@ -22,8 +21,7 @@ public class CommentHolder extends MyRecyclerHolder
     public CardView cardView;
 
 
-    public CommentHolder(Context context, View v)
-    {
+    public CommentHolder(Context context, View v) {
         super(context, v);
 
         author = (TextView) v.findViewById(R.id.author);
@@ -37,8 +35,7 @@ public class CommentHolder extends MyRecyclerHolder
     }
 
     @Override
-    public void populateView(Object obj)
-    {
+    public void populateView(Object obj) {
         try {
             Comment comment = (Comment) obj;
 
@@ -49,12 +46,14 @@ public class CommentHolder extends MyRecyclerHolder
 
             if (comment.nbAnswers > 0) {
                 nbAnswers.setVisibility(View.VISIBLE);
-                nbAnswers.setText("(" + comment.nbAnswers + " " + (comment.nbAnswers > 1 ? cxt.getResources().getString(R.string.answers) : cxt.getResources().getString(R.string.answer))  + ")");
-            } else {
+                nbAnswers.setText("(" + comment.nbAnswers + " " + (comment.nbAnswers > 1 ? cxt.getResources().getString(R.string.answers) : cxt.getResources().getString(R.string.answer)) + ")");
+            }
+            else {
                 nbAnswers.setVisibility(View.GONE);
             }
 
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
 
         }
     }

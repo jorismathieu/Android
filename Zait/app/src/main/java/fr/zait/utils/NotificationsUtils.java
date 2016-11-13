@@ -17,8 +17,7 @@ import fr.zait.activities.MainActivity;
 import fr.zait.activities.SettingsActivity;
 import fr.zait.gcm.MyGcmListenerService;
 
-public class NotificationsUtils
-{
+public class NotificationsUtils {
 
     private static final String OPEN_ACTION = "OpenAction";
     private static final String OPEN_TYPE = "OpenType";
@@ -55,12 +54,14 @@ public class NotificationsUtils
 
             if (type == MyGcmListenerService.TYPES.EXTERNAL_WEBVIEW) {
                 intentNotif = new Intent(Intent.ACTION_VIEW, Uri.parse(path));
-            } else if (type == MyGcmListenerService.TYPES.INTERNAL_WEBVIEW || type == MyGcmListenerService.TYPES.INTERNAL_FEATURE) {
+            }
+            else if (type == MyGcmListenerService.TYPES.INTERNAL_WEBVIEW || type == MyGcmListenerService.TYPES.INTERNAL_FEATURE) {
                 intentNotif = new Intent(context, MainActivity.class);
                 intentNotif.setAction(OPEN_ACTION);
                 intentNotif.putExtra(OPEN_TYPE, type);
                 intentNotif.putExtra(OPEN_PATH, path);
-            } else {
+            }
+            else {
                 intentNotif = new Intent(context, MainActivity.class);
             }
 
@@ -74,7 +75,8 @@ public class NotificationsUtils
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     builder.setColor(0xff673ab7);
                     builder.setSmallIcon(R.drawable.ic_launcher_white);
-                } else {
+                }
+                else {
                     builder.setSmallIcon(R.drawable.ic_launcher);
                 }
 
@@ -102,7 +104,8 @@ public class NotificationsUtils
                 MySharedPreferences.getSharedPreferences(context).edit().putInt(MySharedPreferences.NOTIFICATION_ID, ++notificationID % 32);
             }
 
-        } catch(Exception e) {
+        }
+        catch (Exception e) {
         }
 
     }
@@ -121,7 +124,8 @@ public class NotificationsUtils
                     }
                 }
             }
-        } catch(Exception e) {
+        }
+        catch (Exception e) {
         }
     }
 

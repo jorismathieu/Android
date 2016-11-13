@@ -6,8 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Toast;
 
-public class DisplayUtils
-{
+public class DisplayUtils {
     public static void toast(Context context, int mssgId, int duration) {
         Toast.makeText(context, mssgId, duration).show();
     }
