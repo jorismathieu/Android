@@ -78,8 +78,7 @@ public class FetchCommentsFromPost extends Request {
                 catch (Exception e) {
                     adapter.displayConnectionError();
                 }
-            }
-            else {
+            } else {
                 adapter.displayConnectionError();
             }
             adapter.loadingIsDone();
@@ -101,8 +100,7 @@ public class FetchCommentsFromPost extends Request {
                 if (!commentJson.get("replies").equals("")) {
                     comment.answers = getComments(commentJson.getJSONObject("replies").getJSONObject("data").getJSONArray("children"));
                     comment.nbAnswers = comment.answers.size();
-                }
-                else {
+                } else {
                     comment.nbAnswers = 0;
                     comment.answers = null;
                 }

@@ -63,8 +63,7 @@ public class MainActivity extends MyActivity implements NavigationView.OnNavigat
             if (getIntent().getAction().equals(AppWidgetReceiver.APP_WIDGET_OPEN_POST_ACTION)) {
                 Post post = getIntent().getParcelableExtra(AppWidgetReceiver.EXTRA_POST);
                 openPostDetail(post);
-            }
-            else {
+            } else {
                 NotificationsUtils.checkOpenInternal(this, getIntent());
             }
         }
@@ -176,8 +175,7 @@ public class MainActivity extends MyActivity implements NavigationView.OnNavigat
         makeExpandIconRotate();
         if (navigationDrawerHeaderLogin.getVisibility() == View.GONE) {
             navigationDrawerHeaderLogin.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
             navigationDrawerHeaderLogin.setVisibility(View.GONE);
         }
     }
@@ -221,8 +219,7 @@ public class MainActivity extends MyActivity implements NavigationView.OnNavigat
         if (post != null) {
             if (!post.thumbnail.equals("self")) {
                 intent = new Intent(this, PostWebviewActivity.class);
-            }
-            else {
+            } else {
                 intent = new Intent(this, PostCommentsActivity.class);
             }
 

@@ -89,8 +89,7 @@ public class SearchFragment extends MyFragment implements SwipeRefreshLayout.OnR
                                                       query = query.replace(" ", "+");
                                                       fetchPostsFromSearch.fetchPosts(query);
                                                       lastQuery = query;
-                                                  }
-                                                  else {
+                                                  } else {
                                                       DisplayUtils.snackbar(view, R.string.search_length_error, Snackbar.LENGTH_LONG);
                                                   }
                                                   return false;
@@ -169,8 +168,7 @@ public class SearchFragment extends MyFragment implements SwipeRefreshLayout.OnR
             refreshingController.setProgressBarVisibility(View.GONE);
             refreshingController.setNoNetworkConnectionView(View.GONE);
             fetchPostsFromSearch.fetchPosts(lastQuery);
-        }
-        else {
+        } else {
             refreshingController.setSwipeRefreshLayoutRefreshing(false);
         }
     }

@@ -53,8 +53,7 @@ public class ImageUtils {
         protected void onPostExecute(Bitmap result) {
             if (bmImage != null) {
                 bmImage.setImageBitmap(result);
-            }
-            else if (rmViews != null) {
+            } else if (rmViews != null) {
                 ;
             }
             {

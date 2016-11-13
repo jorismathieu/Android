@@ -47,8 +47,7 @@ public class MySubredditsFragment extends MyListFragment implements LoaderManage
     protected void initVariables() {
         if (getActivity().getSupportLoaderManager().getLoader(R.id.SQL_QUERY_GET_SUBREDDITS) != null) {
             getActivity().getSupportLoaderManager().restartLoader(R.id.SQL_QUERY_GET_SUBREDDITS, null, this);
-        }
-        else {
+        } else {
             getActivity().getSupportLoaderManager().initLoader(R.id.SQL_QUERY_GET_SUBREDDITS, null, this);
         }
     }
@@ -90,8 +89,7 @@ public class MySubredditsFragment extends MyListFragment implements LoaderManage
                     if (adapter == null) {
                         adapter = new SubredditsAdapter(getActivity(), cursor);
                         setListAdapter(adapter);
-                    }
-                    else {
+                    } else {
                         adapter.changeCursor(cursor);
                     }
                 }
@@ -120,8 +118,7 @@ public class MySubredditsFragment extends MyListFragment implements LoaderManage
             if (adapter == null) {
                 adapter = new SubredditsAdapter(c, null);
                 setListAdapter(adapter);
-            }
-            else {
+            } else {
                 adapter.changeCursor(null);
             }
         }

@@ -2,7 +2,6 @@ package fr.zait.requests;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -114,8 +113,7 @@ public class FetchPostsFromSubreddit extends Request {
                 catch (Exception e) {
                     adapter.displayConnectionError();
                 }
-            }
-            else {
+            } else {
                 adapter.displayConnectionError();
             }
             adapter.loadingIsDone();

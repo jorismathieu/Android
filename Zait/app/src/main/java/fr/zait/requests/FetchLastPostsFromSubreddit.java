@@ -99,8 +99,7 @@ public class FetchLastPostsFromSubreddit extends Request {
                 }
                 catch (Exception e) {
                 }
-            }
-            else {
+            } else {
             }
         }
     }

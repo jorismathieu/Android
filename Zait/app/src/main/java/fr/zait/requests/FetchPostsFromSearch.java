@@ -98,8 +98,7 @@ public class FetchPostsFromSearch extends Request {
                 catch (Exception e) {
                     adapter.displayConnectionError();
                 }
-            }
-            else {
+            } else {
                 adapter.displayConnectionError();
             }
             adapter.loadingIsDone();

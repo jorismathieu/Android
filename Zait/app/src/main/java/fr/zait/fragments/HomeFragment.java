@@ -91,9 +91,8 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         if (getArguments() != null && !StringUtils.isEmpty(getArguments().getString(FragmentCallbackInterface.EXTRAS.SUBREDDIT_NAME))) {
             selectedSubreddit = getArguments().getString(FragmentCallbackInterface.EXTRAS.SUBREDDIT_NAME);
             MySharedPreferences.saveSelectedSubreddit(getActivity(), selectedSubreddit);
-        }
-        else {
-            selectedSubreddit = MySharedPreferences.getSharedPreferences(getActivity()).getString(MySharedPreferences.SELECTED_SUBREDDIT, "");
+        } else {
+            selectedSubreddit = MySharedPreferences.getSharedPreferences(getActivity()).getString(MySharedPreferences.SELECTED_SUBREDDIT, "Android");
         }
 
         refreshingController = new RefreshingController(getActivity(), view, this);
@@ -179,8 +178,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
             subredditItems.setAdapter(spinnerAdapter);
             subredditItems.setSelection(spinnerAdapter.getPosition(selectedSubreddit));
             subredditItems.setOnItemSelectedListener(this);
-        }
-        else {
+        } else {
             subredditItems.setVisibility(View.GONE);
         }
 

@@ -35,8 +35,7 @@ public class SmoothScrollingLayoutManager extends LinearLayoutManager {
         public PointF computeScrollVectorForPosition(int targetPosition) {
             if (lastPosition < targetPosition) {
                 direction = 1;
-            }
-            else {
+            } else {
                 direction = -1;
             }
             lastPosition = targetPosition;

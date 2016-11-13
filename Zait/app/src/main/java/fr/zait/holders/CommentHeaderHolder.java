@@ -65,8 +65,7 @@ public class CommentHeaderHolder extends MyRecyclerHolder {
             if (!post.thumbnail.equals("self")) {
                 postThumbnail.setVisibility(View.VISIBLE);
                 Ion.with(postThumbnail).load(post.thumbnail);
-            }
-            else {
+            } else {
                 postThumbnail.setVisibility(View.GONE);
             }
 

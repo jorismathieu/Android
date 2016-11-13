@@ -60,8 +60,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeHolder> {
         if (!refreshingController.isConnectionError()) {
             if (posts.size() > 0) {
                 refreshingController.setNoResultView(View.GONE);
-            }
-            else {
+            } else {
                 refreshingController.setNoResultView(View.VISIBLE);
             }
         }
@@ -75,8 +74,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeHolder> {
     public void displayConnectionError() {
         if (posts.size() > 0) {
             refreshingController.displayConnectionError(RefreshingController.OPTIONS.NO_HOLDER);
-        }
-        else {
+        } else {
             refreshingController.displayConnectionError(RefreshingController.OPTIONS.HOLDER);
         }
     }

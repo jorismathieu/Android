@@ -47,8 +47,7 @@ public class CommentHolder extends MyRecyclerHolder {
             if (comment.nbAnswers > 0) {
                 nbAnswers.setVisibility(View.VISIBLE);
                 nbAnswers.setText("(" + comment.nbAnswers + " " + (comment.nbAnswers > 1 ? cxt.getResources().getString(R.string.answers) : cxt.getResources().getString(R.string.answer)) + ")");
-            }
-            else {
+            } else {
                 nbAnswers.setVisibility(View.GONE);
             }
 

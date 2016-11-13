@@ -45,8 +45,7 @@ public class AppWidgetReceiver extends android.appwidget.AppWidgetProvider {
             int[] ids = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, AppWidgetReceiver.class));
             onUpdate(context, AppWidgetManager.getInstance(context), ids);
 
-        }
-        else {
+        } else {
             super.onReceive(context, intent);
         }
     }

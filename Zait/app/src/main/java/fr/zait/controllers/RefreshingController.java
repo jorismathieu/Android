@@ -53,8 +53,7 @@ public class RefreshingController extends MyController {
         progressBar.setVisibility(visibility);
         if (visibility == View.VISIBLE) {
             isLoading = true;
-        }
-        else {
+        } else {
             isLoading = false;
         }
     }
